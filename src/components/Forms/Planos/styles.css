@@ -1,0 +1,106 @@
+.planosContainer {
+  width: 90vw;
+  max-width: 700px;
+  height: 100vh;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.planosContainer .buscaPlano {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+}
+.planosContainer .buscaPlano input {
+  font: 500 3rem Acrhivo;
+  padding: 1.1rem;
+  width: 90%;
+  height: 50px;
+  border: 0;
+  -webkit-appearance: none;
+  border-radius: 0.8rem 0 0 0.8rem;
+  /* border-top-right-radius: 0; */
+}
+.planosContainer .buscaPlano .icon {
+  display: flex;
+  align-items: center;
+  border-collapse: separate;
+  justify-content: center;
+  border-radius: 0 0.8rem 0.8rem 0;
+  width: 10%;
+  border: 0;
+  height: 50px;
+  background: #fff;
+  transition: all 0.4s ease-in-out;
+}
+.planosContainer .buscaPlano .btnPlano:hover {
+  background: var(--vibrant-green);
+}
+.planosContainer .planoList {
+  width: 100%;
+  margin-bottom: 4rem;
+  box-shadow: 1px 7px 8px 0 rgba(0, 0, 0, 0.75);
+}
+
+.planosContainer .planoList ul {
+  background: #fff;
+  list-style: none;
+  font: 600 2.4rem Poppins;
+  height: 45vh;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: relative;
+}
+.planosContainer .planoList ul li {
+  padding: 1.2rem;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.planosContainer .planoList ul li:hover {
+  transform: scale(1.02);
+}
+.regular-radio {
+  display: none;
+}
+.regular-radio + label {
+  width: 100%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  padding: 9px;
+  display: inline-block;
+  position: relative;
+}
+
+.regular-radio:checked + label:after {
+  content: "\2714";
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  margin-left: 3rem;
+  color: red;
+  padding: 0 6px 0 0;
+}
+.regular-radio:checked + label {
+  color: #99a1a7;
+}
+
+.planosContainer .btnNext {
+  border: 0;
+  font: 700 2.4rem Archivo;
+  border-radius: 0.8rem;
+  padding: 2rem;
+  background: var(--rich-blue);
+  color: #fff;
+  cursor: pointer;
+}
+.planosContainer .btnNext:hover {
+  filter: brightness(90%);
+}
+@media (min-width: 700px) {
+  .planosContainer {
+    max-width: 1200px;
+  }
+}

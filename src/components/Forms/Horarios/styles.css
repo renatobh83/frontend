@@ -1,0 +1,109 @@
+.horariosContainer {
+  width: 90vw;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.horariosContainer .agendaExames strong {
+  margin-bottom: 2rem;
+  font: 700 2rem Poppins;
+}
+.horariosContainer .agendaExames {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.horariosContainer .agendaExames ul {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  font: 500 2rem Archivo;
+  width: 100%;
+}
+.horariosContainer .agendaExames ul li {
+  padding-left: 3rem;
+}
+
+.gridHorarios {
+  margin: 1rem auto 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: space-around;
+  flex-wrap: wrap;
+}
+.gridHorarios .cardHorario {
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  background-color: var(--color-secondary);
+  background-size: cover;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+  box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.44);
+  overflow: hidden;
+  /* color: white; */
+  font-family: "Roboto";
+}
+.gridHorarios .cardHorario .dados {
+  position: absolute;
+  padding: 30px;
+  height: calc(100% - 60px);
+}
+
+.gridHorarios .cardHorario .dados .day {
+  font: 400 4rem Archivo;
+  margin: 0;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+.gridHorarios .cardHorario .dados .intervalo {
+  font: 400 2rem Archivo;
+  font-style: italic;
+  /* transform: translateX(200px); */
+}
+
+.gridHorarios .cardHorario:hover {
+  box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.64);
+  transform: scale(1.05);
+}
+.gridHorarios input {
+  display: none;
+}
+.gridHorarios input:checked ~ .cardHorario {
+  filter: brightness(75%);
+  color: var(--black);
+}
+.horariosContainer .btnGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
+.horariosContainer .btnGroup button {
+  border: 0;
+  width: 100%;
+  font: 700 2.4rem Archivo;
+  border-radius: 0.8rem;
+  padding: 2rem;
+  background: var(--rich-blue);
+  color: #fff;
+  cursor: pointer;
+  margin: 0 4rem;
+}
+.horariosContainer .btnGroup .danger {
+  background: red;
+}
+@media (min-width: 700px) {
+  .horariosContainer {
+    max-width: 1200px;
+  }
+  .horariosContainer .agendaExames strong {
+    font: 600 32px Archivo;
+  }
+  .horariosContainer .agendaExames ul {
+    font: 400 20px Archivo;
+  }
+}

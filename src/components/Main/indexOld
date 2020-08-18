@@ -1,0 +1,46 @@
+import React from "react";
+import "./style.css";
+
+export default function Main() {
+  return (
+    <header>
+      <input type="checkbox" id="control-nav" />
+      <label for="control-nav" class="control-nav"></label>
+      <label for="control-nav" class="control-nav-close"></label>
+      <div className="container">
+        <header className="page-header">
+          <div className="top-bar-container">
+            <span>Back</span>
+            <span>Logo</span>
+          </div>
+          <div className="header-content">
+            <strong>Conteudo</strong>
+            <form id="search">
+              <div className="select-block">
+                <label htmlFor="subject">Materia</label>
+                <select name="subject" id="subject">
+                  <option value="">Selecione</option>
+                  <option value="1">valor</option>
+                </select>
+              </div>
+
+              <div className="select-block">
+                <label htmlFor="weekday">Semana</label>
+                <select name="weekday" id="weekday">
+                  <option value="1">Domingo</option>
+                  <option value="2">Segunda</option>
+                  <option value="3">Terca</option>
+                </select>
+              </div>
+              <div className="input-block">
+                <label htmlFor="hora">Hora</label>
+                <input id="hora" name="hora" min="0" max="24" />
+              </div>
+              <button type="submit">Gravar</button>
+            </form>
+          </div>
+        </header>
+      </div>
+    </header>
+  );
+}

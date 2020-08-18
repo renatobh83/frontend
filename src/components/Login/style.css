@@ -1,0 +1,45 @@
+.container {
+  width: 90vw;
+  max-width: 500px;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.container .logonContainer {
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: var(--background-purpe);
+  box-shadow: 0 20px 40px rgba(27, 27, 27, 20);
+}
+.container .logonContainer .logoConatiner {
+  padding: 20px;
+}
+
+.container .logonContainer .btnContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .logonContainer .btnContainer button {
+  width: 30rem;
+  height: 8.4rem;
+  border: 0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 2.4rem Archivo;
+  border-radius: 0.9rem;
+  color: var(--color-button-text);
+  background: var(--color-secondary);
+  cursor: pointer;
+}
+.container .logonContainer .btnContainer a:hover {
+  filter: brightness(90%);
+}

@@ -1,0 +1,105 @@
+.agendamentoContainer {
+  width: 90vw;
+  max-width: 700px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+.agendamentoContainer .pesquisaPaciente form {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+.agendamentoContainer .pesquisaPaciente input {
+  font: 500 3rem Acrhivo;
+  padding: 1.1rem;
+  width: 80%;
+  height: 50px;
+  border: 0;
+  -webkit-appearance: none;
+  border-radius: 0.8rem 0 0 0.8rem;
+}
+.agendamentoContainer .pesquisaPaciente .btn {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  border-collapse: separate;
+  justify-content: center;
+  border-radius: 0 0.8rem 0.8rem 0;
+  border: 0;
+  height: 50px;
+  background: #fff;
+  transition: all 0.4s ease-in-out;
+}
+.agendamentoContainer .pesquisaPaciente .btn:hover {
+  background: var(--vibrant-green);
+}
+.agendamentoContainer .agendamentosPaciente {
+  width: 100%;
+}
+.agendamentoContainer .listPatients {
+  margin: 4rem 0;
+  box-shadow: 1px 7px 8px 0 rgba(0, 0, 0, 0.75);
+}
+
+.agendamentoContainer .listPatients ul {
+  background: #fff;
+  list-style: none;
+  font: 600 2.4rem Poppins;
+  height: 45vh;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: relative;
+}
+.agendamentoContainer .listPatients ul li {
+  padding: 1.2rem;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.agendamentoContainer .grupButtons {
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+}
+.agendamentoContainer .grupButtons button {
+  width: 100%;
+  display: flex;
+  font: 600 2.4rem Archivo;
+  align-items: center;
+  border-collapse: separate;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  border-radius: 0.9rem;
+  height: 50px;
+  background: var(--rich-blue);
+  color: #fff;
+}
+.agendamentoContainer .grupButtons button + button {
+  margin-left: 3rem;
+}
+
+.agendamentoContainer .agendamentosPaciente .back {
+  display: flex;
+  font: 600 2.4rem Archivo;
+  align-items: center;
+  border-collapse: separate;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  border: 0;
+  height: 50px;
+  background: #fff;
+}
+@media (min-width: 700px) {
+  .agendamentoContainer {
+    max-width: 1200px;
+  }
+  .agendamentoContainer .agendamentosPaciente .back {
+    width: 20%;
+    height: 30px;
+  }
+}

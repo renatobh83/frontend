@@ -1,0 +1,123 @@
+.examesContainer {
+  width: 90vw;
+  max-width: 700px;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
+.examesContainer .buscarExame {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+}
+.examesContainer .buscarExame input {
+  font: 500 3rem Acrhivo;
+  padding: 1.17rem;
+  width: 90%;
+  height: 50px;
+  border: 0;
+  border-radius: 0.8rem 0 0 0.8rem;
+  -webkit-appearance: none;
+}
+
+.examesContainer .buscarExame .icon {
+  display: flex;
+  align-items: center;
+  border-collapse: separate;
+  justify-content: center;
+  border-radius: 0 0.8rem 0.8rem 0;
+  width: 10%;
+  border: 0;
+  height: 50px;
+  background: #fff;
+  transition: all 0.4s ease-in-out;
+}
+.examesContainer .listExames {
+  width: 100%;
+  margin-bottom: 0.4rem;
+  box-shadow: 1px 0 8px 0 rgba(0, 0, 0, 0.75);
+}
+
+.examesContainer .listExames ul {
+  background: #fff;
+  list-style: none;
+  font: 600 2.4rem Poppins;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.examesContainer .listExames ul li {
+  padding: 1.2rem;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.examesContainer .listExames ul li:hover {
+  transform: scale(1.02);
+}
+.exames-check {
+  display: none;
+}
+.listExames label {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  padding: 9px;
+  display: inline-block;
+}
+
+.examesContainer .examesSelecionados {
+  display: flex;
+  flex-direction: column;
+  max-height: 24vh;
+  background: #fff;
+  box-shadow: 1px 7px 8px 0 rgba(0, 0, 0, 0.75);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.examesContainer .examesSelecionados .examesSelect {
+  display: flex;
+  padding: 3rem;
+  font: 500 2.3rem Archivo;
+
+  align-items: center;
+}
+.examesContainer .examesSelecionados .examesSelect .delete {
+  margin-right: 1rem;
+}
+.examesContainer .examesSelecionados .examesSelect .delete {
+  margin-right: 1rem;
+}
+.examesContainer .examesSelecionados .examesSelect .delete button {
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+}
+.examesContainer .examesSelecionados .examesSelect .delete button:hover {
+  filter: opacity(0.6);
+}
+.examesContainer .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
+.examesContainer .btn button {
+  border: 0;
+  width: 100%;
+  font: 700 2.4rem Archivo;
+  border-radius: 0.8rem;
+  padding: 2rem;
+  background: var(--rich-blue);
+  color: #fff;
+  cursor: pointer;
+  margin: 0 4rem;
+}
+.examesContainer .btn .danger {
+  background: red;
+}
+@media (min-width: 700px) {
+  .examesContainer {
+    max-width: 1200px;
+  }
+}

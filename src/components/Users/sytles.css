@@ -1,0 +1,83 @@
+.listUserContainer {
+  margin: 0 auto;
+  width: 90vw;
+  height: 100vh;
+  max-width: 1200px;
+}
+.listUserContainer .newUser {
+  height: 7rem;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 3rem;
+}
+.listUserContainer .newUser button {
+  padding: 1rem;
+  border: 0;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  width: 100%;
+  height: 5rem;
+  font: 500 2.4rem Archivo;
+  color: var(--color-button-text);
+  background: var(--color-primary-darker);
+}
+
+.listUserContainer .contentUsers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+.listUserContainer .contentUsers .cardUser {
+  width: 100%;
+  height: 20rem;
+  box-shadow: 1px 7px 8px 0 rgba(0, 0, 0, 0.75);
+}
+
+.listUserContainer .contentUsers .cardUser .dados {
+  margin-top: 0.4rem;
+  font: 400 2rem Poppins;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.listUserContainer .contentUsers .cardUser .dados {
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.listUserContainer .contentUsers .cardUser .btnGroup {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.8rem;
+}
+.listUserContainer .contentUsers .cardUser .btnGroup button {
+  width: 80%;
+  padding: 1rem;
+  border: 0;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  font: 500 2rem Archivo;
+  color: var(--bg-ligth);
+  background: var(--vibrant-cyan);
+}
+
+@media (min-width: 700px) {
+  .listUserContainer {
+    margin-top: 9px;
+  }
+  .listUserContainer .contentUsers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .listUserContainer .contentUsers .cardUser {
+    width: 43rem;
+  }
+  .listUserContainer .contentUsers .cardUser {
+    height: 200px;
+    margin-bottom: 30px;
+  }
+}

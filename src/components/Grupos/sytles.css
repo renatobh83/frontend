@@ -1,0 +1,73 @@
+:root {
+  font-size: 40%;
+}
+.listGrupoContainer {
+  width: 90vw;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.listGrupoContainer .newGroup {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 18px;
+}
+.listGrupoContainer .newGroup button {
+  border: 0;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  width: 40%;
+  height: 5rem;
+  font: 700 2.4rem Archivo;
+  color: var(--color-button-text);
+  background: var(--color-primary-darker);
+}
+.listGrupoContainer .contentList {
+  margin-top: 4rem;
+  width: 100%;
+  font: 500 2.9rem Archivo;
+  display: flex;
+}
+.listGrupoContainer .contentList ul {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.listGrupoContainer .contentList ul .listItem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.listGrupoContainer .contentList ul .listItem .inputButtons button {
+  border: 0;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  height: 5rem;
+  padding: 2rem;
+  margin: 1rem;
+  font: 300 1.8rem Archivo;
+  color: var(--color-button-text);
+  background: var(--color-primary-darker);
+}
+#danger {
+  background: var(--rich-red);
+}
+@media (min-width: 700px) {
+  .listGrupoContainer {
+    margin-top: 50px;
+  }
+  .listGrupoContainer .contentList ul {
+    font: 500 5rem Archivo;
+  }
+  .listGrupoContainer .newGroup button {
+    font: 400 3rem Archivo;
+  }
+  .listGrupoContainer .contentList ul .listItem .inputButtons button {
+    font: 400 3rem Archivo;
+    height: 50px;
+  }
+}

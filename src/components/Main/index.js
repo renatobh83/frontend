@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { FiCalendar } from "react-icons/fi";
 
 import { useAuth0 } from "../../Auth0/context";
-import Agendamento from "../Forms/Agendamento";
 import "./styles.css";
 import AgendaDash from "../AgendaDash";
 

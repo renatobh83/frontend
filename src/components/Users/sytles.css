@@ -66,6 +66,7 @@
 @media (min-width: 700px) {
   .listUserContainer {
     margin-top: 9px;
+    max-width: 1200px;
   }
   .listUserContainer .contentUsers {
     display: flex;

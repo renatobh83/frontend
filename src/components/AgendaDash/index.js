@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Agendamento from "../Forms/Agendamento/index";
 
+import "./styles.css";
 export default function AgendaDash() {
   const [newAgendamento, setAgendamento] = useState(false);
   return (
-    <div>
+    <>
       {!newAgendamento && (
         <div className="mainContainer">
           <header className="novoAgendamento">
@@ -36,6 +37,6 @@ export default function AgendaDash() {
         </div>
       )}
       {newAgendamento && <Agendamento />}
-    </div>
+    </>
   );
 }

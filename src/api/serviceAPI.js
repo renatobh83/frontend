@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../Utils/inLogin";
 
 const instance = axios.create({
-  baseURL: "http://192.168.1.226:3001/api",
+  baseURL: "http://192.168.1.32:3001/api",
 });
 const headerDefaults = () => {
   instance.defaults.headers.post["Content-Type"] =

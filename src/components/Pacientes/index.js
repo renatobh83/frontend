@@ -6,7 +6,7 @@ import Main from "../Main/";
 import AgendaDash from "../AgendaDash";
 
 export default function Pacientes() {
-  const [paciente, SetPaciente] = useState([]);
+  const [paciente, SetPaciente] = useState(["Nome"]);
   const [search, setSearch] = useState(true);
   const [isNew, setNew] = useState(false);
   return (
@@ -14,15 +14,17 @@ export default function Pacientes() {
       {search && !isNew && (
         <>
           <div className="pesquisaPaciente">
-            <h3>Paciente</h3>
-            <form>
-              <input type="search" name="paciente" id="" />
-              <button className="btn">
-                <FiSearch size={30} />
-              </button>
-            </form>
+            <div className="pesquisa">
+              <h3>Paciente</h3>
+              <form>
+                <input type="search" name="paciente" id="" />
+                <button className="btn">
+                  <FiSearch size={30} />
+                </button>
+              </form>
+            </div>
           </div>
-          {paciente.length > 1 && (
+          {paciente.length >= 1 && (
             <div className="listPatients">
               <ul>
                 <li>
@@ -60,13 +62,12 @@ export default function Pacientes() {
       {isNew && <div>Form</div>}
       {!search && (
         <div className="agendamentosPaciente">
-          <button
-            type="submit"
-            className="back"
-            onClick={() => setSearch(!search)}
-          >
-            Voltar
-          </button>
+          <div className="btnBack">
+            <button type="submit" onClick={() => setSearch(!search)}>
+              Voltar
+            </button>
+          </div>
+
           <AgendaDash />
         </div>
       )}

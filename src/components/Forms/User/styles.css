@@ -1,7 +1,6 @@
 .userContainer {
   width: 90vw;
   max-width: 700px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,11 +25,9 @@
 .userContainer .userForm .userInputGroup input,
 .userContainer .userForm .userInputGroup select {
   border: 0;
-  width: 90vw;
   background: var(--color-background);
   font: 400 2.8rem Achivo;
   padding: 19px 14px 9px 14px;
-  /* border-bottom: 1px solid black; */
   margin: 5px 0;
 }
 .userContainer .userForm .userInputGroup select {
@@ -56,6 +53,7 @@
 @media (min-width: 700px) {
   .userContainer {
     margin-top: 30px;
+    max-width: 1200px;
   }
   .userContainer .userForm h2 {
     font-size: 40px;

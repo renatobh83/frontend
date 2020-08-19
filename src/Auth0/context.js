@@ -27,27 +27,24 @@ function Auth0Provider({
   //Init Auth0
   const init = async () => {
     console.log("init");
-    if (!navigator.userAgent.includes("jsdon")) {
-      const auth0FromHook = await createAuth0Client(initOption);
 
-      setAuth0(auth0FromHook);
+    const auth0FromHook = await createAuth0Client(initOption);
 
-      if (window.location.search.includes("code=")) {
-        const { appState } = await auth0FromHook.handleRedirectCallback();
-        onRedirectCAllback(appState);
-      }
-      const isAuthenticated = await auth0FromHook.isAuthenticated();
-      if (isAuthenticated) {
-        const { __raw: token } = await auth0FromHook.getIdTokenClaims();
-        setToken(token);
-        const { sub: origin, ...userData } = await auth0FromHook.getUser();
-        await findOrCreateUsers(userData);
-        console.log(state);
-      }
+    setAuth0(auth0FromHook);
 
-      setIsAuthenticated(isAuthenticated);
-      setLoading(false);
+    if (window.location.search.includes("code=")) {
+      const { appState } = await auth0FromHook.handleRedirectCallback();
+      onRedirectCAllback(appState);
     }
+    const isAuthenticated = await auth0FromHook.isAuthenticated();
+    if (isAuthenticated) {
+      const { __raw: token } = await auth0FromHook.getIdTokenClaims();
+      setToken(token);
+      const { sub: origin, ...userData } = await auth0FromHook.getUser();
+      await findOrCreateUsers(userData);
+    }
+    setIsAuthenticated(isAuthenticated);
+    setLoading(false);
   };
 
   const findOrCreateUsers = async (user) => {
@@ -75,7 +72,9 @@ function Auth0Provider({
   };
   useEffect(async () => {
     await ServerON()
-      .then(() => init())
+      .then(() => {
+        init();
+      })
       .catch((err) => alert(err.message));
   }, []); // elint-disable-line
 
@@ -85,6 +84,7 @@ function Auth0Provider({
     isLoading,
     state,
     loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
+    getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
     logout: (...p) => auth0Client.logout(...p),
   };
 

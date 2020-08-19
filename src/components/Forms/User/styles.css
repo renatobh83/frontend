@@ -23,7 +23,8 @@
   align-items: center;
   position: relative;
 }
-.userContainer .userForm .userInputGroup input {
+.userContainer .userForm .userInputGroup input,
+.userContainer .userForm .userInputGroup select {
   border: 0;
   width: 90vw;
   background: var(--color-background);
@@ -31,6 +32,10 @@
   padding: 19px 14px 9px 14px;
   /* border-bottom: 1px solid black; */
   margin: 5px 0;
+}
+.userContainer .userForm .userInputGroup select {
+  margin-top: 3rem;
+  font: 500 3.3rem Archivo;
 }
 
 .userInputGroup button {

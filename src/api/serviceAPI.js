@@ -29,3 +29,11 @@ export const findOrCreatePatient = (data) => {
   const response = instance.post("/users", data);
   return response;
 };
+
+// Router API group
+
+export const getGrupos = async () => {
+  headerDefaults();
+  const response = instance.get("/grupos");
+  return response;
+};

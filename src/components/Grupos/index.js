@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NewGroup from "../Forms/Group";
 
 import "./sytles.css";
+import Permissoes from "../Permissoes";
 export default function Grupos() {
   const [newGrupo, setNewGrupo] = useState(false);
 
@@ -29,33 +30,6 @@ const ListGroup = ({ children }) => {
             <div className="grupName">Administrador</div>
             <div className="inputButtons">
               <button type="submit">Permissoes</button>
-              <button id="danger" type="submit">
-                Apagar
-              </button>
-            </div>
-          </li>
-          <li className="listItem">
-            <div className="grupName">Administrador</div>
-            <div className="inputButtons">
-              <button type="submit">Editar</button>
-              <button id="danger" type="submit">
-                Apagar
-              </button>
-            </div>
-          </li>
-          <li className="listItem">
-            <div className="grupName">Administrador</div>
-            <div className="inputButtons">
-              <button type="submit">Editar</button>
-              <button id="danger" type="submit">
-                Apagar
-              </button>
-            </div>
-          </li>
-          <li className="listItem">
-            <div className="grupName">Administrador</div>
-            <div className="inputButtons">
-              <button type="submit">Editar</button>
               <button id="danger" type="submit">
                 Apagar
               </button>

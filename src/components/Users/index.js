@@ -13,7 +13,7 @@ export default function Users() {
           </button>
         </ListOfUsers>
       )}
-      {newUser && <NewUser />}
+      {newUser && <NewUser set={setNewUser} />}
     </>
   );
 }

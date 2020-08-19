@@ -9,6 +9,7 @@ import Pacientes from "./components/Pacientes/";
 
 import { useAuth0 } from "./Auth0/context";
 import Loading from "./Pages/index";
+import Permissoes from "./components/Permissoes";
 
 function Router() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/users" component={Users} />
         <Route path="/grupo" component={Grupos} />
         <Route path="/agendar" component={Pacientes} />
+        <Route path="/permissoes" component={Permissoes} />
       </>
     );
   };

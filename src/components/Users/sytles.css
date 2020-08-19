@@ -76,9 +76,12 @@
   }
   .listUserContainer .contentUsers .cardUser {
     width: 43rem;
-  }
-  .listUserContainer .contentUsers .cardUser {
+    position: relative;
     height: 200px;
     margin-bottom: 30px;
+  }
+  .listUserContainer .contentUsers .cardUser .btnGroup {
+    position: absolute;
+    bottom: 50px;
   }
 }

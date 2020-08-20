@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../Utils/inLogin";
 
 const instance = axios.create({
-  baseURL: "http://192.168.1.32:3001/api",
+  baseURL: "http://localhost:3001/api",
 });
 const headerDefaults = () => {
   instance.defaults.headers.post["Content-Type"] =
@@ -27,6 +27,18 @@ export const getUsers = () => {
 export const findOrCreatePatient = (data) => {
   headerDefaults();
   const response = instance.post("/users", data);
+  return response;
+};
+
+export const updateEmail = (params, data) => {
+  headerDefaults();
+  const response = instance.put(`/users/${params}`, data);
+  return response;
+};
+
+export const createOrUpdate = (data) => {
+  headerDefaults();
+  const response = instance.put("/users", data);
   return response;
 };
 

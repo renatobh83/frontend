@@ -15,6 +15,17 @@
   text-align: center;
   margin-bottom: 0.8rem;
 }
+.userContainer .userForm .flagAtivo {
+  font: 500 3rem Archivo;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+.userContainer .userForm .flagAtivo input {
+  margin-right: 1rem;
+  font: 700 3rem Archivo;
+}
 
 .userContainer .userForm .userInputGroup {
   display: flex;

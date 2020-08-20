@@ -6,9 +6,10 @@
 }
 .listUserContainer .newUser {
   height: 7rem;
+  width: 100%;
   padding: 10px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 3rem;
 }
 .listUserContainer .newUser button {
@@ -16,11 +17,16 @@
   border: 0;
   cursor: pointer;
   border-radius: 0.8rem;
-  width: 100%;
+  width: 84%;
   height: 5rem;
   font: 500 2.4rem Archivo;
   color: var(--color-button-text);
   background: var(--color-primary-darker);
+}
+.listUserContainer .newUser .select {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .listUserContainer .contentUsers {

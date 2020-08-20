@@ -64,7 +64,6 @@ export default function Exames() {
   getExame(examesSelecionado);
   useEffect(() => {
     setEx(exames);
-    console.log(planoFromchild);
   }, []);
   return (
     <div className="examesContainer">

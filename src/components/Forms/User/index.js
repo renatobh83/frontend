@@ -1,39 +1,79 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+
 import "./styles.css";
-import { getGrupos } from "../../../api/serviceAPI";
-import { useEffect } from "react";
-export default function NewUser({ set }) {
+import {
+  getGrupos,
+  createOrUpdate,
+  updateEmail,
+} from "../../../api/serviceAPI";
+
+export default function NewUser({ set, u }) {
   const [email, setEmail] = useState("");
-  const [nome, setNome] = useState();
+  const [nome, setNome] = useState("");
   const [grupo, setGrupo] = useState("");
   const [username, setUsername] = useState("");
+  const [userAtivo, setAtivo] = useState(true);
   const [grupos, setGrupos] = useState([]);
-  const history = useHistory("");
 
-  const handleGetGroups = async () => {
-    await getGrupos().then((response) => setGrupos(response.data.message));
-  };
   const handleGravar = async (e) => {
     e.preventDefault();
+
     const data = {
       nome,
       grupo,
       username,
       email,
+      ativo: userAtivo,
     };
-    console.log(data);
-    history.push("/users/");
+    if (u.email !== email && u.email !== undefined) {
+      await updateEmail(u.email, data).then((response) => {
+        if (response.data.statusCode === 400) {
+          alert(response.data.message);
+        } else {
+          set();
+        }
+      });
+    } else {
+      await createOrUpdate(data).then((response) => {
+        if (response.data.statusCode === 400) {
+          alert(response.data.message);
+        } else {
+          set();
+        }
+      });
+    }
   };
 
+  const handleEdit = (dataUser) => {
+    setNome(dataUser.nome);
+    setEmail(dataUser.email);
+    setUsername(dataUser.username);
+  };
+  const fetchGrupos = useCallback(async () => {
+    const response = await getGrupos();
+    setGrupos(response.data.message);
+  }, [grupos]);
+
   useEffect(() => {
-    handleGetGroups();
+    fetchGrupos();
+    handleEdit(u);
   }, []);
   return (
     <div className="userContainer">
       <form className="userForm" onSubmit={handleGravar}>
         <h2>Cadastro novo usuario</h2>
-        <div className="userInputGroup user">
+        {u && (
+          <div className="flagAtivo">
+            <input
+              type="checkbox"
+              defaultChecked={u.ativo}
+              id="ativo"
+              onChange={(e) => setAtivo(e.target.checked)}
+            />
+            <label htmlFor="ativo">Ativo</label>
+          </div>
+        )}
+        <div className="userInputGroup">
           <div className="floating-label-input">
             <input
               type="text"
@@ -72,6 +112,7 @@ export default function NewUser({ set }) {
             <span className="line"></span>
           </div>
         </div>
+
         <div className="userInputGroup">
           <select
             name="grupo"
@@ -88,7 +129,7 @@ export default function NewUser({ set }) {
         </div>
         <div className="userInputGroup">
           <button type="submit">Gravar</button>
-          <button type="submit" onClick={() => set(false)}>
+          <button type="submit" onClick={() => set()}>
             Cancelar
           </button>
         </div>

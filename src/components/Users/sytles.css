@@ -7,7 +7,7 @@
 .listUserContainer .newUser {
   height: 7rem;
   width: 100%;
-  padding: 10px;
+  padding-top: 1rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: 3rem;

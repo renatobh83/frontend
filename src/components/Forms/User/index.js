@@ -10,6 +10,7 @@ import {
 export default function NewUser({ set, u }) {
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
+  const [senha, setSenha] = useState("");
   const [grupo, setGrupo] = useState("");
   const [username, setUsername] = useState("");
   const [userAtivo, setAtivo] = useState(true);
@@ -20,9 +21,10 @@ export default function NewUser({ set, u }) {
 
     const data = {
       nome,
-      grupo,
+      grupoId: grupo,
       username,
       email,
+      password: senha,
       ativo: userAtivo,
     };
     if (u.email !== email && u.email !== undefined) {
@@ -52,12 +54,12 @@ export default function NewUser({ set, u }) {
   const fetchGrupos = useCallback(async () => {
     const response = await getGrupos();
     setGrupos(response.data.message);
-  }, [grupos]);
+  }, []);
 
   useEffect(() => {
     fetchGrupos();
     handleEdit(u);
-  }, []);
+  }, []); // eslint-disable-line
   return (
     <div className="userContainer">
       <form className="userForm" onSubmit={handleGravar}>
@@ -126,6 +128,19 @@ export default function NewUser({ set, u }) {
               </option>
             ))}
           </select>
+          {!u && (
+            <div className="floating-label-input pass">
+              <input
+                type="password"
+                id="password"
+                required
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+              />
+              <label htmlFor="password">Senha</label>
+              <span className="line"></span>
+            </div>
+          )}
         </div>
         <div className="userInputGroup">
           <button type="submit">Gravar</button>

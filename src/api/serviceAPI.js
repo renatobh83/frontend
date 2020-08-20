@@ -49,3 +49,15 @@ export const getGrupos = async () => {
   const response = instance.get("/grupos");
   return response;
 };
+
+export const createGrupo = async (data) => {
+  headerDefaults();
+  const response = instance.post("/grupos", data);
+  return response;
+};
+
+export const getGrupo = async (data) => {
+  headerDefaults();
+  const response = instance.get(`/grupo/${data}`);
+  return response;
+};

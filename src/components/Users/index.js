@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./sytles.css";
 import NewUser from "../Forms/User/index";
-import { getUsers } from "../../api/serviceAPI";
+import { getUsers, getGrupo } from "../../api/serviceAPI";
 
 export default function Users() {
   const [newUser, setNewUser] = useState(false);
@@ -16,6 +16,8 @@ export default function Users() {
   const cancel = () => {
     setUser("");
     setNewUser(false);
+
+    setFilter(!filter);
   };
   return (
     <>
@@ -27,7 +29,7 @@ export default function Users() {
           <div className="select" onChange={(e) => setFilter(e.target.value)}>
             <label htmlFor="ativo">Ativo</label>
             <select name="ativo" id="ativo">
-              <option value="true" selected>
+              <option value="true" defaultValue>
                 Sim
               </option>
               <option value="false">Nao</option>
@@ -42,6 +44,7 @@ export default function Users() {
 
 const ListOfUsers = ({ children, set, filter }) => {
   const [users, setUsers] = useState([]);
+
   const [userView, setUserView] = useState([]);
   const handleEdit = (user, bool) => {
     const data = {
@@ -55,8 +58,10 @@ const ListOfUsers = ({ children, set, filter }) => {
     async function fetchUsers() {
       const response = await getUsers();
 
-      const users = response.data.message.filter((user) => user.ativo === true);
-      setUsers(users);
+      response.data.message.filter(async (user) => {
+        const grupo = await getGrupo(user.grupoId);
+        return Object.assign(user, { grupo: grupo.data.message.nome });
+      });
       setUserView(response.data.message);
     }
     fetchUsers();
@@ -70,6 +75,7 @@ const ListOfUsers = ({ children, set, filter }) => {
       setUsers(ativos);
     }
   }, [filter]);
+  console.log(userView);
   return (
     <div className="listUserContainer">
       <div className="newUser">{children}</div>
@@ -80,7 +86,7 @@ const ListOfUsers = ({ children, set, filter }) => {
               <h2>{user.nome}</h2>
               <h6>Usuario - {user.username}</h6>
               <p>{user.email}</p>
-              <strong>Adminstrador</strong>
+              <strong>{user.grupo}</strong>
             </header>
             <div className="btnGroup">
               <button type="submit" onClick={() => handleEdit(user, true)}>

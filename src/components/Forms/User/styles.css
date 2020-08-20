@@ -60,6 +60,11 @@
 .userInputGroup button + button {
   margin-left: 1rem;
 }
+.userInputGroup .pass {
+  width: 44%;
+  position: absolute;
+  right: 0;
+}
 
 @media (min-width: 700px) {
   .userContainer {

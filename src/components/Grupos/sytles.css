@@ -56,6 +56,9 @@
 #danger {
   background: var(--rich-red);
 }
+.hide {
+  display: none;
+}
 @media (min-width: 700px) {
   .listGrupoContainer {
     margin-top: 50px;

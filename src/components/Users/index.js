@@ -57,11 +57,8 @@ const ListOfUsers = ({ children, set, filter }) => {
   useEffect(() => {
     async function fetchUsers() {
       const response = await getUsers();
-
-      response.data.message.filter(async (user) => {
-        const grupo = await getGrupo(user.grupoId);
-        return Object.assign(user, { grupo: grupo.data.message.nome });
-      });
+      const users = response.data.message.filter((user) => user.ativo === true);
+      setUsers(users);
       setUserView(response.data.message);
     }
     fetchUsers();

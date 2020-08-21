@@ -61,3 +61,9 @@ export const getGrupo = async (data) => {
   const response = instance.get(`/grupo/${data}`);
   return response;
 };
+
+export const deleteGrupo = async (data) => {
+  headerDefaults();
+  const response = instance.delete(`/grupos/${data}`);
+  return response;
+};

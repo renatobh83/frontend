@@ -44,6 +44,7 @@ function Auth0Provider({
       await findOrCreateUsers(userData);
     }
     setIsAuthenticated(isAuthenticated);
+
     setLoading(false);
   };
 

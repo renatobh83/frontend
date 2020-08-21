@@ -2,8 +2,10 @@ import React from "react";
 import "./styles.css";
 import { useState } from "react";
 import { createGrupo } from "../../../api/serviceAPI";
+import { useGrupoContext } from "../../Grupos";
 
-export default function NewGroup({ set }) {
+export default function NewGroup() {
+  const { grupoNew } = useGrupoContext();
   const [admin, setAdmin] = useState(false);
   const [nome, setNome] = useState("");
 
@@ -14,7 +16,10 @@ export default function NewGroup({ set }) {
       admin,
     };
     try {
-      await createGrupo(data).then(() => set(false));
+      await createGrupo(data).then((res) => {
+        if (res.data.statusCode === 400) return alert(res.data.message);
+        grupoNew(false);
+      });
     } catch (error) {}
   };
   return (
@@ -45,7 +50,7 @@ export default function NewGroup({ set }) {
         </div>
         <div className="input-group">
           <button type="submit">Gravar</button>
-          <button type="submit" onClick={() => set(false)}>
+          <button type="submit" onClick={() => grupoNew(false)}>
             Cancelar
           </button>
         </div>

@@ -8,7 +8,7 @@ import Users from "./components/Users";
 import Pacientes from "./components/Pacientes/";
 
 import { useAuth0 } from "./Auth0/context";
-import Loading from "./Pages/index";
+import Loading from "./Pages/Loading/index";
 import Permissoes from "./components/Permissoes";
 
 function Router() {

@@ -72,7 +72,7 @@ const ListOfUsers = ({ children, set, filter }) => {
       setUsers(ativos);
     }
   }, [filter]);
-  console.log(userView);
+
   return (
     <div className="listUserContainer">
       <div className="newUser">{children}</div>

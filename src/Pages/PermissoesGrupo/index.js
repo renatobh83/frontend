@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useGrupoContext } from "../../components/Grupos";
 
+import "./styles.css";
+import { getPermissoes, setPermissoes } from "../../api/serviceAPI";
 export default function PermissoesGrupo() {
-  const { grupoNew } = useGrupoContext();
+  const { permissionShow, grupoSelect } = useGrupoContext();
 
-  const [loading, setLoading] = useState(true);
   const [permissoes, setPermissao] = useState([]);
   const [permissaoCheck, setChecked] = useState([]);
   const [permissaoLiberada, setPermissaoLiberada] = useState([]);
@@ -12,15 +13,14 @@ export default function PermissoesGrupo() {
 
   // Carrega as permissoes
   const handlePermissao = async () => {
-    // await getPermissoes().then((res) => {
-    //   handlePermissoesGrupo(res.data.message);
-    //   setLoading(false);
-    // });
+    await getPermissoes().then((res) => {
+      handlePermissoesGrupo(res.data.message);
+    });
   };
 
   // fechar component
   const handleClose = () => {
-    // fechar();
+    permissionShow(false);
   };
   // pegar checkbox selecionado
   const handleSelect = async (e) => {
@@ -51,17 +51,16 @@ export default function PermissoesGrupo() {
 
   // pegar permissoes do grupo
   const handlePermissoesGrupo = async (p) => {
-    // const grupo = await findGrupoById(isOpen.grupo);
-    // const grupoPermissoes = grupo.data.message.permissaoId;
+    const grupoPermissoes = grupoSelect.grupo.permissaoId;
     const permissaoCadastrada = [];
-    // if (grupoPermissoes.length !== 0) {
-    //   for (let i = 0; i < grupoPermissoes.length; i++) {
-    //     const permissao = p.find(
-    //       (permissoes) => permissoes._id === grupoPermissoes[i]
-    //     );
-    //     permissaoCadastrada.push(permissao);
-    //   }
-    // }
+    if (grupoPermissoes.length !== 0) {
+      for (let i = 0; i < grupoPermissoes.length; i++) {
+        const permissao = p.find(
+          (permissoes) => permissoes._id === grupoPermissoes[i]
+        );
+        permissaoCadastrada.push(permissao);
+      }
+    }
     setPermissaoLiberada(permissaoCadastrada);
     const permissaoNaoAssociada = p.filter(
       (id) => !permissaoCadastrada.includes(id)
@@ -78,10 +77,11 @@ export default function PermissoesGrupo() {
       (check) => !permissaoRemover.includes(check)
     );
     const data = {
-      //   grupo,
-      //   checkedPermissao,
+      grupo: grupoSelect.grupo,
+      checkedPermissao,
     };
-    // await setPermissoes(data);
+
+    await setPermissoes(data);
     handleClose();
   };
 
@@ -89,57 +89,56 @@ export default function PermissoesGrupo() {
     handlePermissao();
   }, []); // eslint-disable-line
 
-  //   if (loading) {
-  //     return (
-  //       <div className="loading">
-  //         {/* <img src={logoLoading} alt="loading" /> */}
-  //       </div>
-  //     );
-  //   }
-
   return (
-    <>
-      {/* <h3 className="text-center">{isOpen.nomeGrupo}</h3> */}
-      <div className="row">
-        <form className="ml-4 col">
-          <strong className="d-block m-3">Permissoes para o grupo </strong>
-          <div>
-            {permissoes.map((permissao, key) => (
-              <label className="d-flex" key={permissao._id}>
-                {permissao.nome}
-                <input
-                  type="checkbox"
-                  name={permissao.nome}
-                  value={permissao._id}
-                  onChange={(e) => handleSelect(e)}
-                />
-              </label>
-            ))}
+    <div className="pgContainer">
+      <strong>{grupoSelect.grupo.nome}</strong>
+      <div className="permissoesList">
+        {permissoes.length >= 1 && (
+          <div className="permissoesDisponiveis">
+            <h1>Permissoes Disponiveis</h1>
+            <div className="listPermiss">
+              {permissoes.map((permissao) => (
+                <div className="permissoes" key={permissao._id}>
+                  <label htmlFor={permissao.nome}>{permissao.nome}</label>
+                  <input
+                    type="checkbox"
+                    value={permissao._id}
+                    onChange={(e) => handleSelect(e)}
+                    id={permissao.nome}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </form>
-        <div className="col">
-          <strong className="d-block m-3">Permissoes liberadas</strong>
-          {permissaoLiberada.map((permissao) => (
-            <label className="d-flex" key={permissao._id}>
-              {permissao.nome}
-              <input
-                type="checkbox"
-                name={permissao.nome}
-                value={permissao._id}
-                onChange={(e) => handleRemovePermission(e)}
-              />
-            </label>
-          ))}
-        </div>
+        )}
+        {permissaoLiberada.length >= 1 && (
+          <div className="permissoesLiberadas">
+            <h1>Permissoes Liberadas</h1>
+            <div className="listPermiss">
+              {permissaoLiberada.map((permissao) => (
+                <div className="permissoes">
+                  <label htmlFor={permissao.nome}>{permissao.nome}</label>
+                  <input
+                    type="checkbox"
+                    name={permissao.nome}
+                    value={permissao._id}
+                    id={permissao.nome}
+                    onChange={(e) => handleRemovePermission(e)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-      <div className="col">
-        <button
-          className="d-block w-100 btn btn-primary"
-          onClick={handleGravar}
-        >
+      <div className="grupButtons">
+        <button type="submit" onClick={handleGravar}>
           Gravar
         </button>
+        <button type="submit" onClick={() => handleClose()}>
+          Cancelar
+        </button>
       </div>
-    </>
+    </div>
   );
 }

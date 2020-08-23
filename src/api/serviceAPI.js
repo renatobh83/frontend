@@ -67,3 +67,37 @@ export const deleteGrupo = async (data) => {
   const response = instance.delete(`/grupos/${data}`);
   return response;
 };
+
+// Permissao
+
+export const getPermissoes = async () => {
+  headerDefaults();
+  const response = instance.get("/permissao");
+  return response;
+};
+export const getPermissao = async (data) => {
+  const response = instance.get(`/permissao/${data}`);
+  return response;
+};
+export const storePermissao = async (data) => {
+  const response = instance.post("/permissao", data);
+  return response;
+};
+
+export const setPermissoes = async (data) => {
+  headerDefaults();
+  const response = instance.post("/gp", data);
+  return response;
+};
+
+// Setor
+export const getSetores = async () => {
+  headerDefaults();
+  const response = instance.get("/setor");
+  return response;
+};
+export const storeSetor = async (data) => {
+  headerDefaults();
+  const response = instance.post("/setor", data);
+  return response;
+};

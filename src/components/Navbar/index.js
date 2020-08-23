@@ -52,6 +52,22 @@ function Navbar(props) {
                 >
                   Usuarios
                 </Link>
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/setor"
+                >
+                  Setor
+                </Link>
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/salas"
+                >
+                  Salas
+                </Link>
               </ul>
             </li>
             <li className="nav-item">
@@ -72,7 +88,7 @@ function Navbar(props) {
             </li>
 
             <div className="btnlogout">
-              <button>Logout</button>
+              <button onClick={logout}>Logout</button>
             </div>
           </ul>
           <div className="dropdown">

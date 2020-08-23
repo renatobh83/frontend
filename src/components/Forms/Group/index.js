@@ -13,7 +13,7 @@ export default function NewGroup() {
     e.preventDefault();
     const data = {
       nome,
-      admin,
+      isAdmin: admin,
     };
     try {
       await createGrupo(data).then((res) => {

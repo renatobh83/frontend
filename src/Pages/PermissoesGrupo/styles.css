@@ -1,0 +1,127 @@
+.pgContainer {
+  width: 90vw;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+  justify-items: center;
+}
+.pgContainer strong {
+  margin: 2rem 0;
+  font: 500 3rem Archivo;
+  color: var(--color-text-base);
+}
+
+.pgContainer .permissoesList {
+  width: 100%;
+}
+.pgContainer .permissoesList .permissoesDisponiveis {
+  margin-bottom: 1.3rem;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.pgContainer .permissoesList .permissoesDisponiveis h1 {
+  color: var(--rich-green);
+}
+.pgContainer .permissoesList .permissoesDisponiveis .listPermiss {
+  margin-top: 2rem;
+  align-items: center;
+  display: flex;
+  font: 600 3rem Archivo;
+  flex-wrap: wrap;
+}
+.pgContainer .permissoesList .permissoesDisponiveis .listPermiss .permissoes {
+  display: flex;
+  align-items: center;
+
+  padding: 1rem;
+}
+
+.pgContainer
+  .permissoesList
+  .permissoesDisponiveis
+  .listPermiss
+  .permissoes
+  label {
+  display: flex;
+  margin-right: 1.2rem;
+}
+
+.pgContainer .permissoesList .permissoesLiberadas {
+  margin: 3rem 0;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.pgContainer .permissoesList .permissoesLiberadas h1 {
+  color: var(--rich-green);
+}
+.pgContainer .permissoesList .permissoesLiberadas .listPermiss {
+  margin-top: 2rem;
+  align-items: center;
+  display: flex;
+  font: 600 3rem Archivo;
+  flex-wrap: wrap;
+}
+.pgContainer .permissoesList .permissoesLiberadas .listPermiss .permissoes {
+  display: flex;
+  align-items: center;
+
+  padding: 1rem;
+}
+
+.pgContainer
+  .permissoesList
+  .permissoesLiberadas
+  .listPermiss
+  .permissoes
+  label {
+  display: flex;
+  margin-right: 1.2rem;
+}
+input {
+  font: 600 3rem Archivo;
+}
+
+.pgContainer .grupButtons {
+  width: 100%;
+  margin-top: 4rem;
+}
+
+.pgContainer .grupButtons button {
+  border: 0;
+  width: 30%;
+  font: 700 2.4rem Archivo;
+  border-radius: 0.8rem;
+  padding: 2rem;
+  background: var(--rich-blue);
+  color: #fff;
+  cursor: pointer;
+  margin: 0 4rem;
+}
+
+@media (min-width: 700px) {
+  .pgContainer {
+    width: 100%;
+  }
+  .pgContainer .permissoesList {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+  }
+  .pgContainer .grupButtons {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+  }
+  .pgContainer .permissoesList .permissoesDisponiveis .listPermiss {
+    display: block;
+  }
+  .pgContainer .permissoesList .permissoesLiberadas {
+    margin: 0;
+  }
+  .pgContainer .permissoesList .permissoesLiberadas .listPermiss {
+    display: block;
+  }
+}

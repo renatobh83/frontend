@@ -1,0 +1,33 @@
+.setorFormContainer {
+  width: 90vw;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.setorFormContainer .setGroup {
+  margin: 4rem 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setorFormContainer .setGroup .floating-label-input + .floating-label-input {
+  margin-left: 20px;
+}
+.setorFormContainer form .btnGroupSetor {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.setorFormContainer form .btnGroupSetor button {
+  border: 0;
+  width: 40%;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  cursor: pointer;
+  font: 500 2.4rem Archivo;
+  color: var(--color-button-text);
+  background: var(--rich-blue);
+  transition: all 0.3s;
+}

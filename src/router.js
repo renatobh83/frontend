@@ -10,6 +10,8 @@ import Pacientes from "./components/Pacientes/";
 import { useAuth0 } from "./Auth0/context";
 import Loading from "./Pages/Loading/index";
 import Permissoes from "./components/Permissoes";
+import Salas from "./components/Salas";
+import Setor from "./components/Setor";
 
 function Router() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -33,6 +35,8 @@ function Router() {
         <Route path="/grupo" component={Grupos} />
         <Route path="/agendar" component={Pacientes} />
         <Route path="/permissoes" component={Permissoes} />
+        <Route path="/salas" component={Salas} />
+        <Route path="/setor" component={Setor} />
       </>
     );
   };

@@ -18,15 +18,27 @@ export default function NewUser({ set, u }) {
 
   const handleGravar = async (e) => {
     e.preventDefault();
+    let data;
+    if (senha) {
+      data = {
+        nome,
+        grupoId: grupo,
+        username,
+        email,
+        password: senha,
+        ativo: userAtivo,
+      };
+    } else {
+      data = {
+        nome,
+        grupoId: grupo,
+        username,
+        email,
 
-    const data = {
-      nome,
-      grupoId: grupo,
-      username,
-      email,
-      password: senha,
-      ativo: userAtivo,
-    };
+        ativo: userAtivo,
+      };
+    }
+    console.log(data);
     if (u.email !== email && u.email !== undefined) {
       await updateEmail(u.email, data).then((response) => {
         if (response.data.statusCode === 400) {
@@ -121,7 +133,7 @@ export default function NewUser({ set, u }) {
             id="grupo"
             onChange={(e) => setGrupo(e.target.value)}
           >
-            <option value=""> Selecione um grupo</option>
+            <option value="000"> Selecione um grupo</option>
             {grupos.map((g) => (
               <option value={g._id} key={g._id}>
                 {g.nome}

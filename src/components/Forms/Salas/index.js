@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 
 import "./styles.css";
-import Salas, { useSalaContext, SalaContext } from "../../Salas";
+import { useSalaContext } from "../../Salas";
 import { storeSala } from "../../../api/serviceAPI";
 
 function FormSalas() {
-  const { setores, set, setSalas } = useSalaContext();
+  const {
+    setores,
+    set,
+    setSalas,
+    setSetorFilter,
+    setSalaFilter,
+  } = useSalaContext();
   const [setor, setSetor] = useState("");
   const [nome, setNome] = useState("");
 
@@ -13,8 +19,11 @@ function FormSalas() {
     setNome("");
     setSetor(e);
   };
+
   const handleExit = () => {
     set(false);
+    setSalaFilter(null);
+    setSetorFilter(null);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();

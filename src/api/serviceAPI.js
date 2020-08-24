@@ -101,3 +101,27 @@ export const storeSetor = async (data) => {
   const response = instance.post("/setor", data);
   return response;
 };
+export const updateSetor = async (id, data) => {
+  headerDefaults();
+  const response = instance.put(`/setor/${id}`, data);
+  return response;
+};
+
+export const setorDelete = async (data) => {
+  headerDefaults();
+  const response = instance.delete(`/setor/${data}`);
+  return response;
+};
+
+//salas
+
+export const getSalas = async () => {
+  headerDefaults();
+  const response = instance.get("/salas");
+  return response;
+};
+export const storeSala = async (data) => {
+  headerDefaults();
+  const response = instance.post("/salas", data);
+  return response;
+};

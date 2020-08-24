@@ -9,6 +9,8 @@ import React, {
 import "./sytles.css";
 import { getGrupos, deleteGrupo } from "../../api/serviceAPI";
 import PermissoesGrupo from "../../Pages/PermissoesGrupo";
+
+import logoLoading from "../../assets/loading.svg";
 import NewGroup from "../Forms/Group/index";
 export const grupoContext = createContext();
 export const useGrupoContext = () => useContext(grupoContext);
@@ -46,6 +48,7 @@ export default function Grupos() {
 const ListGroup = ({ children }) => {
   const { grupoNew, permissionShow, setGrupoSelected } = useGrupoContext();
   const [grupos, setGrupos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const permissaoGrupo = (e) => {
     permissionShow(true);
@@ -53,18 +56,29 @@ const ListGroup = ({ children }) => {
       grupo: e,
     });
   };
-  const apagarGrupo = useCallback(async (id) => {
-    await deleteGrupo(id).then(() => fetchGrupos());
-  }, []);
+  const apagarGrupo = useCallback(
+    async (id) => {
+      await deleteGrupo(id).then(() => fetchGrupos());
+    },
+    [grupos]
+  );
 
   const fetchGrupos = useCallback(async () => {
     const response = await getGrupos();
     setGrupos(response.data.message);
-  }, []);
+    setLoading(false);
+  }, [grupos]);
 
   useEffect(() => {
     fetchGrupos();
   }, []);
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <div className="listGrupoContainer">
       <div className="newGroup">{children}</div>

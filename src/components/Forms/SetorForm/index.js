@@ -1,19 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import "./styles.css";
-import { storeSetor } from "../../../api/serviceAPI";
-export default function SetorForm({ set }) {
+import { storeSetor, updateSetor } from "../../../api/serviceAPI";
+export default function SetorForm({ set, value }) {
   const [nome, setNome] = useState("");
   const [time, setTime] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const data = {
       nome,
       time,
     };
-    await storeSetor(data).then(() => set(false));
+
+    if (value.setor !== null) {
+      await updateSetor(value.setor._id, data).then(() => {
+        set();
+      });
+    } else {
+      await storeSetor(data).then(() => {
+        set();
+      });
+    }
   };
+
+  const handleEditSetor = (e) => {
+    if (e.setor !== null) {
+      setNome(e.setor.nome);
+      setTime(e.setor.time);
+    }
+  };
+  useEffect(() => {
+    handleEditSetor(value);
+  }, []);
+
   return (
     <div className="setorFormContainer">
       <form onSubmit={handleSubmit}>
@@ -46,7 +67,7 @@ export default function SetorForm({ set }) {
         </div>
         <div className="btnGroupSetor">
           <button type="submit">Gravar</button>
-          <button type="submit" onClick={() => set(false)}>
+          <button type="submit" onClick={() => set()}>
             Cancelar
           </button>
         </div>

@@ -34,11 +34,10 @@ export default function NewUser({ set, u }) {
         grupoId: grupo,
         username,
         email,
-
         ativo: userAtivo,
       };
     }
-    console.log(data);
+
     if (u.email !== email && u.email !== undefined) {
       await updateEmail(u.email, data).then((response) => {
         if (response.data.statusCode === 400) {

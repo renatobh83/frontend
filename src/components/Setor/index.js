@@ -1,25 +1,24 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { getSetores } from "../../api/serviceAPI";
+import { getSetores, setorDelete } from "../../api/serviceAPI";
 import SetorForm from "../Forms/SetorForm";
+
+import logoLoading from "../../assets/loading.svg";
 import "./styles.css";
 
 export default function Setor() {
-  const [setores, setSetores] = useState([]);
   const [newSetor, setNewSetor] = useState(false);
+  const [setor, setSetor] = useState({ setor: null });
 
   const editSetor = (e) => {
-    console.log(e);
+    setSetor({ setor: e });
+    setNewSetor(true);
   };
-  const fetchSetores = useCallback(async () => {
-    const response = await getSetores();
+  const cancel = () => {
+    setSetor({ setor: null });
+    setNewSetor(false);
+  };
 
-    setSetores(response.data.message);
-  }, []);
-
-  useEffect(() => {
-    fetchSetores();
-  }, []);
   return (
     <>
       {!newSetor && (
@@ -32,21 +31,61 @@ export default function Setor() {
             Novo
           </button>
           <ul>
-            {setores.map((setor) => (
-              <li key={setor._id}>
-                <div className="content">
-                  <strong>{setor.nome}</strong>
-                  <h5>Tempo execução: {setor.time}</h5>
-                  <button type="submit" onClick={() => editSetor(setor)}>
-                    Editar
-                  </button>
-                </div>
-              </li>
-            ))}
+            <ListItem setorEdit={editSetor} />
           </ul>
         </div>
       )}
-      {newSetor && <SetorForm set={setNewSetor} />}
+      {newSetor && <SetorForm set={cancel} value={setor} />}
     </>
   );
 }
+
+const ListItem = ({ setorEdit }) => {
+  const [setores, setSetores] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchSetores = useCallback(async () => {
+    const response = await getSetores();
+    setSetores(response.data.message);
+    setLoading(false);
+  }, []);
+
+  const deleteSetor = useCallback(async (setorId) => {
+    await setorDelete(setorId).then(() => {
+      fetchSetores();
+    });
+  }, []);
+  useEffect(() => {
+    fetchSetores();
+  }, []);
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {setores.map((setor) => (
+        <li key={setor._id}>
+          <div className="content">
+            <strong>{setor.nome}</strong>
+            <h5>Tempo execução: {setor.time}</h5>
+            <button type="submit" onClick={() => setorEdit(setor)}>
+              Editar
+            </button>
+            <button
+              type="submit"
+              className="danger"
+              onClick={() => deleteSetor(setor._id)}
+            >
+              Apagar
+            </button>
+          </div>
+        </li>
+      ))}
+    </>
+  );
+};

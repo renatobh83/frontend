@@ -28,7 +28,7 @@
 }
 .setContainer ul .content {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
   grid-template-rows: 40px;
   align-items: center;
   gap: 20px;
@@ -46,4 +46,18 @@
   color: var(--color-button-text);
   background: var(--rich-blue);
   transition: all 0.3s;
+}
+.setContainer ul .content .danger {
+  background: var(--rich-red);
+}
+.loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
 }

@@ -8,6 +8,7 @@ export default function Users() {
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState("");
   const [filter, setFilter] = useState(true);
+
   const listUser = (e) => {
     setNewUser(e.action);
     setUser(e.user);
@@ -16,7 +17,6 @@ export default function Users() {
   const cancel = () => {
     setUser("");
     setNewUser(false);
-
     setFilter(!filter);
   };
   return (
@@ -62,6 +62,7 @@ const ListOfUsers = ({ children, set, filter }) => {
       setUserView(response.data.message);
     }
     fetchUsers();
+    console.log("Users");
   }, []);
   useEffect(() => {
     if (filter === "false") {

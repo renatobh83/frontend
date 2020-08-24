@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
 import "./styles.css";
+import Salas, { useSalaContext, SalaContext } from "../../Salas";
+import { storeSala } from "../../../api/serviceAPI";
 
-function FormSalas({ set }) {
+function FormSalas() {
+  const { setores, set, setSalas } = useSalaContext();
   const [setor, setSetor] = useState("");
   const [nome, setNome] = useState("");
 
@@ -13,14 +16,16 @@ function FormSalas({ set }) {
   const handleExit = () => {
     set(false);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      setor,
+      setorId: setor,
       nome,
     };
-    console.log(data);
-    handleExit();
+    await storeSala(data).then((response) => {
+      setSalas((oldArray) => [...oldArray, response.data.message]);
+      handleExit();
+    });
   };
   return (
     <div className="formContinerSalas">
@@ -28,9 +33,9 @@ function FormSalas({ set }) {
         <div className="grupoInput">
           <select value={setor} onChange={(e) => changeSetor(e.target.value)}>
             <option value="">Setor</option>
-            <option value="rx">Rx</option>
-            <option value="rm">Rm</option>
-            <option value="us">Us</option>
+            {setores.map((setor) => (
+              <option value={setor._id}>{setor.nome}</option>
+            ))}
           </select>
         </div>
         {setor && (

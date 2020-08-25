@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 
 import "./styles.css";
 import FormSalas from "../Forms/Salas";
-import { getSetores, getSalas } from "../../api/serviceAPI";
+import { getSetores, getSalas, activeDeactive } from "../../api/serviceAPI";
 
 export const SalaContext = createContext();
 export const useSalaContext = () => useContext(SalaContext);
@@ -13,7 +13,10 @@ export default function Salas() {
   const [salas, setSalas] = useState([]);
   const [setorFilter, setSetorFilter] = useState(null);
   const [salaFilter, setSalaFilter] = useState(null);
-  const [salaEdit, setSalaEdit] = useState("");
+  // const [active, setActive] = useState(true);
+  const [buttonText, setButtonText] = useState("");
+  const [active, setActive] = useState(false);
+  const [deactive, setDeactive] = useState(false);
 
   //pegar setores
   const handleSetores = async () => {
@@ -21,7 +24,18 @@ export default function Salas() {
   };
   //pegar Salas
   const handleSalas = async () => {
-    await getSalas().then((res) => setSalas(res.data.message));
+    await getSalas().then((res) => {
+      setSalas(res.data.message);
+      res.data.message.forEach((sala) => {
+        if (sala.ativo === true) {
+          console.log("sala Ativo");
+          setActive(true);
+        } else {
+          setDeactive(true);
+          console.log("sala inativa");
+        }
+      });
+    });
   };
   // Filter Setor Change
   const selectSetorChange = (e) => {
@@ -52,11 +66,33 @@ export default function Salas() {
 
   // funcao editar
 
-  // const editSala =  {
-  //   salaEdit;
-  //   setNewRoom(true);
-  // };
+  const activeOrDeactivate = async (e, key) => {
+    const salasInativas = salas.find((sala) => sala._id === e);
 
+    if (salasInativas.ativo === true) {
+      key.target.innerHTML = "Desativa";
+      salasInativas.ativo = false;
+      setActive(false);
+    } else {
+      key.target.innerHTML = "Ativar";
+      salasInativas.ativo = true;
+      setActive(true);
+    }
+    const data = {
+      ativo: active,
+    };
+    await activeDeactive(e, data).then((res) => {
+      // console.log(res.data.message);
+    });
+    console.log(salas);
+  };
+
+  const setNameButton = () => {
+    salas.forEach((sala) => {
+      console.log(sala);
+    });
+    console.log(salas);
+  };
   useEffect(() => {
     handleSalas();
     handleSetores();
@@ -111,12 +147,15 @@ export default function Salas() {
             <ul>
               {!salaFilter && salaFilter === null && (
                 <>
-                  {exibirSalas.map((sala) => (
+                  {exibirSalas.map((sala, key) => (
                     <li key={sala._id}>
                       <div className="salaContent">
                         <header>{sala.nome}</header>
-                        <button type="submit" onClick={() => editSala(sala)}>
-                          Editar
+                        <button
+                          type="submit"
+                          onClick={(e) => activeOrDeactivate(sala._id, e)}
+                        >
+                          {active && "Ad"} {deactive && "AB"}
                         </button>
                       </div>
                     </li>
@@ -127,8 +166,11 @@ export default function Salas() {
                 <li key={exibiSala._id}>
                   <div className="salaContent">
                     <header>{exibiSala.nome}</header>
-                    <button type="submit" onClick={() => editSala(exibiSala)}>
-                      Editar
+                    <button
+                      type="submit"
+                      onClick={() => activeOrDeactivate(exibiSala._id)}
+                    >
+                      {active ? "Desativar" : "Ativar"}
                     </button>
                   </div>
                 </li>

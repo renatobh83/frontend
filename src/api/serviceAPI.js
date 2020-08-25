@@ -125,3 +125,9 @@ export const storeSala = async (data) => {
   const response = instance.post("/salas", data);
   return response;
 };
+
+export const activeDeactive = async (id, data) => {
+  headerDefaults();
+  const response = instance.put(`/salas/${id}`, data);
+  return response;
+};

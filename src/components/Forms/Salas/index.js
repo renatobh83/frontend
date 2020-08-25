@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./styles.css";
 import { useSalaContext } from "../../Salas";
@@ -11,6 +11,7 @@ function FormSalas() {
     setSalas,
     setSetorFilter,
     setSalaFilter,
+    salaEdit,
   } = useSalaContext();
   const [setor, setSetor] = useState("");
   const [nome, setNome] = useState("");
@@ -36,6 +37,7 @@ function FormSalas() {
       handleExit();
     });
   };
+
   return (
     <div className="formContinerSalas">
       <form onSubmit={handleSubmit}>

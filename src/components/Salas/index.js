@@ -13,10 +13,7 @@ export default function Salas() {
   const [salas, setSalas] = useState([]);
   const [setorFilter, setSetorFilter] = useState(null);
   const [salaFilter, setSalaFilter] = useState(null);
-  // const [active, setActive] = useState(true);
-  const [buttonText, setButtonText] = useState("");
-  const [active, setActive] = useState(false);
-  const [deactive, setDeactive] = useState(false);
+  const [active, setActive] = useState(true);
 
   //pegar setores
   const handleSetores = async () => {
@@ -26,15 +23,6 @@ export default function Salas() {
   const handleSalas = async () => {
     await getSalas().then((res) => {
       setSalas(res.data.message);
-      res.data.message.forEach((sala) => {
-        if (sala.ativo === true) {
-          console.log("sala Ativo");
-          setActive(true);
-        } else {
-          setDeactive(true);
-          console.log("sala inativa");
-        }
-      });
     });
   };
   // Filter Setor Change
@@ -66,35 +54,11 @@ export default function Salas() {
 
   // funcao editar
 
-  const activeOrDeactivate = async (e, key) => {
-    const salasInativas = salas.find((sala) => sala._id === e);
+  const activeOrDeactivate = async (e, key) => {};
 
-    if (salasInativas.ativo === true) {
-      key.target.innerHTML = "Desativa";
-      salasInativas.ativo = false;
-      setActive(false);
-    } else {
-      key.target.innerHTML = "Ativar";
-      salasInativas.ativo = true;
-      setActive(true);
-    }
-    const data = {
-      ativo: active,
-    };
-    await activeDeactive(e, data).then((res) => {
-      // console.log(res.data.message);
-    });
-    console.log(salas);
-  };
-
-  const setNameButton = () => {
-    salas.forEach((sala) => {
-      console.log(sala);
-    });
-    console.log(salas);
-  };
   useEffect(() => {
     handleSalas();
+
     handleSetores();
   }, []);
 
@@ -151,12 +115,24 @@ export default function Salas() {
                     <li key={sala._id}>
                       <div className="salaContent">
                         <header>{sala.nome}</header>
-                        <button
-                          type="submit"
-                          onClick={(e) => activeOrDeactivate(sala._id, e)}
-                        >
-                          {active && "Ad"} {deactive && "AB"}
-                        </button>
+                        <div className="inputButtongrupo">
+                          <button
+                            type="submit"
+                            onClick={(e) => activeOrDeactivate(sala._id, e)}
+                          >
+                            Ativar
+                          </button>
+                          {sala.ativo && (
+                            <button
+                              type="submit"
+                              className="danger"
+                              disabled={sala.ativo}
+                              onClick={(e) => activeOrDeactivate(sala._id, e)}
+                            >
+                              Desativar
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -168,9 +144,9 @@ export default function Salas() {
                     <header>{exibiSala.nome}</header>
                     <button
                       type="submit"
-                      onClick={() => activeOrDeactivate(exibiSala._id)}
+                      onClick={(e) => activeOrDeactivate(exibiSala._id, e)}
                     >
-                      {active ? "Desativar" : "Ativar"}
+                      {exibiSala.ativo ? "Desativar" : "Ativar"}
                     </button>
                   </div>
                 </li>

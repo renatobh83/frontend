@@ -58,9 +58,21 @@
 
 .salasContainer .listOfSalas ul li .salaContent {
   display: flex;
+
   justify-content: space-between;
   margin: 10px;
   align-items: center;
+}
+.salasContainer .listOfSalas ul li .salaContent header {
+  width: 30%;
+}
+.salasContainer .listOfSalas ul li .salaContent .inputButtongrupo {
+  display: flex;
+  justify-content: flex-end;
+  width: 60%;
+}
+.salasContainer .listOfSalas ul li .salaContent button + button {
+  margin-left: 1rem;
 }
 .salasContainer .listOfSalas ul li .salaContent button {
   width: 40%;
@@ -77,4 +89,7 @@
 }
 .salasContainer .listOfSalas ul li .salaContent button:hover {
   filter: brightness(85%);
+}
+.salasContainer .listOfSalas ul li .salaContent .danger {
+  background: var(--rich-red);
 }

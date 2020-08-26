@@ -6,7 +6,7 @@ import "./styles.css";
 import { storeHorarios } from "../../api/serviceAPI";
 
 export default function HorariosGerar() {
-  const { salas } = useHorarioConext();
+  const { salas, exitCreatedHours } = useHorarioConext();
   const [horaInicio, setHoraInicio] = useState("");
   const [dataInicio, setdataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
@@ -48,6 +48,7 @@ export default function HorariosGerar() {
     };
     await storeHorarios(data).then((res) => {
       if (res.data.statusCode === 400) alert(res.data.message);
+      exitCreatedHours();
     });
   };
 
@@ -132,7 +133,9 @@ export default function HorariosGerar() {
         </div>
         <div className="grupoButtons">
           <button type="submit">Gerar</button>
-          <button type="submit">Cancelar</button>
+          <button type="submit" onClick={() => exitCreatedHours()}>
+            Cancelar
+          </button>
         </div>
       </form>
     </div>

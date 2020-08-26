@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { useHorarioConext } from "../../components/Horarios";
 import InputMask from "react-input-mask";
+
+import "./styles.css";
+import { storeHorarios } from "../../api/serviceAPI";
+
 export default function HorariosGerar() {
   const { salas } = useHorarioConext();
+  const [horaInicio, setHoraInicio] = useState("");
+  const [dataInicio, setdataInicio] = useState("");
+  const [dataFim, setDataFim] = useState("");
+  const [sala, setSala] = useState("");
+  const [horaFim, setHoraFim] = useState("");
+  const [dia, setDia] = useState([]);
+  const [intervalo, setIntervalo] = useState("");
   const [dias, setDias] = useState([
     "Dom",
     "Seg",
@@ -12,38 +23,116 @@ export default function HorariosGerar() {
     "Sex",
     "Sab",
   ]);
+  const pushDays = (day, e) => {
+    if (e.target.checked) {
+      setDia([...dia, day]);
+    } else {
+      const index = dia.indexOf(day);
+      if (index > -1) {
+        dia.splice(index, 1);
+      }
+    }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const intervaloNumber = parseInt(intervalo);
+    if (dia.length === 0) alert("Selecionar um dia da semana");
+    const data = {
+      idSala: sala,
+      dataInicio,
+      dataFim,
+      t1: horaInicio,
+      t2: horaFim,
+      intervalo: intervaloNumber,
+      daysWeek: dia,
+    };
+    await storeHorarios(data).then((res) => {
+      if (res.data.statusCode === 400) alert(res.data.message);
+    });
+  };
+
   return (
     <div className="gerarHorariosContainer">
-      <form>
-        <div className="selectForm">
-          <select name="sala" id="sala">
-            <option value="">Selecionar sala</option>
-            {salas.map((sala) => (
-              <option>{sala.nome}</option>
+      <form className="selectForm" onSubmit={handleSubmit}>
+        <select
+          name="sala"
+          id="sala"
+          required
+          onChange={(e) => setSala(e.target.value)}
+        >
+          <option value="">Selecionar sala</option>
+          {salas.map((sala) => (
+            <option value={sala._id} key={sala._id}>
+              {sala.nome}
+            </option>
+          ))}
+        </select>
+        <div className="diasForm">
+          <ul>
+            {dias.map((day, key) => (
+              <li key={key}>
+                <label htmlFor={key}>{day}</label>
+                <input
+                  type="checkbox"
+                  name={day}
+                  id={key}
+                  value={key}
+                  onChange={(e) => pushDays(key, e)}
+                />
+              </li>
             ))}
-          </select>
-          <div className="diasForm">
-            <ul>
-              {dias.map((dia, key) => (
-                <li key={key}>
-                  <label htmlFor={key}>
-                    {dia}
-                    <input type="checkbox" name={dia} id={key} />
-                  </label>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="intervalo">
-            <div className="tempo">
-              <span>Inicio</span>
-              <InputMask mask="99:99" maskPlaceholder="-" />
-            </div>
-            <div className="tempo">
-              <span>Fim</span>
-              <InputMask mask="99:99" maskPlaceholder="-" />
-            </div>
-          </div>
+          </ul>
+        </div>
+        <div className="intervalo data">
+          <span>Data inicio</span>
+          <InputMask
+            mask="99/99/9999"
+            maskPlaceholder="-"
+            value={dataInicio}
+            required
+            onChange={(e) => setdataInicio(e.target.value)}
+          />
+
+          <span>Data Fim</span>
+          <InputMask
+            mask="99/99/9999"
+            required
+            maskPlaceholder="-"
+            value={dataFim}
+            onChange={(e) => setDataFim(e.target.value)}
+          />
+        </div>
+        <div className="intervalo">
+          <span>Inicio</span>
+          <InputMask
+            mask="99:99"
+            maskPlaceholder="-"
+            value={horaInicio}
+            required
+            onChange={(e) => setHoraInicio(e.target.value)}
+          />
+
+          <span>Fim</span>
+          <InputMask
+            mask="99:99"
+            required
+            maskPlaceholder="-"
+            value={horaFim}
+            onChange={(e) => setHoraFim(e.target.value)}
+          />
+          <span>Intervalo</span>
+          <input
+            type="number"
+            max="60"
+            min="00"
+            required
+            value={intervalo}
+            onChange={(e) => setIntervalo(e.target.value)}
+          />
+        </div>
+        <div className="grupoButtons">
+          <button type="submit">Gerar</button>
+          <button type="submit">Cancelar</button>
         </div>
       </form>
     </div>

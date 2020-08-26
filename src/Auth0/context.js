@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
 import { setToken } from "../Utils/inLogin";
 import { ServerON, findOrCreatePatient } from "../api/serviceAPI";
@@ -23,6 +29,7 @@ function Auth0Provider({
   const [userLogin, setUserLogin] = useState(" ");
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [readUser, setReadUser] = useState(false);
 
   //Init Auth0
   const init = async () => {
@@ -58,12 +65,12 @@ function Auth0Provider({
     };
 
     await findOrCreatePatient(data)
-      .then((response) =>
+      .then((response) => {
         setState({
           ...state,
           responseAPI: response.data,
-        })
-      )
+        });
+      })
       .catch((err) =>
         setState({
           ...state,
@@ -71,12 +78,16 @@ function Auth0Provider({
         })
       );
   };
-  useEffect(async () => {
+
+  const checkServer = useCallback(async () => {
     await ServerON()
       .then(() => {
         init();
       })
       .catch((err) => alert(err.message));
+  }, []);
+  useEffect(() => {
+    checkServer();
   }, []); // elint-disable-line
 
   const configObject = {

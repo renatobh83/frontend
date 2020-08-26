@@ -6,7 +6,7 @@ export const HorariosContext = createContext();
 export const useHorarioConext = () => useContext(HorariosContext);
 export default function Horarios() {
   const [salas, setSalas] = useState([]);
-  const [newHorarios, setNewHorarios] = useState(true);
+  const [newHorarios, setNewHorarios] = useState(false);
   const [dias, setDias] = useState([
     "Dom",
     "Seg",

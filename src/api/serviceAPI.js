@@ -160,3 +160,11 @@ export const deleteProcedimento = async (id) => {
   const response = instance.delete(`/procedimentos/${id}`);
   return response;
 };
+
+// Horarios
+
+export const storeHorarios = async (data) => {
+  headerDefaults();
+  const response = instance.post("/horarios", data);
+  return response;
+};

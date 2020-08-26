@@ -34,6 +34,16 @@ function Navbar(props) {
               </Link>
             </li>
             <li className="nav-item">
+              <Link
+                className="link"
+                tag={RouterNavLink}
+                onClick={() => setIsOpen(!isOpen)}
+                to="/horarios"
+              >
+                Horarios
+              </Link>
+            </li>
+            <li className="nav-item">
               <span>Cadastros</span>
               <ul className="dropSubmenu">
                 <Link

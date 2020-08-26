@@ -50,7 +50,7 @@
   list-style: none;
   height: 60vh;
   border-radius: 0.9rem;
-  font: 500 2rem Poppins;
+  font: 500 1.4rem Poppins;
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -61,8 +61,7 @@
 .procedimentosContainer .listProcedimento .procedimentoContent {
   width: 100%;
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: 60px;
+  grid-template-columns: 3fr 2fr 1fr;
   padding: 1rem;
 }
 .procedimentosContainer .listProcedimento .procedimentoContent h2 {
@@ -76,4 +75,23 @@
 .procedimentosContainer .listProcedimento .procedimentoContent .label input {
   cursor: pointer;
   margin: 0 2rem;
+}
+.procedimentosContainer .listProcedimento .procedimentoContent button {
+  width: 100%;
+  border: 0;
+  border-radius: 0.8rem;
+  font: 500 3rem Archivo;
+  cursor: pointer;
+  font: 700 2.4rem Archivo;
+  color: var(--color-button-text);
+  background: var(--rich-red);
+}
+
+@media (min-width: 700px) {
+  .procedimentosContainer {
+    max-width: 1200px;
+  }
+  .procedimentosContainer .listProcedimento ul {
+    font-size: 15px;
+  }
 }

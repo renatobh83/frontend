@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import { getSetores, getExames, activeOrDeactive } from "../../api/serviceAPI";
+import {
+  getSetores,
+  getExames,
+  activeOrDeactive,
+  deleteProcedimento,
+} from "../../api/serviceAPI";
 import ProcedimentosForm from "../Forms/Procedimentos/index";
 
 export default function Procedimentos() {
@@ -33,13 +38,26 @@ export default function Procedimentos() {
     const data = {
       ativo: ativo.target.checked,
     };
+    if (ativo.target.checked) {
+      const ativar = exames.find((exame) => exame._id === id);
+      ativar.ativo = true;
+    } else {
+      const desativar = exames.find((exame) => exame._id === id);
+      desativar.ativo = false;
+    }
     await activeOrDeactive(id, data);
   };
+
   const handleProcedimento = async () => {
     await getExames().then((res) => {
       setExames(res.data.message);
-      console.log(res.data.message);
     });
+  };
+
+  const handleDeleteProcedimento = async (id) => {
+    await deleteProcedimento(id);
+    const filter = exames.filter((exame) => exame._id !== id);
+    setExames(filter);
   };
   const exibirProcedimento =
     !setorFilter || setorFilter === "#"
@@ -88,6 +106,12 @@ export default function Procedimentos() {
                         value={exame._id}
                       />
                     </div>
+                    <button
+                      type="submit"
+                      onClick={() => handleDeleteProcedimento(exame._id)}
+                    >
+                      Apagar
+                    </button>
                   </div>
                 </li>
               ))}

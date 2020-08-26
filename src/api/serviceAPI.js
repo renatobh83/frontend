@@ -155,3 +155,8 @@ export const activeOrDeactive = async (id, data) => {
   const response = instance.put(`/procedimentos/${id}`, data);
   return response;
 };
+export const deleteProcedimento = async (id) => {
+  headerDefaults();
+  const response = instance.delete(`/procedimentos/${id}`);
+  return response;
+};

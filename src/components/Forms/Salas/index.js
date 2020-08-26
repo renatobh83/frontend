@@ -7,11 +7,10 @@ import { storeSala } from "../../../api/serviceAPI";
 function FormSalas() {
   const {
     setores,
-    set,
+    exit,
     setSalas,
     setSetorFilter,
     setSalaFilter,
-    salaEdit,
   } = useSalaContext();
   const [setor, setSetor] = useState("");
   const [nome, setNome] = useState("");
@@ -22,10 +21,11 @@ function FormSalas() {
   };
 
   const handleExit = () => {
-    set(false);
+    exit();
     setSalaFilter(null);
     setSetorFilter(null);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -49,6 +49,7 @@ function FormSalas() {
             ))}
           </select>
         </div>
+
         {setor && (
           <div className="grupoInput">
             <div className="floating-label-input">

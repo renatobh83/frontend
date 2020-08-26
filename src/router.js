@@ -12,6 +12,7 @@ import Loading from "./Pages/Loading/index";
 import Permissoes from "./components/Permissoes";
 import Salas from "./components/Salas";
 import Setor from "./components/Setor";
+import Procedimentos from "./components/Procedimentos/index";
 
 function Router() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -37,6 +38,7 @@ function Router() {
         <Route path="/permissoes" component={Permissoes} />
         <Route path="/salas" component={Salas} />
         <Route path="/setor" component={Setor} />
+        <Route path="/exames" component={Procedimentos} />
       </>
     );
   };

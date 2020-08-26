@@ -68,6 +68,14 @@ function Navbar(props) {
                 >
                   Salas
                 </Link>
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/exames"
+                >
+                  Procedimentos
+                </Link>
               </ul>
             </li>
             <li className="nav-item">

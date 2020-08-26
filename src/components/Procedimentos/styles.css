@@ -1,0 +1,79 @@
+.procedimentosContainer {
+  width: 90vw;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.procedimentosContainer .newProcedimento {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.procedimentosContainer .newProcedimento button {
+  width: 40%;
+  border: 0;
+  border-radius: 0.8rem;
+  font: 500 3rem Archivo;
+  padding: 2rem;
+  cursor: pointer;
+  font: 700 2.4rem Archivo;
+  color: var(--color-button-text);
+  background: var(--color-primary-darker);
+  transition: all 0.3s;
+}
+
+.procedimentosContainer .newProcedimento button:hover {
+  filter: brightness(90%);
+}
+.procedimentosContainer .selectSetor {
+  margin-top: 2rem;
+  width: 100%;
+}
+.procedimentosContainer .selectSetor select {
+  font: 400 2rem Archivo;
+  border: 0;
+  appearance: none;
+  width: 45%;
+  padding: 1.4rem;
+  border-radius: 0.9rem;
+}
+.procedimentosContainer .listProcedimento {
+  margin-top: 4rem;
+  width: 100%;
+}
+.procedimentosContainer .listProcedimento ul {
+  background: #fff;
+  list-style: none;
+  height: 60vh;
+  border-radius: 0.9rem;
+  font: 500 2rem Poppins;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.procedimentosContainer .listProcedimento ul::-webkit-scrollbar {
+  display: none;
+}
+
+.procedimentosContainer .listProcedimento .procedimentoContent {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 60px;
+  padding: 1rem;
+}
+.procedimentosContainer .listProcedimento .procedimentoContent h2 {
+  margin-left: 2rem;
+}
+.procedimentosContainer .listProcedimento .procedimentoContent .label {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.procedimentosContainer .listProcedimento .procedimentoContent .label input {
+  cursor: pointer;
+  margin: 0 2rem;
+}

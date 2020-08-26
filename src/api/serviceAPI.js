@@ -107,6 +107,11 @@ export const updateSetor = async (id, data) => {
   return response;
 };
 
+export const getSetorId = async (id, data) => {
+  headerDefaults();
+  const response = instance.get(`/setor/${id}`);
+  return response;
+};
 export const setorDelete = async (data) => {
   headerDefaults();
   const response = instance.delete(`/setor/${data}`);
@@ -126,8 +131,27 @@ export const storeSala = async (data) => {
   return response;
 };
 
-export const activeDeactive = async (id, data) => {
+export const activeDeactive = async (id) => {
   headerDefaults();
-  const response = instance.put(`/salas/${id}`, data);
+  const response = instance.delete(`/salas/${id}`);
+  return response;
+};
+
+// exames
+
+export const getExames = async () => {
+  headerDefaults();
+  const response = instance.get("/procedimentos");
+  return response;
+};
+export const storeExame = async (data) => {
+  headerDefaults();
+  const response = instance.post("/procedimentos", data);
+  return response;
+};
+
+export const activeOrDeactive = async (id, data) => {
+  headerDefaults();
+  const response = instance.put(`/procedimentos/${id}`, data);
   return response;
 };

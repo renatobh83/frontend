@@ -24,7 +24,6 @@ export default function SetorForm({ set, value }) {
       });
     }
   };
-
   const handleEditSetor = (e) => {
     if (e.setor !== null) {
       setNome(e.setor.nome);

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 import { useAgend } from "../Agendamento";
+import { getSalaFromSetor } from "../../../api/serviceAPI";
 export default function Horarios() {
   const { examesFromChild, selPlano, setExame } = useAgend();
 
@@ -8,6 +9,19 @@ export default function Horarios() {
     selPlano(true);
     setExame(false);
   };
+  /* teste */
+  const salaDoExame = (id) => {
+    const sala = id.map(async (element) => {
+      const response = await getSalaFromSetor(element.setorId);
+      return response;
+    });
+    console.log(sala);
+  };
+
+  useEffect(() => {
+    salaDoExame(examesFromChild);
+  }, []); // eslint-disable-line
+  /* Fim teste */
   return (
     <div className="horariosContainer">
       <div className="agendaExames">
@@ -15,7 +29,7 @@ export default function Horarios() {
 
         <ul>
           {examesFromChild.map((exame) => (
-            <li key={exame.nome}>{exame.nome}</li>
+            <li key={exame._id}>{exame.procedimento}</li>
           ))}
         </ul>
       </div>

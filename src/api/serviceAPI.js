@@ -125,6 +125,11 @@ export const getSalas = async () => {
   const response = instance.get("/salas");
   return response;
 };
+export const getSalaFromSetor = async (id) => {
+  headerDefaults();
+  const response = instance.get(`/sala/${id}`);
+  return response;
+};
 export const storeSala = async (data) => {
   headerDefaults();
   const response = instance.post("/salas", data);
@@ -166,5 +171,17 @@ export const deleteProcedimento = async (id) => {
 export const storeHorarios = async (data) => {
   headerDefaults();
   const response = instance.post("/horarios", data);
+  return response;
+};
+
+export const getHorariosBySala = async (data) => {
+  headerDefaults();
+  const response = instance.get(`/horarios/${data}`);
+  return response;
+};
+
+export const deleteHorario = async (data) => {
+  headerDefaults();
+  const response = instance.post("/horarios/delete", data);
   return response;
 };

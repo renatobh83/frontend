@@ -105,6 +105,7 @@ export default function HorariosGerar() {
         </div>
         <div className="intervalo">
           <span>Inicio</span>
+
           <InputMask
             mask="99:99"
             maskPlaceholder="-"

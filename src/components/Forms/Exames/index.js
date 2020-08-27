@@ -1,25 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FiSearch, FiTrash2 } from "react-icons/fi";
 import "./styles.css";
 import { useAgend } from "../Agendamento";
+import { getExames } from "../../../api/serviceAPI";
 
-const exames = [
-  { nome: "Us Mamas", valor: "120" },
-  { nome: "Us Axilas", valor: "240" },
-  { nome: "Us Tornozelo" },
-  { nome: "Us Punho" },
-  { nome: "Ressonancia Braco" },
-];
+// const exames = [
+//   { procedimento: "Us Mamas", valor: "120" },
+//   { procedimento: "Us Axilas", valor: "240" },
+//   { procedimento: "Us Tornozelo" },
+//   { procedimento: "Us Punho" },
+//   { procedimento: "Ressonancia Braco" },
+// ];
 export default function Exames() {
   const { setExame, planoFromchild, exame, selPlano } = useAgend();
   const [searchItem, setSearchItem] = useState(null);
+  const [exames, setExames] = useState([]);
   const [examesSelecionado, setSelecaoExames] = useState([]);
   const [Ex, setEx] = useState([]);
+
+  const fetchExames = useCallback(async () => {
+    await getExames().then((res) => {
+      setEx(res.data.message);
+    });
+  });
 
   const insertExame = (e, x) => {
     if (x.target.checked) {
       setSelecaoExames([...examesSelecionado, e]);
-      const filterES = Ex.filter((exame) => exame.nome !== e.nome);
+      const filterES = Ex.filter(
+        (exame) => exame.procedimento !== e.procedimento
+      );
       setEx(filterES);
     } else {
       deleteExame(e);
@@ -30,7 +40,7 @@ export default function Exames() {
   };
   const updateState = (element, attr) => {
     const att = { check: attr };
-    var index = Ex.findIndex((e) => e.nome === element.nome);
+    var index = Ex.findIndex((e) => e.procedimento === element.procedimento);
     if (index === -1) {
     } else {
       setEx([
@@ -42,13 +52,17 @@ export default function Exames() {
   };
   const handleChange = (e) => {
     const a = examesSelecionado.filter((exame) =>
-      exame.nome.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+      exame.procedimento
+        .toLowerCase()
+        .includes(e.target.value.toLocaleLowerCase())
     );
 
     setSearchItem(e.target.value);
   };
   const deleteExame = (e) => {
-    const newArray = examesSelecionado.filter((exame) => exame.nome !== e.nome);
+    const newArray = examesSelecionado.filter(
+      (exame) => exame.procedimento !== e.procedimento
+    );
     setEx([...Ex, e]);
     setSelecaoExames(newArray);
   };
@@ -59,12 +73,15 @@ export default function Exames() {
   const result = !searchItem
     ? Ex
     : Ex.filter((exame) =>
-        exame.nome.toLowerCase().includes(searchItem.toLocaleLowerCase())
+        exame.procedimento
+          .toLowerCase()
+          .includes(searchItem.toLocaleLowerCase())
       );
   getExame(examesSelecionado);
   useEffect(() => {
-    setEx(exames);
-  }, []);
+    // setEx(exames);
+    fetchExames();
+  }, [exames]); //eslint-disable-line
   return (
     <div className="examesContainer">
       <div className="buscarExame">
@@ -81,17 +98,17 @@ export default function Exames() {
       <div className="listExames">
         <ul>
           {result.map((exame) => (
-            <li key={exame.nome}>
-              <label htmlFor={exame.nome}>
+            <li key={exame._id}>
+              <label htmlFor={exame.procedimento}>
                 <input
                   type="checkbox"
-                  id={exame.nome}
+                  id={exame.procedimento}
                   name="exames"
                   className="exames-check"
-                  value={exame.nome}
+                  value={exame.procedimento}
                   onClick={(e) => insertExame(exame, e)}
                 />
-                {exame.nome}
+                {exame.procedimento}
               </label>
             </li>
           ))}
@@ -100,7 +117,7 @@ export default function Exames() {
       {examesSelecionado.length > 0 && (
         <div className="examesSelecionados">
           {examesSelecionado.map((exame) => (
-            <div className="examesSelect" key={exame.nome}>
+            <div className="examesSelect" key={exame.procedimento}>
               <div className="delete">
                 <button>
                   <FiTrash2
@@ -111,7 +128,7 @@ export default function Exames() {
                 </button>
               </div>
               <div className="content">
-                {exame.nome} {exame.valor && ` - R$${exame.valor}`}
+                {exame.procedimento} {exame.valor && ` - R$${exame.valor}`}
               </div>
             </div>
           ))}

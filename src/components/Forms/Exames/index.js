@@ -20,9 +20,12 @@ export default function Exames() {
 
   const fetchExames = useCallback(async () => {
     await getExames().then((res) => {
+      res.data.message.forEach((exame) => {
+        console.log(exame);
+      });
       setEx(res.data.message);
     });
-  });
+  }, []);
 
   const insertExame = (e, x) => {
     if (x.target.checked) {

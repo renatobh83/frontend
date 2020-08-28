@@ -4,6 +4,7 @@ import "./styles.css";
 import FormSalas from "../Forms/Salas";
 import { getSetores, getSalas, activeDeactive } from "../../api/serviceAPI";
 
+import logoLoading from "../../assets/loading.svg";
 export const SalaContext = createContext();
 export const useSalaContext = () => useContext(SalaContext);
 
@@ -13,6 +14,7 @@ export default function Salas() {
   const [salas, setSalas] = useState([]);
   const [setorFilter, setSetorFilter] = useState(null);
   const [salaFilter, setSalaFilter] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   //pegar setores
   const handleSetores = async () => {
@@ -22,6 +24,7 @@ export default function Salas() {
   const handleSalas = async () => {
     await getSalas().then((res) => {
       setSalas(res.data.message);
+      setLoading(false);
     });
   };
   // Filter Setor Change
@@ -64,7 +67,6 @@ export default function Salas() {
 
   useEffect(() => {
     handleSalas();
-
     handleSetores();
   }, []);
 
@@ -75,7 +77,13 @@ export default function Salas() {
     setSalaFilter,
     setSetorFilter,
   };
-
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <SalaContext.Provider value={config}>
       {!newRoom && (

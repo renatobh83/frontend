@@ -11,6 +11,7 @@ export default function HorariosGerar() {
   const [dataInicio, setdataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
   const [sala, setSala] = useState("");
+  const [setorId, setSetor] = useState("");
   const [horaFim, setHoraFim] = useState("");
   const [dia, setDia] = useState([]);
   const [intervalo, setIntervalo] = useState("");
@@ -23,6 +24,12 @@ export default function HorariosGerar() {
     "Sex",
     "Sab",
   ]);
+  const selectSalaAndSetor = (obj) => {
+    const { setorId } = salas.find((sala) => sala._id === obj);
+
+    setSala(obj);
+    setSetor(setorId);
+  };
   const pushDays = (day, e) => {
     if (e.target.checked) {
       setDia([...dia, day]);
@@ -37,8 +44,10 @@ export default function HorariosGerar() {
     e.preventDefault();
     const intervaloNumber = parseInt(intervalo);
     if (dia.length === 0) alert("Selecionar um dia da semana");
+
     const data = {
       idSala: sala,
+      setorId,
       dataInicio,
       dataFim,
       t1: horaInicio,
@@ -56,10 +65,9 @@ export default function HorariosGerar() {
     <div className="gerarHorariosContainer">
       <form className="selectForm" onSubmit={handleSubmit}>
         <select
-          name="sala"
           id="sala"
           required
-          onChange={(e) => setSala(e.target.value)}
+          onChange={(e) => selectSalaAndSetor(e.target.value)}
         >
           <option value="">Selecionar sala</option>
           {salas.map((sala) => (

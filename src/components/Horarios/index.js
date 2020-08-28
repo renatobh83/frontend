@@ -12,23 +12,29 @@ import {
   deleteHorario,
 } from "../../api/serviceAPI";
 import HorariosGerar from "../../Pages/HorarioGerar";
-import { differenceInCalendarDays } from "date-fns";
+
+import logoLoading from "../../assets/loading.svg";
+import { getHours } from "../../Utils/getHours";
+
 export const HorariosContext = createContext();
 export const useHorarioConext = () => useContext(HorariosContext);
+
 export default function Horarios() {
   const [salas, setSalas] = useState([]);
   const [sala, setSala] = useState(null);
-  const [horarios, setHoraios] = useState([]);
+  const [horarios, setHorarios] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [newHorarios, setNewHorarios] = useState(false);
-  const [dias, setDias] = useState([
-    "Dom",
-    "Seg",
-    "Ter",
-    "Qua",
-    "Qui",
-    "Sex",
-    "Sab",
-  ]);
+
+  // const [dias, setDias] = useState([
+  //   "Dom",
+  //   "Seg",
+  //   "Ter",
+  //   "Qua",
+  //   "Qui",
+  //   "Sex",
+  //   "Sab",
+  // ]);
 
   const exitCreatedHours = () => {
     setNewHorarios(!newHorarios);
@@ -36,30 +42,23 @@ export default function Horarios() {
 
   // get Salas
   const handleSalas = async () => {
-    await getSalas().then((res) => setSalas(res.data.message));
+    await getSalas().then((res) => {
+      setSalas(res.data.message);
+      setLoading(false);
+    });
   };
   // get horarios
   const handleHorarios = useCallback(
     async (sala) => {
       await getHorariosBySala(sala).then((res) => {
-        res.data.message.forEach((element) => {
-          const horarioAtual = element.periodo.filter((dia) => {
-            const date = stringToDate(dia.data);
-            const now = new Date();
-            const diff = differenceInCalendarDays(now, date);
-            return diff <= 0;
-          });
-          setHoraios(horarioAtual);
+        getHours(res.data.message, (value) => {
+          setHorarios((oldValues) => [...oldValues, value]);
         });
       });
     },
     [] // eslint-disable-line
   );
-  const stringToDate = (date) => {
-    const parts = date.split("/");
-    const convertDate = new Date(parts[2], parts[1] - 1, parts[0]);
-    return convertDate;
-  };
+
   const apagarHorario = async (date) => {
     const data = {
       deleteHorary: [date],
@@ -67,7 +66,7 @@ export default function Horarios() {
     };
     await deleteHorario(data).then(() => {
       const fitler = horarios.filter((h) => h.id !== date);
-      setHoraios(fitler);
+      setHorarios(fitler);
     });
   };
 
@@ -95,7 +94,8 @@ export default function Horarios() {
     handleSalas();
   }, []);
   useEffect(() => {
-    if (sala !== null) {
+    if (sala !== null || sala === "") {
+      setHorarios([]);
       handleHorarios(sala);
     }
   }, [sala]); // eslint-disable-line
@@ -103,6 +103,14 @@ export default function Horarios() {
     salas,
     exitCreatedHours,
   };
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
+
   return (
     <HorariosContext.Provider value={config}>
       {!newHorarios && (

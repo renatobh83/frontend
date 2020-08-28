@@ -176,6 +176,11 @@ export const storeHorarios = async (data) => {
 
 export const getHorariosBySala = async (data) => {
   headerDefaults();
+  const response = instance.get(`/horario/${data}`);
+  return response;
+};
+export const getHorariosBySetor = async (data) => {
+  headerDefaults();
   const response = instance.get(`/horarios/${data}`);
   return response;
 };

@@ -8,12 +8,15 @@ import {
 } from "../../api/serviceAPI";
 import ProcedimentosForm from "../Forms/Procedimentos/index";
 
+import logoLoading from "../../assets/loading.svg";
 export default function Procedimentos() {
   const [setores, setSetores] = useState([]);
   const [exames, setExames] = useState([]);
   const [newExame, setNewExame] = useState(false);
   const [setorId, setSetorId] = useState(null);
   const [setorFilter, setSetorFilter] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   //pegar setores
   const handleSetores = async () => {
     await getSetores().then((setor) => setSetores(setor.data.message));
@@ -51,6 +54,7 @@ export default function Procedimentos() {
   const handleProcedimento = async () => {
     await getExames().then((res) => {
       setExames(res.data.message);
+      setLoading(false);
     });
   };
 
@@ -67,6 +71,13 @@ export default function Procedimentos() {
     handleProcedimento();
     handleSetores();
   }, []);
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <>
       {!newExame && (

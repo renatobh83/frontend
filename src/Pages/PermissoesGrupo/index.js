@@ -3,6 +3,7 @@ import { useGrupoContext } from "../../components/Grupos";
 
 import "./styles.css";
 import { getPermissoes, setPermissoes } from "../../api/serviceAPI";
+import logoLoading from "../../assets/loading.svg";
 export default function PermissoesGrupo() {
   const { permissionShow, grupoSelect } = useGrupoContext();
 
@@ -11,10 +12,12 @@ export default function PermissoesGrupo() {
   const [permissaoLiberada, setPermissaoLiberada] = useState([]);
   const [permissaoRemover, setRemoverPermissao] = useState([]);
 
+  const [loading, setLoading] = useState(true);
   // Carrega as permissoes
   const handlePermissao = async () => {
     await getPermissoes().then((res) => {
       handlePermissoesGrupo(res.data.message);
+      setLoading(false);
     });
   };
 
@@ -88,7 +91,13 @@ export default function PermissoesGrupo() {
   useEffect(() => {
     handlePermissao();
   }, []); // eslint-disable-line
-
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <div className="pgContainer">
       <strong>{grupoSelect.grupo.nome}</strong>

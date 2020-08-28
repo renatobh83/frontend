@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import "./sytles.css";
 import NewUser from "../Forms/User/index";
-import { getUsers, getGrupo } from "../../api/serviceAPI";
+import { getUsers } from "../../api/serviceAPI";
 
+import logoLoading from "../../assets/loading.svg";
 export default function Users() {
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState("");
@@ -19,6 +20,7 @@ export default function Users() {
     setNewUser(false);
     setFilter(!filter);
   };
+
   return (
     <>
       {!newUser && (
@@ -44,6 +46,7 @@ export default function Users() {
 
 const ListOfUsers = ({ children, set, filter }) => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [userView, setUserView] = useState([]);
   const handleEdit = (user, bool) => {
@@ -60,6 +63,7 @@ const ListOfUsers = ({ children, set, filter }) => {
       const users = response.data.message.filter((user) => user.ativo === true);
       setUsers(users);
       setUserView(response.data.message);
+      setLoading(false);
     }
     fetchUsers();
     console.log("Users");
@@ -72,7 +76,14 @@ const ListOfUsers = ({ children, set, filter }) => {
       const ativos = userView.filter((user) => user.ativo === true);
       setUsers(ativos);
     }
-  }, [filter]);
+  }, [filter, userView]);
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
 
   return (
     <div className="listUserContainer">

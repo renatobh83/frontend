@@ -1,25 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { useAgend } from "../Agendamento";
-import { getSalaFromSetor } from "../../../api/serviceAPI";
+import { getHorariosBySetor } from "../../../api/serviceAPI";
+import { getHours } from "../../../Utils/getHours";
 export default function Horarios() {
   const { examesFromChild, selPlano, setExame } = useAgend();
-
+  const [horariosDisponivel, setHorariosDisponivel] = useState([]);
   const cancelar = () => {
     selPlano(true);
     setExame(false);
   };
   /* teste */
-  const salaDoExame = (id) => {
-    const sala = id.map(async (element) => {
-      const response = await getSalaFromSetor(element.setorId);
-      return response;
+  const horariosLivres = (exame) => {
+    exame.forEach(async (id) => {
+      await getHorariosBySetor(id.setorId).then((res) => {
+        getHours(res.data.message, (value) => {
+          setHorariosDisponivel((oldvalues) => [...oldvalues, value].sort());
+        });
+      });
     });
-    console.log(sala);
   };
 
   useEffect(() => {
-    salaDoExame(examesFromChild);
+    horariosLivres(examesFromChild);
   }, []); // eslint-disable-line
   /* Fim teste */
   return (
@@ -34,42 +37,17 @@ export default function Horarios() {
         </ul>
       </div>
       <div className="gridHorarios">
-        <label htmlFor="horarioId">
-          <input type="radio" name="horario" id="horarioId" />
-          <div className="cardHorario">
-            <div className="dados">
-              <div className="day">Dia</div>
-              <div className="intervalo">Intervalo</div>
+        {horariosDisponivel.map((horario) => (
+          <label htmlFor={horario.id}>
+            <input type="radio" name="horario" id={horario.id} />
+            <div className="cardHorario">
+              <div className="dados">
+                <div className="day">{horario.data}</div>
+                <div className="intervalo">{horario.horaInicio}</div>
+              </div>
             </div>
-          </div>
-        </label>
-        <label htmlFor="horarioId2">
-          <input type="radio" name="horario" id="horarioId2" />
-          <div className="cardHorario">
-            <div className="dados">
-              <div className="day">Dia</div>
-              <div className="intervalo">Intervalo</div>
-            </div>
-          </div>
-        </label>
-        <label htmlFor="horarioId3">
-          <input type="radio" name="horario" id="horarioId3" />
-          <div className="cardHorario">
-            <div className="dados">
-              <div className="day">Dia</div>
-              <div className="intervalo">Intervalo</div>
-            </div>
-          </div>
-        </label>
-        <label htmlFor="horarioId4">
-          <input type="radio" name="horario" id="horarioId4" />
-          <div className="cardHorario">
-            <div className="dados">
-              <div className="day">Dia</div>
-              <div className="intervalo">Intervalo</div>
-            </div>
-          </div>
-        </label>
+          </label>
+        ))}
       </div>
       <div className="btnGroup">
         <button>Gravar</button>

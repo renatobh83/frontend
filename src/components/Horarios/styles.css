@@ -1,4 +1,4 @@
-.horariosContainer {
+.horariosContainerComponent {
   width: 90vw;
   max-width: 700px;
   display: flex;
@@ -8,13 +8,13 @@
   flex-direction: column;
 }
 
-.horariosContainer strong {
+.horariosContainerComponent strong {
   margin: 2rem 0;
   width: 100%;
   text-align: center;
   font: 700 2.4rem Archivo;
 }
-.horariosContainer .gerar {
+.horariosContainerComponent .gerar {
   width: 40%;
   border: 0;
   border-radius: 0.8rem;
@@ -26,21 +26,21 @@
   background: var(--color-primary-darker);
   transition: all 0.3s;
 }
-.horariosContainer .horariosDados {
+.horariosContainerComponent .horariosDados {
   width: 100%;
   display: flex;
   align-self: center;
 }
-.horariosContainer .horariosDados .horarioGroup {
+.horariosContainerComponent .horariosDados .horarioGroup {
   width: 100%;
   margin: 2rem 0;
 }
-.horariosContainer .horariosDados .horarioGroup label {
+.horariosContainerComponent .horariosDados .horarioGroup label {
   margin-right: 2rem;
   font: 600 2rem Archivo;
 }
 
-.horariosContainer .horariosDados .horarioGroup select {
+.horariosContainerComponent .horariosDados .horarioGroup select {
   font: 400 2rem Archivo;
   border: 0;
   appearance: none;
@@ -49,29 +49,29 @@
   border-radius: 0.9rem;
   width: 55%;
 }
-.horariosContainer .gradeHorarios {
+.horariosContainerComponent .gradeHorarios {
   font: 600 2.4rem Archivo;
   width: 100%;
 }
-.horariosContainer .gradeHorarios .header {
+.horariosContainerComponent .gradeHorarios .header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr;
 }
-.horariosContainer .gradeHorarios ul {
+.horariosContainerComponent .gradeHorarios ul {
   margin-top: 3rem;
   list-style: none;
   overflow: hidden;
   height: 50vh;
   overflow-y: scroll;
 }
-.horariosContainer .gradeHorarios .interval {
+.horariosContainerComponent .gradeHorarios .interval {
   width: 100%;
   display: grid;
   align-items: center;
   grid-template-columns: 1fr 1fr 1fr 2fr;
   margin: 3rem 0;
 }
-.horariosContainer .gradeHorarios .interval button {
+.horariosContainerComponent .gradeHorarios .interval button {
   width: 40%;
   border: 0;
   border-radius: 0.8rem;

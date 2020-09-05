@@ -110,8 +110,8 @@
     margin-top: 20px;
   }
   .agendamentoContainer .pesquisaPaciente {
-    margin-top: 10px;
-    margin-left: 15px;
+    /* margin-top: 10px;
+    margin-left: 15px; */
   }
   .agendamentoContainer .pesquisaPaciente .pesquisa {
     display: flex;

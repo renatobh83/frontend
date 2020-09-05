@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import "./styles.css";
 import {
   getSetores,
@@ -9,32 +9,39 @@ import {
 import ProcedimentosForm from "../Forms/Procedimentos/index";
 
 import logoLoading from "../../assets/loading.svg";
+
+export const ProcedimentoContext = createContext();
+export const useContextProce = () => useContext(ProcedimentoContext);
+
 export default function Procedimentos() {
   const [setores, setSetores] = useState([]);
   const [exames, setExames] = useState([]);
   const [newExame, setNewExame] = useState(false);
-  const [setorId, setSetorId] = useState(null);
   const [setorFilter, setSetorFilter] = useState(null);
+  const [setorSelect, setSetorSelect] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //pegar setores
   const handleSetores = async () => {
-    await getSetores().then((setor) => setSetores(setor.data.message));
+    await getSetores().then((setor) => {
+      setSetores(setor.data.message);
+    });
   };
   const setNew = () => {
-    setNewExame(!newExame);
-    setSetorId(null);
+    setNewExame(false);
+    setSetorSelect(null);
     setSetorFilter(null);
     handleProcedimento();
   };
   const setNewWithSetor = () => {
-    if (setorId === null) return alert("Favor selecionar um setor");
+    if (setorSelect === null) return alert("Favor selecionar um setor");
     setNewExame(true);
   };
   // Filter Setor Change
   const selectSetorChange = (e) => {
+    const setor = setores.find((s) => s._id === e);
+    setSetorSelect(setor);
     setSetorFilter(e);
-    setSetorId(e);
   };
 
   const desativarProcedimento = async (id, ativo) => {
@@ -51,22 +58,24 @@ export default function Procedimentos() {
     await activeOrDeactive(id, data);
   };
 
-  const handleProcedimento = async () => {
-    await getExames().then((res) => {
-      setExames(res.data.message);
-      setLoading(false);
-    });
-  };
-
   const handleDeleteProcedimento = async (id) => {
     await deleteProcedimento(id);
     const filter = exames.filter((exame) => exame._id !== id);
     setExames(filter);
   };
+
+  const handleProcedimento = async () => {
+    await getExames().then((res) => {
+      setExames(res.data.message);
+
+      setLoading(false);
+    });
+  };
   const exibirProcedimento =
     !setorFilter || setorFilter === "#"
       ? exames
       : exames.filter((exame) => exame.setorId === setorFilter);
+
   useEffect(() => {
     handleProcedimento();
     handleSetores();
@@ -78,8 +87,12 @@ export default function Procedimentos() {
       </div>
     );
   }
+  const config = {
+    setNew,
+    setorSelect,
+  };
   return (
-    <>
+    <ProcedimentoContext.Provider value={config}>
       {!newExame && (
         <div className="procedimentosContainer">
           <div className="newProcedimento">
@@ -130,7 +143,7 @@ export default function Procedimentos() {
           </div>
         </div>
       )}
-      {newExame && <ProcedimentosForm set={setNew} setor={setorId} />}
-    </>
+      {newExame && <ProcedimentosForm />}
+    </ProcedimentoContext.Provider>
   );
 }

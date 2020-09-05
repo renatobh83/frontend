@@ -76,6 +76,30 @@
   filter: brightness(75%);
   color: var(--black);
 }
+.gridHorarios .pagination {
+  width: 100%;
+  display: flex;
+}
+.gridHorarios .pagination .page {
+  list-style: none;
+  display: flex;
+}
+.gridHorarios .pagination .page .page-item {
+  padding: 0 0.9rem;
+}
+.gridHorarios .pagination .page .page-item button {
+  color: black;
+  cursor: pointer;
+  border: 0;
+  background: var(--rich-blue);
+  color: #fff;
+  border-radius: 0.7rem;
+  font: 500 2.3rem Archivo;
+  padding: 8px 16px;
+}
+.page-item button:hover:not(.active) {
+  background: #ddd;
+}
 .horariosContainer .btnGroup {
   display: flex;
   justify-content: center;
@@ -96,6 +120,7 @@
 .horariosContainer .btnGroup .danger {
   background: red;
 }
+
 @media (min-width: 700px) {
   .horariosContainer {
     max-width: 1200px;

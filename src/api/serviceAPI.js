@@ -149,6 +149,11 @@ export const getExames = async () => {
   const response = instance.get("/procedimentos");
   return response;
 };
+export const getExamesAgendamento = async () => {
+  headerDefaults();
+  const response = instance.get("/procedimentos/agendamento");
+  return response;
+};
 export const storeExame = async (data) => {
   headerDefaults();
   const response = instance.post("/procedimentos", data);
@@ -179,14 +184,24 @@ export const getHorariosBySala = async (data) => {
   const response = instance.get(`/horario/${data}`);
   return response;
 };
-export const getHorariosBySetor = async (data) => {
+export const getHorariosBySetor = async (setor, data) => {
   headerDefaults();
-  const response = instance.get(`/horarios/${data}`);
+  const response = instance.get(`/horarios/${setor}`, { params: data });
   return response;
 };
 
 export const deleteHorario = async (data) => {
   headerDefaults();
   const response = instance.post("/horarios/delete", data);
+  return response;
+};
+export const inativarHorarioPassado = async (data) => {
+  headerDefaults();
+  const response = instance.put("/horarios/inativo", data);
+  return response;
+};
+export const updateHorarioSelecionado = async (data) => {
+  headerDefaults();
+  const response = instance.put("/horarios/", data);
   return response;
 };

@@ -21,20 +21,11 @@ export const useHorarioConext = () => useContext(HorariosContext);
 
 export default function Horarios() {
   const [salas, setSalas] = useState([]);
-  const [sala, setSala] = useState(null);
+  const [sala, setSala] = useState("null");
   const [horarios, setHorarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newHorarios, setNewHorarios] = useState(false);
-
-  // const [dias, setDias] = useState([
-  //   "Dom",
-  //   "Seg",
-  //   "Ter",
-  //   "Qua",
-  //   "Qui",
-  //   "Sex",
-  //   "Sab",
-  // ]);
+  const [m, setM] = useState([]);
 
   const exitCreatedHours = () => {
     setNewHorarios(!newHorarios);
@@ -94,9 +85,11 @@ export default function Horarios() {
     handleSalas();
   }, []);
   useEffect(() => {
-    if (sala !== null || sala === "") {
+    if (sala !== "null") {
       setHorarios([]);
       handleHorarios(sala);
+    } else {
+      setHorarios([]);
     }
   }, [sala]); // eslint-disable-line
   const config = {
@@ -114,7 +107,7 @@ export default function Horarios() {
   return (
     <HorariosContext.Provider value={config}>
       {!newHorarios && (
-        <div className="horariosContainer">
+        <div className="horariosContainerComponent">
           <strong>Horarios</strong>
           <button
             type="submit"
@@ -131,7 +124,7 @@ export default function Horarios() {
                 id="sala"
                 onChange={(e) => setSala(e.target.value)}
               >
-                <option value="">Selecione uma sala</option>
+                <option value="null">Selecione uma sala</option>
                 {salas.map((sala) => (
                   <option key={sala._id} value={sala._id}>
                     {sala.nome}
@@ -160,7 +153,7 @@ export default function Horarios() {
               </div>
               <div className="listIntervalos">
                 <ul>
-                  {horarios.map((horario, i) => (
+                  {horarios.map((horario) => (
                     <li>
                       <div className="interval">
                         <span>{horario.data}</span>

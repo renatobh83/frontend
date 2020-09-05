@@ -2,27 +2,18 @@ import React, { useState, useEffect, useCallback } from "react";
 import { FiSearch, FiTrash2 } from "react-icons/fi";
 import "./styles.css";
 import { useAgend } from "../Agendamento";
-import { getExames } from "../../../api/serviceAPI";
+import { getExamesAgendamento } from "../../../api/serviceAPI";
 
-// const exames = [
-//   { procedimento: "Us Mamas", valor: "120" },
-//   { procedimento: "Us Axilas", valor: "240" },
-//   { procedimento: "Us Tornozelo" },
-//   { procedimento: "Us Punho" },
-//   { procedimento: "Ressonancia Braco" },
-// ];
 export default function Exames() {
   const { setExame, planoFromchild, exame, selPlano } = useAgend();
+
   const [searchItem, setSearchItem] = useState(null);
   const [exames, setExames] = useState([]);
   const [examesSelecionado, setSelecaoExames] = useState([]);
   const [Ex, setEx] = useState([]);
 
   const fetchExames = useCallback(async () => {
-    await getExames().then((res) => {
-      res.data.message.forEach((exame) => {
-        console.log(exame);
-      });
+    await getExamesAgendamento().then((res) => {
       setEx(res.data.message);
     });
   }, []);
@@ -41,20 +32,21 @@ export default function Exames() {
   const getExame = (e) => {
     exame(e);
   };
-  const updateState = (element, attr) => {
-    const att = { check: attr };
-    var index = Ex.findIndex((e) => e.procedimento === element.procedimento);
-    if (index === -1) {
-    } else {
-      setEx([
-        ...Ex.slice(0, index),
-        Object.assign({}, Ex[index], att),
-        ...Ex.slice(index + 1),
-      ]);
-    }
-  };
+  // const updateState = (element, attr) => {
+  //   const att = { check: attr };
+  //   var index = Ex.findIndex((e) => e.procedimento === element.procedimento);
+  //   if (index === -1) {
+  //   } else {
+  //     setEx([
+  //       ...Ex.slice(0, index),
+  //       Object.assign({}, Ex[index], att),
+  //       ...Ex.slice(index + 1),
+  //     ]);
+  //   }
+  // };
+  // change exame
   const handleChange = (e) => {
-    const a = examesSelecionado.filter((exame) =>
+    examesSelecionado.filter((exame) =>
       exame.procedimento
         .toLowerCase()
         .includes(e.target.value.toLocaleLowerCase())
@@ -62,6 +54,8 @@ export default function Exames() {
 
     setSearchItem(e.target.value);
   };
+
+  // Apagar exame
   const deleteExame = (e) => {
     const newArray = examesSelecionado.filter(
       (exame) => exame.procedimento !== e.procedimento
@@ -69,10 +63,14 @@ export default function Exames() {
     setEx([...Ex, e]);
     setSelecaoExames(newArray);
   };
+
+  // Cancelar selecao de exame
   const cancelar = () => {
     selPlano(false);
     setExame(false);
   };
+
+  // filter exame
   const result = !searchItem
     ? Ex
     : Ex.filter((exame) =>
@@ -80,9 +78,9 @@ export default function Exames() {
           .toLowerCase()
           .includes(searchItem.toLocaleLowerCase())
       );
+
   getExame(examesSelecionado);
   useEffect(() => {
-    // setEx(exames);
     fetchExames();
   }, [exames]); //eslint-disable-line
   return (

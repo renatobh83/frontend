@@ -1,33 +1,31 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 
 import "./styles.css";
-import { storeExame, getSetorId } from "../../../api/serviceAPI";
-export default function ProcedimentosForm({ set, setor }) {
-  const [nome, setNome] = useState("");
-  const [setorNome, setSetorNome] = useState("");
+import { useContextProce } from "../../Procedimentos/index";
+import { storeExame } from "../../../api/serviceAPI";
+export default function ProcedimentosForm() {
+  const { setNew, setorSelect } = useContextProce();
 
-  const getDescSetor = useCallback(async (e) => {
-    await getSetorId(e).then((res) => setSetorNome(res.data.message));
-  });
+  const [nome, setNome] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       procedimento: nome,
-      setorId: setor,
+      setorId: setorSelect._id,
+      tempo: setorSelect.time,
     };
+
     await storeExame(data).then((res) => {
       alert("Exame cadastrado");
       setNome("");
     });
   };
-  useEffect(() => {
-    getDescSetor(setor);
-  }, []);
+
   return (
     <div className="procedimentoForm">
       <form onSubmit={handleSubmit}>
-        <h1>Setor: {setorNome.nome}</h1>
+        <h1>Setor: {setorSelect.nome}</h1>
         <div className="floating-label-input">
           <input
             type="text"
@@ -41,7 +39,7 @@ export default function ProcedimentosForm({ set, setor }) {
         </div>
         <div className="btnGroups">
           <button type="submit">Gravar</button>
-          <button type="submit" className="danger" onClick={() => set()}>
+          <button type="submit" className="danger" onClick={() => setNew()}>
             Cancelar
           </button>
         </div>

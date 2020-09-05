@@ -1,0 +1,23 @@
+/* .pagination {
+  width: 90vw;
+  max-width: 700px;
+  display: inline-block;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+}
+.page-item {
+  padding: 0 3rem;
+}
+.page-item button {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+}
+.page-item button.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.page-item button:hover:not(.active) {
+  background-color: #ddd;
+} */

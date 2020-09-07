@@ -1,9 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Agendamento from "../Forms/Agendamento/index";
 
 import "./styles.css";
-export default function AgendaDash() {
+import { useAuth0 } from "../../Auth0/context";
+import { agendamentosPaciente } from "../../api/serviceAPI";
+
+import { differenceInDays, differenceInHours } from "date-fns";
+
+export default function AgendaDash({ pacienteid }) {
+  const { state } = useAuth0();
   const [newAgendamento, setAgendamento] = useState(false);
+  const [pacienteAgendamentos, setpacienteAgendamentos] = useState([]);
+  const pId = state.responseAPI.message.paciente
+    ? state.responseAPI.message._id
+    : pacienteid;
+
+  const handleAgendamentos = useCallback(async () => {
+    const today = new Date();
+    await agendamentosPaciente(pId).then((res) => {
+      res.data.message[0].dados.forEach((a) => {
+        const diff = differenceInDays(today, new Date(a.hora.time));
+        const difHora = differenceInHours(today, new Date(a.hora.time));
+        const difMinu = differenceInHours(today, new Date(a.hora.time));
+        console.log(difHora, difMinu);
+        if (diff <= 0) {
+          if (difHora <= -0 && difMinu < 0) {
+            setpacienteAgendamentos((oldValues) => [...oldValues, a]);
+          }
+        }
+      });
+    });
+  }, []); //eslint-disable-line
+  useEffect(() => {
+    console.log(newAgendamento);
+    handleAgendamentos();
+  }, []); //eslint-disable-line
   return (
     <>
       {!newAgendamento && (
@@ -16,27 +47,20 @@ export default function AgendaDash() {
               Novo agendamento
             </button>
           </header>
-          <strong>Agendamentos </strong>
+          <strong>Agendamentos futuros</strong>
           <div className="content">
-            <div className="agenContent">
-              Data: 10/10/2020 <p>Exame: Us mama</p> Medico: X
-            </div>
-            <div className="agenContent">
-              Data: 10/10/2020 <p>Exame: Us mama</p> Medico: X
-            </div>
-            <div className="agenContent">
-              Data: 10/10/2020 <p>Exame: Us mama</p> Medico: X
-            </div>
-            <div className="agenContent">
-              Data: 10/10/2020 <p>Exame: Us mama</p> Medico: X
-            </div>
-            <div className="agenContent">
-              Data: 10/10/2020 <p>Exame: Us mama</p> Medico: X
-            </div>
+            {pacienteAgendamentos.map((agenda) => (
+              <div className="agenContent">
+                Data: {agenda.hora.data} <p>Hora: {agenda.hora.horaInicio}</p>
+                Exame: {agenda.exame.procedimento}
+              </div>
+            ))}
           </div>
         </div>
       )}
-      {newAgendamento && <Agendamento />}
+      {newAgendamento && (
+        <Agendamento pacienteId={pId} cancel={setAgendamento} />
+      )}
     </>
   );
 }

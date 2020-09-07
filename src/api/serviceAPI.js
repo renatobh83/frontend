@@ -42,6 +42,14 @@ export const createOrUpdate = (data) => {
   return response;
 };
 
+// Pacientes
+
+export const getPacientes = () => {
+  headerDefaults();
+  const response = instance.get("/pacientes");
+  return response;
+};
+
 // Router API group
 
 export const getGrupos = async () => {
@@ -203,5 +211,17 @@ export const inativarHorarioPassado = async (data) => {
 export const updateHorarioSelecionado = async (data) => {
   headerDefaults();
   const response = instance.put("/horarios/", data);
+  return response;
+};
+// dados agendamento
+export const storeAgendamento = async (data) => {
+  headerDefaults();
+  const response = instance.post("/da/", data);
+  return response;
+};
+
+export const agendamentosPaciente = async (id) => {
+  headerDefaults();
+  const response = instance.get(`/da/${id}`);
   return response;
 };

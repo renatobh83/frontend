@@ -8,8 +8,9 @@ import { useEffect } from "react";
 export const AgendamentoContext = createContext();
 export const useAgend = () => useContext(AgendamentoContext);
 
-function Agendamento() {
+function Agendamento({ pacienteId, cancel }) {
   const [planoSelect, setPlanoSelect] = useState(false);
+
   const [exameisSelect, setExameSelect] = useState(false);
   const [planoFromchild, setPlano] = useState({});
   const [examesFromChild, setExames] = useState([]);
@@ -45,6 +46,8 @@ function Agendamento() {
     planoFromchild,
     examesFromChild,
     exameTeste,
+    pacienteId,
+    cancel,
   };
   return (
     <AgendamentoContext.Provider value={configContext}>

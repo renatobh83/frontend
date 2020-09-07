@@ -88,17 +88,27 @@
 .regular-radio:checked + label {
   color: #99a1a7;
 }
-
-.planosContainer .btnNext {
+.planosContainer .groupButtonsAg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 4rem; */
+}
+.planosContainer .groupButtonsAg button {
   border: 0;
+  width: 100%;
   font: 700 2.4rem Archivo;
   border-radius: 0.8rem;
   padding: 2rem;
   background: var(--rich-blue);
   color: #fff;
   cursor: pointer;
+  margin: 0 4rem;
 }
-.planosContainer .btnNext:hover {
+.planosContainer .groupButtonsAg .danger {
+  background: var(--rich-red);
+}
+.planosContainer button:hover {
   filter: brightness(90%);
 }
 @media (min-width: 700px) {

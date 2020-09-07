@@ -4,11 +4,50 @@ import { FiSearch } from "react-icons/fi";
 import "./styles.css";
 import Main from "../Main/";
 import AgendaDash from "../AgendaDash";
+import { getPacientes } from "../../api/serviceAPI";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 export default function Pacientes() {
-  const [paciente, SetPaciente] = useState(["Nome"]);
+  const [pacientes, setPacientes] = useState([]);
   const [search, setSearch] = useState(true);
   const [isNew, setNew] = useState(false);
+  const [searchItem, setSearchItem] = useState(null);
+
+  const [pacienteSelect, setPacienteSelect] = useState(null);
+
+  const handlePacientes = useCallback(async () => {
+    const response = await getPacientes();
+    setPacientes(response.data.message);
+  }, []);
+
+  useEffect(() => {}, [handlePacientes]);
+
+  const selectPaciente = (e) => {
+    console.log(e);
+    setPacienteSelect(e);
+  };
+  const confirmarPaciente = () => {
+    if (pacienteSelect !== null) {
+      setSearch(!search);
+    } else {
+      alert("Selecione um paciente");
+    }
+  };
+  const cancelar = () => {
+    setSearch(!search);
+    setPacienteSelect(null);
+  };
+  const handleChange = (e) => {
+    handlePacientes();
+    setSearchItem(e.target.value);
+  };
+  const filter = !searchItem
+    ? pacientes
+    : pacientes.filter((paciente) =>
+        paciente.nome.toLowerCase().includes(searchItem.toLocaleLowerCase())
+      );
+
   return (
     <div className="agendamentoContainer">
       {search && !isNew && (
@@ -16,35 +55,37 @@ export default function Pacientes() {
           <div className="pesquisaPaciente">
             <div className="pesquisa">
               <h3>Paciente</h3>
-              <form>
-                <input type="search" name="paciente" id="" />
-                <button className="btn">
+              <div className="search">
+                <input
+                  type="search"
+                  name="paciente"
+                  value={searchItem}
+                  onChange={handleChange}
+                />
+                <div className="icon">
                   <FiSearch size={30} />
-                </button>
-              </form>
+                </div>
+              </div>
             </div>
           </div>
-          {paciente.length >= 1 && (
+          {filter.length >= 1 && (
             <div className="listPatients">
               <ul>
-                <li>
+                {filter.map((paciente) => (
                   <div className="patientContent">
-                    <label htmlFor="paci2">Nome paciente</label>
-                    <input type="radio" name="paciente" id="paci2" />
+                    <li key={paciente._id}>
+                      <input
+                        type="radio"
+                        name="paciente"
+                        id={paciente._id}
+                        className="regular-radio"
+                        value={paciente._id}
+                        onChange={(e) => selectPaciente(e.target.value)}
+                      />
+                      <label htmlFor={paciente._id}>{paciente.nome}</label>
+                    </li>
                   </div>
-                </li>
-                <li>
-                  <div className="patientContent">
-                    <label htmlFor="paci3">Nome paciente</label>
-                    <input type="radio" name="paciente" id="paci3" />
-                  </div>
-                </li>
-                <li>
-                  <div className="patientContent">
-                    <label htmlFor="paci4">Nome paciente</label>
-                    <input type="radio" name="paciente" id="paci4" />
-                  </div>
-                </li>
+                ))}
               </ul>
             </div>
           )}
@@ -52,7 +93,7 @@ export default function Pacientes() {
             <button type="submit" onClick={() => setNew(!isNew)}>
               Novo Cadastro
             </button>
-            <button type="submit" onClick={() => setSearch(!search)}>
+            <button type="submit" onClick={() => confirmarPaciente()}>
               Confirmar Paciente
             </button>
           </div>
@@ -63,12 +104,12 @@ export default function Pacientes() {
       {!search && (
         <div className="agendamentosPaciente">
           <div className="btnBack">
-            <button type="submit" onClick={() => setSearch(!search)}>
+            <button type="submit" onClick={() => cancelar()}>
               Voltar
             </button>
           </div>
 
-          <AgendaDash />
+          <AgendaDash pacienteid={pacienteSelect} />
         </div>
       )}
     </div>

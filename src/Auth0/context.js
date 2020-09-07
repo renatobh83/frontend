@@ -85,10 +85,10 @@ function Auth0Provider({
         init();
       })
       .catch((err) => alert(err.message));
-  }, []);
+  }, []); // eslint-disable-line
   useEffect(() => {
     checkServer();
-  }, []); // elint-disable-line
+  }, []); // eslint-disable-line
 
   const configObject = {
     userLogin,

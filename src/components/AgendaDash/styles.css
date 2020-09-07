@@ -40,8 +40,8 @@
 
 .mainContainer .content .agenContent {
   background: var(--color-primary-dark);
-  margin-bottom: 9rem;
-  height: 100rem;
+  margin-bottom: 3rem;
+  /* height: 100rem; */
   color: #fff;
   padding: 2rem;
   text-align: center;

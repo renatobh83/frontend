@@ -4,7 +4,7 @@ import "./styles.css";
 import { useAgend } from "../Agendamento";
 
 function Planos() {
-  const { selPlano, plano } = useAgend();
+  const { selPlano, plano, cancel } = useAgend();
 
   const getPlano = (e) => {
     plano(e.target.value);
@@ -47,9 +47,14 @@ function Planos() {
           </li>
         </ul>
       </div>
-      <button type="submit" className="btnNext" onClick={() => selPlano(true)}>
-        Next
-      </button>
+      <div className="groupButtonsAg">
+        <button type="submit" onClick={() => selPlano(true)}>
+          Proximo
+        </button>
+        <button type="submit" className="danger" onClick={() => cancel(false)}>
+          Cancelar
+        </button>
+      </div>
     </div>
   );
 }

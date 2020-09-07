@@ -120,6 +120,13 @@
 .horariosContainer .btnGroup .danger {
   background: red;
 }
+.concluirAgendamento {
+  font: 600 3rem Archivo;
+}
+.concluirAgendamento ul {
+  margin-top: 1rem;
+  list-style: none;
+}
 
 @media (min-width: 700px) {
   .horariosContainer {

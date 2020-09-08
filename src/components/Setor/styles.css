@@ -37,7 +37,7 @@
   font: 500 2.8rem Archivo;
 }
 .setContainer ul .content h5 {
-  font: 600 2rem Archivo;
+  font: 600 5rem Archivo;
   color: red;
 }
 .setContainer ul .content button {
@@ -70,5 +70,10 @@
   }
   .setContainer ul .content h5 {
     font-size: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .setContainer ul .content h5 {
+    font-size: 1.6rem;
   }
 }

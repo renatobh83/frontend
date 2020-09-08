@@ -1,0 +1,22 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  border: 0;
+  width: 100%;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  cursor: pointer;
+  font: 500 2.4rem Archivo;
+  color: var(--color-button-text);
+  background: var(--rich-blue);
+  transition: all 0.3s;
+  margin: 10px;
+}
+.danger {
+  background: var(--rich-red);
+}

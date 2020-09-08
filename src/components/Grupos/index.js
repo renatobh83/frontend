@@ -12,6 +12,7 @@ import PermissoesGrupo from "../../Pages/PermissoesGrupo";
 
 import logoLoading from "../../assets/loading.svg";
 import NewGroup from "../Forms/Group/index";
+import ModalConfirm from "../../Pages/ModalConfirm/index";
 export const grupoContext = createContext();
 export const useGrupoContext = () => useContext(grupoContext);
 
@@ -91,13 +92,20 @@ const ListGroup = ({ children }) => {
                 <button type="submit" onClick={() => permissaoGrupo(grupo)}>
                   Permissoes
                 </button>
-                <button
-                  id="danger"
-                  type="submit"
-                  onClick={() => apagarGrupo(grupo._id)}
+                <ModalConfirm
+                  title="Confirma"
+                  description="Tem certeza que deseja apagar?"
                 >
-                  Apagar
-                </button>
+                  {(confirm) => (
+                    <button
+                      id="danger"
+                      type="submit"
+                      onClick={confirm(() => apagarGrupo(grupo._id))}
+                    >
+                      Apagar
+                    </button>
+                  )}
+                </ModalConfirm>
               </div>
             </li>
           ))}

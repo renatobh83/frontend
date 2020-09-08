@@ -15,6 +15,7 @@ import HorariosGerar from "../../Pages/HorarioGerar";
 
 import logoLoading from "../../assets/loading.svg";
 import { getHours } from "../../Utils/getHours";
+import ModalConfirm from "../../Pages/ModalConfirm";
 
 export const HorariosContext = createContext();
 export const useHorarioConext = () => useContext(HorariosContext);
@@ -50,12 +51,13 @@ export default function Horarios() {
     [] // eslint-disable-line
   );
 
-  const apagarHorario = async (date) => {
+  const apagarHorario = (date) => {
     const data = {
       deleteHorary: [date],
       sala: sala,
     };
-    await deleteHorario(data).then(() => {
+
+    deleteHorario(data).then(() => {
       const fitler = horarios.filter((h) => h.id !== date);
       setHorarios(fitler);
     });
@@ -155,17 +157,28 @@ export default function Horarios() {
                 <ul>
                   {horarios.map((horario) => (
                     <li>
-                      <div className="interval">
-                        <span>{horario.data}</span>
-                        <span>{setDiaSemana(horario.diaSemana)}</span>
-                        <span>{horario.horaInicio}</span>
-                        <button
-                          type="submit"
-                          onClick={() => apagarHorario(horario.id)}
-                        >
-                          Apagar
-                        </button>
-                      </div>
+                      <ModalConfirm
+                        title="Confirma"
+                        description="Tem certeza que deseja apagar?"
+                      >
+                        {(confirm) => (
+                          <form
+                            onSubmit={confirm(() => apagarHorario(horario.id))}
+                          >
+                            <div className="interval">
+                              <span>{horario.data}</span>
+                              <span>{setDiaSemana(horario.diaSemana)}</span>
+                              <span>{horario.horaInicio}</span>
+                              <button
+                                type="submit"
+                                // onClick={confirm(apagarHorario(horario.id))}
+                              >
+                                Apagar
+                              </button>
+                            </div>
+                          </form>
+                        )}
+                      </ModalConfirm>
                     </li>
                   ))}
                 </ul>

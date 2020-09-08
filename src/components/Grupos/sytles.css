@@ -78,6 +78,11 @@
   .listGrupoContainer .contentList ul .listItem .groupName {
     font-size: 24px;
   }
+  .listGrupoContainer .contentList ul .listItem .inputButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .listGrupoContainer .contentList ul .listItem .inputButtons button {
     font: 400 3rem Archivo;
     height: 50px;

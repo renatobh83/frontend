@@ -73,7 +73,10 @@
   }
 }
 @media (max-width: 600px) {
+  .setContainer ul .content {
+    display: flex;
+  }
   .setContainer ul .content h5 {
-    font-size: 1.6rem;
+    font-size: 2.6rem;
   }
 }

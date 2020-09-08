@@ -35,7 +35,7 @@ export default function Grupos() {
         {!newGrupo && !showPermission && (
           <ListGroup className={!newGrupo ? "hide" : ""}>
             <button type="submit" onClick={() => setNewGrupo(true)}>
-              Add New Grupo
+              Novo Grupo
             </button>
           </ListGroup>
         )}

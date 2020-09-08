@@ -46,6 +46,8 @@
   width: 100%;
 }
 .procedimentosContainer .listProcedimento ul {
+  display: flex;
+
   background: #fff;
   list-style: none;
   height: 60vh;
@@ -65,6 +67,7 @@
   padding: 1rem;
 }
 .procedimentosContainer .listProcedimento .procedimentoContent h2 {
+  align-self: center;
   margin-left: 2rem;
 }
 .procedimentosContainer .listProcedimento .procedimentoContent .label {

@@ -9,6 +9,7 @@ import {
 import ProcedimentosForm from "../Forms/Procedimentos/index";
 
 import logoLoading from "../../assets/loading.svg";
+import ModalConfirm from "../../Pages/ModalConfirm";
 
 export const ProcedimentoContext = createContext();
 export const useContextProce = () => useContext(ProcedimentoContext);
@@ -131,12 +132,21 @@ export default function Procedimentos() {
                         value={exame._id}
                       />
                     </div>
-                    <button
-                      type="submit"
-                      onClick={() => handleDeleteProcedimento(exame._id)}
+                    <ModalConfirm
+                      title="Confirma"
+                      description="Tem certeza que deseja apagar?"
                     >
-                      Apagar
-                    </button>
+                      {(confirm) => (
+                        <button
+                          type="submit"
+                          onClick={confirm(() =>
+                            handleDeleteProcedimento(exame._id)
+                          )}
+                        >
+                          Apagar
+                        </button>
+                      )}
+                    </ModalConfirm>
                   </div>
                 </li>
               ))}

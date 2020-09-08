@@ -5,6 +5,7 @@ import SetorForm from "../Forms/SetorForm";
 
 import logoLoading from "../../assets/loading.svg";
 import "./styles.css";
+import ModalConfirm from "../../Pages/ModalConfirm/index";
 
 export default function Setor() {
   const [newSetor, setNewSetor] = useState(false);
@@ -76,13 +77,20 @@ const ListItem = ({ setorEdit }) => {
             <button type="submit" onClick={() => setorEdit(setor)}>
               Editar
             </button>
-            <button
-              type="submit"
-              className="danger"
-              onClick={() => deleteSetor(setor._id)}
+            <ModalConfirm
+              title="Confirma"
+              description="Tem certeza que deseja apagar?"
             >
-              Apagar
-            </button>
+              {(confirm) => (
+                <button
+                  type="submit"
+                  className="danger"
+                  onClick={confirm(() => deleteSetor(setor._id))}
+                >
+                  Apagar
+                </button>
+              )}
+            </ModalConfirm>
           </div>
         </li>
       ))}

@@ -12,7 +12,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 18px;
+  /* padding: 18px; */
 }
 .listGrupoContainer .newGroup button {
   border: 0;
@@ -86,5 +86,11 @@
   .listGrupoContainer .contentList ul .listItem .inputButtons button {
     font: 400 3rem Archivo;
     height: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .listGrupoContainer .contentList ul .listItem .inputButtons {
+    display: flex;
   }
 }

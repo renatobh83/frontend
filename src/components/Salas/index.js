@@ -5,6 +5,7 @@ import FormSalas from "../Forms/Salas";
 import { getSetores, getSalas, activeDeactive } from "../../api/serviceAPI";
 
 import logoLoading from "../../assets/loading.svg";
+import ModalConfirm from "../../Pages/ModalConfirm";
 export const SalaContext = createContext();
 export const useSalaContext = () => useContext(SalaContext);
 
@@ -129,15 +130,22 @@ export default function Salas() {
                     <li key={sala._id}>
                       <div className="salaContent">
                         <header>{sala.nome}</header>
-                        <div className="inputButtongrupo">
-                          <button
-                            type="submit"
-                            className="danger"
-                            onClick={() => deleteRoom(sala._id)}
-                          >
-                            Apagar
-                          </button>
-                        </div>
+                        <ModalConfirm
+                          title="Confirma"
+                          description="Tem certeza que deseja apagar?"
+                        >
+                          {(confirm) => (
+                            <div className="inputButtongrupo">
+                              <button
+                                type="submit"
+                                className="danger"
+                                onClick={confirm(() => deleteRoom(sala._id))}
+                              >
+                                Apagar
+                              </button>
+                            </div>
+                          )}
+                        </ModalConfirm>
                       </div>
                     </li>
                   ))}

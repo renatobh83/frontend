@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FiSearch } from "react-icons/fi";
 
 import "./styles.css";
-import Main from "../Main/";
+
 import AgendaDash from "../AgendaDash";
 import { getPacientes } from "../../api/serviceAPI";
-import { useEffect } from "react";
-import { useCallback } from "react";
+
+import NewPaciente from "../Forms/NewPaciente";
 
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [search, setSearch] = useState(true);
   const [isNew, setNew] = useState(false);
   const [searchItem, setSearchItem] = useState(null);
+  const [pacienteNome, setPacienteNome] = useState(null);
 
   const [pacienteSelect, setPacienteSelect] = useState(null);
 
@@ -24,8 +25,18 @@ export default function Pacientes() {
   useEffect(() => {}, [handlePacientes]);
 
   const selectPaciente = (e) => {
-    console.log(e);
     setPacienteSelect(e);
+    nomePaciente(e);
+  };
+  const nomePaciente = (e) => {
+    const paciente = pacientes.find((p) => p._id === e);
+
+    setPacienteNome(paciente.nome);
+  };
+  const setFormNew = (e) => {
+    setPacienteSelect(e._id);
+    setPacienteNome(e.nome);
+    setSearch(!search);
   };
   const confirmarPaciente = () => {
     if (pacienteSelect !== null) {
@@ -60,6 +71,7 @@ export default function Pacientes() {
                   type="search"
                   name="paciente"
                   value={searchItem}
+                  placeholder="Nome do paciente"
                   onChange={handleChange}
                 />
                 <div className="icon">
@@ -82,7 +94,11 @@ export default function Pacientes() {
                         value={paciente._id}
                         onChange={(e) => selectPaciente(e.target.value)}
                       />
-                      <label htmlFor={paciente._id}>{paciente.nome}</label>
+
+                      <label htmlFor={paciente._id}>
+                        {paciente.nome} - {paciente.dtNascimento} -
+                        {paciente.email}
+                      </label>
                     </li>
                   </div>
                 ))}
@@ -100,13 +116,14 @@ export default function Pacientes() {
         </>
       )}
 
-      {isNew && <div>Form</div>}
+      {isNew && <NewPaciente close={setNew} paciente={setFormNew} />}
       {!search && (
         <div className="agendamentosPaciente">
           <div className="btnBack">
             <button type="submit" onClick={() => cancelar()}>
               Voltar
             </button>
+            <strong>Paciente: {pacienteNome}</strong>
           </div>
 
           <AgendaDash pacienteid={pacienteSelect} />

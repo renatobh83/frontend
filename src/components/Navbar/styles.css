@@ -188,6 +188,23 @@ ul li:focus-within > ul,
     display: flex;
     align-items: center;
     cursor: pointer;
+    background: #fff;
+  }
+  .dropContent button {
+    color: black;
+    width: 100%;
+    border: 0;
+    padding: 12px 16px;
+    font: 500 2rem Archivo;
+    background: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dropContent button:hover {
+    filter: brightness(90%);
   }
 
   .nav-item {

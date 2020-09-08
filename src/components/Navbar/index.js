@@ -99,10 +99,15 @@ function Navbar(props) {
               </Link>
             </li>
             <li className="nav-item " id="profile">
-              <a href="/main">
+              <Link
+                className="link"
+                tag={RouterNavLink}
+                onClick={() => setIsOpen(!isOpen)}
+                to="/profile"
+              >
                 <FiUser className="mr-10" />
                 Profile
-              </a>
+              </Link>
             </li>
 
             <div className="btnlogout">
@@ -116,14 +121,19 @@ function Navbar(props) {
                 alt=""
               />
               <div className="dropContent">
-                <a href="#">
+                <Link
+                  className="link"
+                  tag={RouterNavLink}
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/profile"
+                >
                   <FiUser className="mr-10" />
                   Profile
-                </a>
-                <a onClick={logout}>
+                </Link>
+                <button onClick={logout}>
                   <FiLogOut className="mr-10" />
                   <span>Logout</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>

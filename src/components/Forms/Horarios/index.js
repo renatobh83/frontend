@@ -49,10 +49,11 @@ export default function Horarios() {
   const handleAgendar = async (e) => {
     if (isConcluir) {
       dadosAgendamento.dados.shift(0);
-      await storeAgendamento(dadosAgendamento).then(() => cancel(false));
+      await storeAgendamento(dadosAgendamento).then(() => cancel());
     } else {
       const data = {
         horarios: [horarioSelecionado],
+        ocupado: true,
       };
       const findHora = horariosDisponivel.find(
         (h) => h.id === horarioSelecionado

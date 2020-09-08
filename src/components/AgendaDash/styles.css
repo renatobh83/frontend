@@ -48,6 +48,16 @@
   box-shadow: 9px 10px 31px 0px rgba(0, 0, 0, 0.89);
 }
 
+.mainContainer .content .agenContent button {
+  border: 0;
+  padding: 7px 30px;
+  border-radius: 0.9rem;
+  cursor: pointer;
+  background: var(--rich-red);
+  color: #fff;
+  font: 500 2rem Archivo;
+}
+
 @media (min-width: 700px) {
   .mainContainer {
     max-width: 100%;
@@ -71,7 +81,7 @@
   }
   .mainContainer .content .agenContent {
     height: 200px;
-    width: auto;
+    width: 402px;
     margin-bottom: 10px;
   }
 }

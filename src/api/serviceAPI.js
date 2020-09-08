@@ -225,3 +225,8 @@ export const agendamentosPaciente = async (id) => {
   const response = instance.get(`/da/${id}`);
   return response;
 };
+export const cancelaAgendamentoPaciente = async (id) => {
+  headerDefaults();
+  const response = instance.delete(`/da/${id}`);
+  return response;
+};

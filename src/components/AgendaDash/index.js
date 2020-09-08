@@ -3,9 +3,13 @@ import Agendamento from "../Forms/Agendamento/index";
 
 import "./styles.css";
 import { useAuth0 } from "../../Auth0/context";
-import { agendamentosPaciente } from "../../api/serviceAPI";
+import {
+  agendamentosPaciente,
+  cancelaAgendamentoPaciente,
+  updateHorarioSelecionado,
+} from "../../api/serviceAPI";
 
-import { differenceInDays, differenceInHours } from "date-fns";
+import { differenceInDays, differenceInHours, addHours } from "date-fns";
 
 export default function AgendaDash({ pacienteid }) {
   const { state } = useAuth0();
@@ -16,25 +20,42 @@ export default function AgendaDash({ pacienteid }) {
     : pacienteid;
 
   const handleAgendamentos = useCallback(async () => {
+    setpacienteAgendamentos([]);
     const today = new Date();
     await agendamentosPaciente(pId).then((res) => {
-      res.data.message[0].dados.forEach((a) => {
-        const diff = differenceInDays(today, new Date(a.hora.time));
-        const difHora = differenceInHours(today, new Date(a.hora.time));
-        const difMinu = differenceInHours(today, new Date(a.hora.time));
-        console.log(difHora, difMinu);
-        if (diff <= 0) {
-          if (difHora <= -0 && difMinu < 0) {
-            setpacienteAgendamentos((oldValues) => [...oldValues, a]);
+      if (res.data.message.length >= 1) {
+        res.data.message[0].dados.forEach((a) => {
+          const horaAgendamento = addHours(new Date(a.hora.time), 3);
+          const diff = differenceInDays(today, horaAgendamento);
+          const difHora = differenceInHours(today, horaAgendamento);
+          const difMinu = differenceInHours(today, horaAgendamento);
+          if (diff <= 0) {
+            if (difHora <= -0 && difMinu <= -0) {
+              setpacienteAgendamentos((oldValues) => [...oldValues, a]);
+            }
           }
-        }
-      });
+        });
+      }
     });
   }, []); //eslint-disable-line
+
+  const closeAgendamento = () => {
+    setAgendamento(false);
+    // handleAgendamentos();
+  };
+  const cancelaAgendamento = async (values) => {
+    const data = {
+      horarios: [values.id],
+      ocupado: false,
+    };
+    const filter = pacienteAgendamentos.filter((a) => a.hora.id !== values.id);
+    setpacienteAgendamentos(filter);
+    await cancelaAgendamentoPaciente(values.id);
+    await updateHorarioSelecionado(data);
+  };
   useEffect(() => {
-    console.log(newAgendamento);
     handleAgendamentos();
-  }, []); //eslint-disable-line
+  }, [newAgendamento]); //eslint-disable-line
   return (
     <>
       {!newAgendamento && (
@@ -50,16 +71,26 @@ export default function AgendaDash({ pacienteid }) {
           <strong>Agendamentos futuros</strong>
           <div className="content">
             {pacienteAgendamentos.map((agenda) => (
-              <div className="agenContent">
-                Data: {agenda.hora.data} <p>Hora: {agenda.hora.horaInicio}</p>
-                Exame: {agenda.exame.procedimento}
-              </div>
+              <>
+                <div className="agenContent">
+                  Data: {agenda.hora.data} <p>Hora: {agenda.hora.horaInicio}</p>
+                  Exame: {agenda.exame.procedimento}
+                  <p>
+                    <button
+                      type="submit"
+                      onClick={() => cancelaAgendamento(agenda.hora)}
+                    >
+                      Cacenlar
+                    </button>
+                  </p>
+                </div>
+              </>
             ))}
           </div>
         </div>
       )}
       {newAgendamento && (
-        <Agendamento pacienteId={pId} cancel={setAgendamento} />
+        <Agendamento pacienteId={pId} cancel={closeAgendamento} />
       )}
     </>
   );

@@ -47,7 +47,7 @@
 .agendamentoContainer .listPatients ul {
   background: #fff;
   list-style: none;
-  font: 600 2.4rem Poppins;
+  font: 600 2.2rem Poppins;
   height: 45vh;
   overflow: hidden;
   overflow-y: scroll;
@@ -87,9 +87,13 @@
 
 .agendamentoContainer .agendamentosPaciente .btnBack {
   display: flex;
-  flex-direction: column;
   margin: 0 auto;
   width: 100%;
+  align-items: center;
+}
+.agendamentoContainer .agendamentosPaciente .btnBack strong {
+  margin-left: 3rem;
+  font: 600 2rem Archivo;
 }
 .agendamentoContainer .agendamentosPaciente .btnBack button {
   width: 45%;
@@ -109,11 +113,14 @@
     margin-top: 20px;
   }
   .agendamentoContainer .pesquisaPaciente {
-    /* margin-top: 10px;
-    margin-left: 15px; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .agendamentoContainer .pesquisaPaciente .pesquisa {
     display: flex;
+    width: 90%;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -141,11 +148,13 @@
     margin-top: 10px;
   }
   .agendamentoContainer .agendamentosPaciente .btnBack {
-    align-items: start;
     margin-left: 15px;
-    width: 25%;
+    width: 100%;
+  }
+  .agendamentoContainer .agendamentosPaciente .btnBack strong {
+    font-size: 20px;
   }
   .agendamentoContainer .agendamentosPaciente .btnBack button {
-    width: 41%;
+    width: 16%;
   }
 }

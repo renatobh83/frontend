@@ -48,16 +48,16 @@ const ListItem = ({ setorEdit }) => {
     const response = await getSetores();
     setSetores(response.data.message);
     setLoading(false);
-  }, []);
+  }, []); // eslint-disable-line
 
   const deleteSetor = useCallback(async (setorId) => {
     await setorDelete(setorId).then(() => {
       fetchSetores();
     });
-  }, []);
+  }, []); // eslint-disable-line
   useEffect(() => {
     fetchSetores();
-  }, []);
+  }, []); // eslint-disable-line
   if (loading) {
     return (
       <div className="loading">

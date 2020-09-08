@@ -15,15 +15,7 @@ export default function HorariosGerar() {
   const [horaFim, setHoraFim] = useState("");
   const [dia, setDia] = useState([]);
   const [intervalo, setIntervalo] = useState("");
-  const [dias, setDias] = useState([
-    "Dom",
-    "Seg",
-    "Ter",
-    "Qua",
-    "Qui",
-    "Sex",
-    "Sab",
-  ]);
+  const [dias] = useState(["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]);
   const selectSalaAndSetor = (obj) => {
     const { setorId } = salas.find((sala) => sala._id === obj);
 

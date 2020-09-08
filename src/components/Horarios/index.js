@@ -25,7 +25,7 @@ export default function Horarios() {
   const [horarios, setHorarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newHorarios, setNewHorarios] = useState(false);
-  const [m, setM] = useState([]);
+  // const [m, setM] = useState([]);
 
   const exitCreatedHours = () => {
     setNewHorarios(!newHorarios);

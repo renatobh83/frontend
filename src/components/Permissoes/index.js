@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import "./styles.css";
 import { storePermissao, getPermissoes } from "../../api/serviceAPI";
-import { grupoContext } from "../Grupos/index";
+// import { grupoContext } from "../Grupos/index";
 export default function Permissoes() {
   const [permissoes, setPermissoes] = useState([]);
   const [permissao, setPermissao] = useState("");
@@ -23,7 +23,7 @@ export default function Permissoes() {
   }, []);
   useEffect(() => {
     fetchPermissions();
-  }, []);
+  }, []); // eslint-disable-line
   return (
     <div className="permissaoContainer">
       <form className="newPermission" onSubmit={handleNewPermission}>

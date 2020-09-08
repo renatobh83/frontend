@@ -46,7 +46,7 @@ export default function Grupos() {
 }
 
 const ListGroup = ({ children }) => {
-  const { grupoNew, permissionShow, setGrupoSelected } = useGrupoContext();
+  const { permissionShow, setGrupoSelected } = useGrupoContext();
   const [grupos, setGrupos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,18 +60,18 @@ const ListGroup = ({ children }) => {
     async (id) => {
       await deleteGrupo(id).then(() => fetchGrupos());
     },
-    [grupos]
+    [grupos] // eslint-disable-line
   );
 
   const fetchGrupos = useCallback(async () => {
     const response = await getGrupos();
     setGrupos(response.data.message);
     setLoading(false);
-  }, [grupos]);
+  }, [grupos]); // eslint-disable-line
 
   useEffect(() => {
     fetchGrupos();
-  }, []);
+  }, []); // eslint-disable-line
   if (loading) {
     return (
       <div className="loading">
@@ -86,7 +86,7 @@ const ListGroup = ({ children }) => {
         <ul>
           {grupos.map((grupo) => (
             <li className="listItem" key={grupo._id}>
-              <div className="grupName">{grupo.nome}</div>
+              <div className="groupName">{grupo.nome}</div>
               <div className="inputButtons">
                 <button type="submit" onClick={() => permissaoGrupo(grupo)}>
                   Permissoes

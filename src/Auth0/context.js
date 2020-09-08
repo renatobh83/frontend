@@ -26,10 +26,10 @@ function Auth0Provider({
     error: null,
   });
   const [auth0Client, setAuth0] = useState();
-  const [userLogin, setUserLogin] = useState(" ");
+  // const [userLogin, setUserLogin] = useState(" ");
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [readUser, setReadUser] = useState(false);
+  // const [readUser, setReadUser] = useState(false);
 
   //Init Auth0
   const init = async () => {
@@ -91,7 +91,7 @@ function Auth0Provider({
   }, []); // eslint-disable-line
 
   const configObject = {
-    userLogin,
+    // userLogin,
     isAuthenticated,
     isLoading,
     state,

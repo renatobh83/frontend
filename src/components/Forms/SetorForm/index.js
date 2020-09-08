@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./styles.css";
 import { storeSetor, updateSetor } from "../../../api/serviceAPI";
@@ -32,7 +32,7 @@ export default function SetorForm({ set, value }) {
   };
   useEffect(() => {
     handleEditSetor(value);
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <div className="setorFormContainer">

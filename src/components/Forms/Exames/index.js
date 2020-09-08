@@ -5,10 +5,10 @@ import { useAgend } from "../Agendamento";
 import { getExamesAgendamento } from "../../../api/serviceAPI";
 
 export default function Exames() {
-  const { setExame, planoFromchild, exame, selPlano } = useAgend();
+  const { setExame, exame, selPlano } = useAgend();
 
   const [searchItem, setSearchItem] = useState(null);
-  const [exames, setExames] = useState([]);
+  const [exames] = useState([]);
   const [examesSelecionado, setSelecaoExames] = useState([]);
   const [Ex, setEx] = useState([]);
 

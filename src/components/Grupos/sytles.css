@@ -42,6 +42,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.listGrupoContainer .contentList ul .listItem .groupName {
+  font: 600 2.4rem Archivo;
+}
 .listGrupoContainer .contentList ul .listItem .inputButtons button {
   border: 0;
   cursor: pointer;

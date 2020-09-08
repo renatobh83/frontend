@@ -70,9 +70,10 @@
   align-items: center;
   grid-template-columns: 1fr 1fr 1fr 2fr;
   margin: 3rem 0;
+  gap: 10px;
 }
 .horariosContainerComponent .gradeHorarios .interval button {
-  width: 40%;
+  width: 100%;
   border: 0;
   border-radius: 0.8rem;
   font: 500 3rem Archivo;

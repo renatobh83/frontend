@@ -28,13 +28,16 @@
 }
 .setContainer ul .content {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr 1fr;
   grid-template-rows: 40px;
   align-items: center;
   gap: 20px;
   width: 100%;
 }
+.setContainer ul .content strong {
+  font: 500 2.8rem Archivo;
+}
 .setContainer ul .content h5 {
+  font: 600 2rem Archivo;
   color: red;
 }
 .setContainer ul .content button {
@@ -60,4 +63,12 @@
   bottom: 0;
   top: 0;
   background: rgba(0, 0, 0, 0.8);
+}
+@media (min-width: 700px) {
+  .setContainer ul .content {
+    grid-template-columns: 2fr 2fr 1fr 1fr;
+  }
+  .setContainer ul .content h5 {
+    font-size: 16px;
+  }
 }

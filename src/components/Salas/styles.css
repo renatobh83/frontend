@@ -71,6 +71,11 @@
   justify-content: flex-end;
   width: 60%;
 }
+.salasContainer .listOfSalas ul li .salaContent .inputButtongrupo button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .salasContainer .listOfSalas ul li .salaContent button + button {
   margin-left: 1rem;
 }

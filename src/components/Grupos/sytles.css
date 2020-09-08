@@ -37,10 +37,8 @@
   flex-direction: column;
 }
 .listGrupoContainer .contentList ul .listItem {
+  margin-top: 1rem;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .listGrupoContainer .contentList ul .listItem .groupName {
   font: 600 2.4rem Archivo;
@@ -71,6 +69,14 @@
   }
   .listGrupoContainer .newGroup button {
     font: 400 3rem Archivo;
+  }
+  .listGrupoContainer .contentList ul .listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .listGrupoContainer .contentList ul .listItem .groupName {
+    font-size: 24px;
   }
   .listGrupoContainer .contentList ul .listItem .inputButtons button {
     font: 400 3rem Archivo;

@@ -43,7 +43,7 @@
 }
 .userContainer .userForm .userInputGroup select {
   margin-top: 3rem;
-  font: 500 3.3rem Archivo;
+  font: 500 2rem Archivo;
 }
 
 .userInputGroup button {
@@ -76,5 +76,8 @@
   }
   .userInputGroup button {
     font-size: 24px;
+  }
+  .userContainer .userForm .userInputGroup select {
+    font-size: 3rem;
   }
 }

@@ -86,6 +86,7 @@ input {
 .pgContainer .grupButtons {
   width: 100%;
   margin-top: 4rem;
+  display: flex;
 }
 
 .pgContainer .grupButtons button {

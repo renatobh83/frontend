@@ -4,6 +4,7 @@ import { useGrupoContext } from "../../components/Grupos";
 import "./styles.css";
 import { getPermissoes, setPermissoes } from "../../api/serviceAPI";
 import logoLoading from "../../assets/loading.svg";
+
 export default function PermissoesGrupo() {
   const { permissionShow, grupoSelect } = useGrupoContext();
 

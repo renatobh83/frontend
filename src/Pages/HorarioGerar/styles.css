@@ -29,7 +29,7 @@
   list-style: none;
   justify-content: center;
   display: flex;
-  font: 500 2rem Archivo;
+  font: 500 1.2rem Archivo;
 }
 .gerarHorariosContainer .selectForm .diasForm ul li {
   display: flex;
@@ -56,7 +56,7 @@
   padding: 0.9rem;
   border: 0;
   border-radius: 0.9rem;
-  font: 400 2.9rem Poppins;
+  font: 400 1.9rem Poppins;
 }
 
 .gerarHorariosContainer .selectForm .intervalo.data input {

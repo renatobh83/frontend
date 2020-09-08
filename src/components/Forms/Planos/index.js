@@ -12,6 +12,7 @@ function Planos() {
 
   return (
     <div className="planosContainer">
+      <h1>Plano</h1>
       <div className="buscaPlano">
         <input type="search" id="plano" placeholder="Procura" />
         <div className="icon">

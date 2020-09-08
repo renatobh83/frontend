@@ -34,7 +34,8 @@ export default function Procedimentos() {
     handleProcedimento();
   };
   const setNewWithSetor = () => {
-    if (setorSelect === null) return alert("Favor selecionar um setor");
+    if (setorSelect === null || setorSelect === undefined)
+      return alert("Favor selecionar um setor");
     setNewExame(true);
   };
   // Filter Setor Change

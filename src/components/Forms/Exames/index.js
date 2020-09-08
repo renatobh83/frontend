@@ -85,6 +85,7 @@ export default function Exames() {
   }, [exames]); //eslint-disable-line
   return (
     <div className="examesContainer">
+      <h1>Exame</h1>
       <div className="buscarExame">
         <input
           type="search"

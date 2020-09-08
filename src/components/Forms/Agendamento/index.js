@@ -52,7 +52,6 @@ function Agendamento({ pacienteId, cancel }) {
   return (
     <AgendamentoContext.Provider value={configContext}>
       <div className="agendamentoContainer">
-        <h1>Novo Agendamento</h1>
         <form className="agendamentoForm" onSubmit={(e) => submit(e)}>
           {!planoSelect && <Planos />}
           {!exameisSelect && planoSelect && <Exames />}

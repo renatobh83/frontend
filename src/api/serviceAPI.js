@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../Utils/inLogin";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
 const headerDefaults = () => {
   instance.defaults.headers.post["Content-Type"] =

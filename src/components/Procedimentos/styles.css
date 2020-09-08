@@ -46,8 +46,6 @@
   width: 100%;
 }
 .procedimentosContainer .listProcedimento ul {
-  display: flex;
-
   background: #fff;
   list-style: none;
   height: 60vh;
@@ -80,7 +78,7 @@
   margin: 0 2rem;
 }
 .procedimentosContainer .listProcedimento .procedimentoContent button {
-  width: 100%;
+  width: 90%;
   border: 0;
   border-radius: 0.8rem;
   font: 500 3rem Archivo;

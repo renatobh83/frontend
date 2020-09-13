@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./styles.css";
 import { storeSetor, updateSetor } from "../../../api/serviceAPI";
+import InputMask from "react-input-mask";
 export default function SetorForm({ set, value }) {
   const [nome, setNome] = useState("");
   const [time, setTime] = useState("");
@@ -51,12 +52,10 @@ export default function SetorForm({ set, value }) {
           </div>
 
           <div className="floating-label-input">
-            <input
-              type="time"
+            <InputMask
+              mask="99:99"
               id="time"
               required
-              min="00"
-              max="24"
               value={time}
               onChange={(e) => setTime(e.target.value)}
             />

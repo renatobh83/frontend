@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useAuth0 } from "../../Auth0/context";
 import "./styles.css";
 import { updateEmail } from "../../api/serviceAPI";
+import InputMask from "react-input-mask";
 export default function Profile() {
   const { state } = useAuth0();
 
@@ -68,8 +69,8 @@ const Paciente = () => {
         </div>
         <div className="groupFlex">
           <div className="floating-label-input">
-            <input
-              type="text"
+            <InputMask
+              mask="(99)99999-9999"
               id="telefone"
               required
               value={telefone}
@@ -79,7 +80,8 @@ const Paciente = () => {
             <span className="line"></span>
           </div>
           <div className="floating-label-input">
-            <input
+            <InputMask
+              mask="99/99/9999"
               type="text"
               id="dtNascimento"
               required
@@ -87,11 +89,12 @@ const Paciente = () => {
               onChange={(e) => setDtNascimento(e.target.value)}
             />
             <label htmlFor="dtNascimento" className="lbDtNasc">
-              Data Nascimento{" "}
+              Data Nascimento
             </label>
             <span className="line"></span>
           </div>
         </div>
+
         <div className="inputProfileButtons">
           <button>Gravar</button>
         </div>
@@ -152,8 +155,8 @@ const Empresa = () => {
         </div>
 
         <div className="floating-label-input">
-          <input
-            type="text"
+          <InputMask
+            mask="(99)99999-9999"
             id="telefone"
             required
             value={telefone}

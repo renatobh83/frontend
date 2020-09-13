@@ -16,7 +16,7 @@ function Agendamento({ pacienteId, cancel }) {
   const [planoFromchild, setPlano] = useState({});
   const [examesFromChild, setExames] = useState([]);
 
-  const [exameTeste, setExameTeste] = useState({
+  const [examesAgendamento, setExamesAgendamento] = useState({
     totalExames: 0,
     exame: [],
   });
@@ -30,10 +30,11 @@ function Agendamento({ pacienteId, cancel }) {
   const exameSelecionado = (e) => {
     setExames(e);
   };
+  // const planos
 
   useEffect(() => {
     if (examesFromChild.length > 0) {
-      setExameTeste({
+      setExamesAgendamento({
         totalExames: examesFromChild.length,
         exame: examesFromChild,
       });
@@ -50,7 +51,7 @@ function Agendamento({ pacienteId, cancel }) {
     exame: (...p) => exameSelecionado(...p),
     planoFromchild,
     examesFromChild,
-    exameTeste,
+    examesAgendamento,
     pacienteId,
     cancel,
     agent,

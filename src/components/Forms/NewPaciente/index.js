@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { findOrCreatePatient } from "../../../api/serviceAPI";
+import React, { useEffect, useState } from "react";
+import { findOrCreatePatient, updateEmail } from "../../../api/serviceAPI";
 
 import "./styles.css";
-export default function NewPaciente({ close, paciente }) {
+import InputMask from "react-input-mask";
+export default function NewPaciente({ close, setNewPaciente, paciente }) {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [dtNascimento, setDtNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -18,12 +20,29 @@ export default function NewPaciente({ close, paciente }) {
       dtNascimento,
     };
 
-    await findOrCreatePatient(data).then((res) => {
-      paciente(res.data.message);
-      close(false);
-    });
+    if (paciente) {
+      await updateEmail(paciente.email, data).then((res) => {
+        setNewPaciente(res.data.message);
+        close(false);
+      });
+    } else {
+      await findOrCreatePatient(data).then((res) => {
+        setNewPaciente(res.data.message);
+        close(false);
+      });
+    }
   };
-
+  const handleEditPaciente = (e) => {
+    if (e !== null) {
+      setNome(e.nome);
+      setTelefone(e.telefone);
+      setEmail(e.email);
+      setDtNascimento(e.dtNascimento);
+    }
+  };
+  useEffect(() => {
+    handleEditPaciente(paciente);
+  }, [paciente]);
   return (
     <div className="profilePaciente">
       <form onSubmit={handleSubmit}>
@@ -52,9 +71,11 @@ export default function NewPaciente({ close, paciente }) {
         </div>
         <div className="groupFlex">
           <div className="floating-label-input">
-            <input
+            <InputMask
+              mask="(99)9999-9999"
               type="text"
               id="telefone"
+              inputMode="numeric"
               required
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
@@ -63,7 +84,8 @@ export default function NewPaciente({ close, paciente }) {
             <span className="line"></span>
           </div>
           <div className="floating-label-input">
-            <input
+            <InputMask
+              mask="99/99/9999"
               type="text"
               id="dtNascimento"
               inputMode="numeric"
@@ -71,12 +93,15 @@ export default function NewPaciente({ close, paciente }) {
               value={dtNascimento}
               onChange={(e) => setDtNascimento(e.target.value)}
             />
-            <label htmlFor="dtNascimento">Data Nascimento </label>
+            <label htmlFor="dtNascimento" className="lbDtNasc">
+              Data Nascimento{" "}
+            </label>
             <span className="line"></span>
           </div>
         </div>
         <div className="inputProfileButtons">
           <button>Gravar</button>
+          <button onClick={() => close()}>Cancelar</button>
         </div>
       </form>
     </div>

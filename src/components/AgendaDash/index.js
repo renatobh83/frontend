@@ -3,6 +3,7 @@ import Agendamento from "../Forms/Agendamento/index";
 
 import "./styles.css";
 import { useAuth0 } from "../../Auth0/context";
+import logoLoading from "../../assets/loading.svg";
 import {
   agendamentosPaciente,
   cancelaAgendamentoPaciente,
@@ -15,14 +16,17 @@ export default function AgendaDash({ pacienteid }) {
   const { state } = useAuth0();
   const [newAgendamento, setAgendamento] = useState(false);
   const [pacienteAgendamentos, setpacienteAgendamentos] = useState([]);
+  const [isloading, setIsloading] = useState(true);
   const pId = state.responseAPI.message.paciente
     ? state.responseAPI.message._id
     : pacienteid;
 
+  // Pega os agendamentos futuros do paciente selecionado
   const handleAgendamentos = useCallback(async () => {
     setpacienteAgendamentos([]);
     const today = new Date();
     await agendamentosPaciente(pId).then((res) => {
+      setIsloading(false);
       if (res.data.message.length >= 1) {
         res.data.message[0].dados.forEach((a) => {
           const horaAgendamento = addHours(new Date(a.hora.time), 3);
@@ -56,6 +60,13 @@ export default function AgendaDash({ pacienteid }) {
   useEffect(() => {
     handleAgendamentos();
   }, [newAgendamento]); //eslint-disable-line
+  if (isloading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <>
       {!newAgendamento && (
@@ -74,13 +85,13 @@ export default function AgendaDash({ pacienteid }) {
               <>
                 <div className="agenContent">
                   Data: {agenda.hora.data} <p>Hora: {agenda.hora.horaInicio}</p>
-                  Exame: {agenda.exame.procedimento}
+                  Exame: {agenda.exame.exame.procedimento}
                   <p>
                     <button
                       type="submit"
                       onClick={() => cancelaAgendamento(agenda.hora)}
                     >
-                      Cacenlar
+                      Cancelar
                     </button>
                   </p>
                 </div>

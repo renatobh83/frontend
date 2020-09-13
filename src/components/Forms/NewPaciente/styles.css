@@ -1,3 +1,10 @@
 .groupFlex {
   display: flex;
 }
+.profilePaciente form .inputProfileButtons {
+  display: flex;
+  justify-content: space-between;
+}
+.profilePaciente form .inputProfileButtons button {
+  width: 40%;
+}

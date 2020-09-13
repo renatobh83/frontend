@@ -53,7 +53,6 @@ const ListOfTables = () => {
 
   const tabela = (ev) => {
     const find = tabelas.filter((e) => e._id === ev);
-    console.log(find);
     setDateTable(find);
   };
   const onchangeTable = (e) => {

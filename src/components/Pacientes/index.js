@@ -14,30 +14,34 @@ export default function Pacientes() {
   const [isNew, setNew] = useState(false);
   const [searchItem, setSearchItem] = useState(null);
   const [pacienteNome, setPacienteNome] = useState(null);
-
+  const [pacienteEdit, setPacienteEdit] = useState(null);
   const [pacienteSelect, setPacienteSelect] = useState(null);
 
   const handlePacientes = useCallback(async () => {
     const response = await getPacientes();
     setPacientes(response.data.message);
   }, []);
-
+  //Carrega pacientes
   useEffect(() => {}, [handlePacientes]);
-
+  // seleciona Paciente
   const selectPaciente = (e) => {
     setPacienteSelect(e);
     nomePaciente(e);
   };
+  // get Nome paciente
   const nomePaciente = (e) => {
     const paciente = pacientes.find((p) => p._id === e);
-
     setPacienteNome(paciente.nome);
+    setPacienteEdit(paciente);
   };
+  // Abrir form cadastro/edit
   const setFormNew = (e) => {
     setPacienteSelect(e._id);
     setPacienteNome(e.nome);
     setSearch(!search);
   };
+
+  // Button confirma acao
   const confirmarPaciente = () => {
     if (pacienteSelect !== null) {
       setSearch(!search);
@@ -45,14 +49,18 @@ export default function Pacientes() {
       alert("Selecione um paciente");
     }
   };
+  // cancela pesquisa paciente
   const cancelar = () => {
     setSearch(!search);
     setPacienteSelect(null);
   };
+  // esculta input search
   const handleChange = (e) => {
     handlePacientes();
     setSearchItem(e.target.value);
+    setPacienteSelect(null);
   };
+  // pesquisa paciente
   const filter = !searchItem
     ? pacientes
     : pacientes.filter((paciente) =>
@@ -107,7 +115,7 @@ export default function Pacientes() {
           )}
           <div className="grupButtons">
             <button type="submit" onClick={() => setNew(!isNew)}>
-              Novo Cadastro
+              {pacienteSelect ? "Editar Cadastro " : "Novo cadastro"}
             </button>
             <button type="submit" onClick={() => confirmarPaciente()}>
               Confirmar Paciente
@@ -116,7 +124,13 @@ export default function Pacientes() {
         </>
       )}
 
-      {isNew && <NewPaciente close={setNew} paciente={setFormNew} />}
+      {isNew && (
+        <NewPaciente
+          close={setNew}
+          setNewPaciente={setFormNew}
+          paciente={pacienteEdit}
+        />
+      )}
       {!search && (
         <div className="agendamentosPaciente">
           <div className="btnBack">

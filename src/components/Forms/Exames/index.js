@@ -2,28 +2,31 @@ import React, { useState, useEffect, useCallback } from "react";
 import { FiSearch, FiTrash2 } from "react-icons/fi";
 import "./styles.css";
 import { useAgend } from "../Agendamento";
-import { getExamesAgendamento } from "../../../api/serviceAPI";
+import { getExamesFromPlanos } from "../../../api/serviceAPI";
+import logoLoading from "../../../assets/loading.svg";
 
 export default function Exames() {
-  const { setExame, exame, selPlano } = useAgend();
-
+  const { setExame, exame, selPlano, planoFromchild } = useAgend();
+  const [isloading, setIsloading] = useState(true);
   const [searchItem, setSearchItem] = useState(null);
   const [exames] = useState([]);
   const [examesSelecionado, setSelecaoExames] = useState([]);
   const [Ex, setEx] = useState([]);
 
   const fetchExames = useCallback(async () => {
-    await getExamesAgendamento().then((res) => {
-      setEx(res.data.message);
+    await getExamesFromPlanos(planoFromchild).then((res) => {
+      setEx(res.data.message[0].ex.exames);
     });
-  }, []);
+    setIsloading(false);
+  }, [planoFromchild]);
 
   const insertExame = (e, x) => {
     if (x.target.checked) {
       setSelecaoExames([...examesSelecionado, e]);
       const filterES = Ex.filter(
-        (exame) => exame.procedimento !== e.procedimento
+        (ex) => ex.exame.procedimento !== e.exame.procedimento
       );
+
       setEx(filterES);
     } else {
       deleteExame(e);
@@ -46,11 +49,9 @@ export default function Exames() {
   // };
   // change exame
   const handleChange = (e) => {
-    examesSelecionado.filter((exame) =>
-      exame.procedimento
-        .toLowerCase()
-        .includes(e.target.value.toLocaleLowerCase())
-    );
+    // examesSelecionado.filter((ex) =>
+    //   ex.procedimento.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+    // );
 
     setSearchItem(e.target.value);
   };
@@ -58,7 +59,7 @@ export default function Exames() {
   // Apagar exame
   const deleteExame = (e) => {
     const newArray = examesSelecionado.filter(
-      (exame) => exame.procedimento !== e.procedimento
+      (ex) => ex.exame.procedimento !== e.exame.procedimento
     );
     setEx([...Ex, e]);
     setSelecaoExames(newArray);
@@ -73,8 +74,8 @@ export default function Exames() {
   // filter exame
   const result = !searchItem
     ? Ex
-    : Ex.filter((exame) =>
-        exame.procedimento
+    : Ex.filter((ex) =>
+        ex.exame.procedimento
           .toLowerCase()
           .includes(searchItem.toLocaleLowerCase())
       );
@@ -83,6 +84,13 @@ export default function Exames() {
   useEffect(() => {
     fetchExames();
   }, [exames]); //eslint-disable-line
+  if (isloading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <div className="examesContainer">
       <h1>Exame</h1>
@@ -99,18 +107,18 @@ export default function Exames() {
       </div>
       <div className="listExames">
         <ul>
-          {result.map((exame) => (
-            <li key={exame._id}>
-              <label htmlFor={exame.procedimento}>
+          {result.map((ex) => (
+            <li key={ex.exame._id}>
+              <label htmlFor={ex.exame.procedimento}>
                 <input
                   type="checkbox"
-                  id={exame.procedimento}
+                  id={ex.exame.procedimento}
                   name="exames"
                   className="exames-check"
-                  value={exame.procedimento}
-                  onClick={(e) => insertExame(exame, e)}
+                  value={ex.exame.procedimento}
+                  onClick={(e) => insertExame(ex, e)}
                 />
-                {exame.procedimento}
+                {ex.exame.procedimento}
               </label>
             </li>
           ))}
@@ -118,19 +126,19 @@ export default function Exames() {
       </div>
       {examesSelecionado.length > 0 && (
         <div className="examesSelecionados">
-          {examesSelecionado.map((exame) => (
-            <div className="examesSelect" key={exame.procedimento}>
+          {examesSelecionado.map((ex) => (
+            <div className="examesSelect" key={ex.exame.procedimento}>
               <div className="delete">
                 <button>
                   <FiTrash2
                     size={15}
                     color={"red"}
-                    onClick={() => deleteExame(exame)}
+                    onClick={() => deleteExame(ex)}
                   />
                 </button>
               </div>
               <div className="content">
-                {exame.procedimento} {exame.valor && ` - R$${exame.valor}`}
+                {ex.exame.procedimento} {ex.valor && ` - R$${ex.valor}`}
               </div>
             </div>
           ))}

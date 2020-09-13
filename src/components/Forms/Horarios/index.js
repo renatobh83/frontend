@@ -7,18 +7,19 @@ import {
   storeAgendamento,
 } from "../../../api/serviceAPI";
 import { getHours, nextInterval } from "../../../Utils/getHours";
+import logoLoading from "../../../assets/loading.svg";
 import Pagination from "../../../Pages/Pagination";
 
 export default function Horarios() {
   const {
     selPlano,
     setExame,
-    exameTeste,
+    examesAgendamento,
     pacienteId,
     cancel,
     agent,
   } = useAgend();
-
+  const [isloading, setIsloading] = useState(true);
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
   const [horariosDisponivel, setHorariosDisponivel] = useState([]);
   const [dateExames, setDateExames] = useState([]);
@@ -39,14 +40,6 @@ export default function Horarios() {
   };
 
   /* teste */
-
-  // if (dateExames.length >= 1) {
-  //   const exameJaAgen = dateExames.map((e) => {
-  //     return e.horario;
-  //   });
-  //   console.log(exameJaAgen);
-  //   setNextHour(exameJaAgen);
-  // }
 
   const indexOfLastPage = currentPage * limitHorario;
   const indexOfFirstPage = indexOfLastPage - limitHorario;
@@ -71,7 +64,7 @@ export default function Horarios() {
         paciente: pacienteId,
         dados: [
           ...dadosAgendamento.dados,
-          { exame: exameTeste.exame[stop], hora: findHora },
+          { exame: examesAgendamento.exame[stop], hora: findHora },
         ],
         agent,
       });
@@ -89,14 +82,15 @@ export default function Horarios() {
     }
   };
   const horariosLivres = async () => {
-    if (stop <= exameTeste.totalExames - 1) {
-      const setor = exameTeste.exame[stop].setorId;
-      setDescExame(exameTeste.exame[stop].procedimento);
+    if (stop <= examesAgendamento.totalExames - 1) {
+      const setor = examesAgendamento.exame[stop].exame.setorId;
+      setDescExame(examesAgendamento.exame[stop].exame.procedimento);
       let next = 0;
       if (dateExames.length >= 1) {
         next = dateExames[stop - 1];
       }
       await getHorariosBySetor(setor, next).then((res) => {
+        setIsloading(false);
         getHours(res.data.message, (value) => {
           setHorariosDisponivel((oldvalues) => [...oldvalues, value].sort());
         });
@@ -145,6 +139,13 @@ export default function Horarios() {
       </div>
     );
   };
+  if (isloading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <>
       <div className="horariosContainer">

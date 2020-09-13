@@ -1,51 +1,73 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import "./styles.css";
 import { useAgend } from "../Agendamento";
 
+import "./styles.css";
+import logoLoading from "../../../assets/loading.svg";
+import { getplanos } from "../../../api/serviceAPI";
 function Planos() {
   const { selPlano, plano, cancel } = useAgend();
-
+  const [isloading, setIsloading] = useState(true);
+  const [planos, setPlanos] = useState([]);
+  const [searchPlano, setSearchPlano] = useState(null);
+  // pegar plano selecionado
   const getPlano = (e) => {
     plano(e.target.value);
   };
 
+  const handlePlanos = useCallback(async () => {
+    await getplanos().then((res) => {
+      setIsloading(false);
+      setPlanos(res.data.message);
+    });
+  }, []); // eslint-disable-line
+  useEffect(() => {
+    handlePlanos();
+  }, [handlePlanos]);
+  const result = !searchPlano
+    ? planos
+    : planos.filter((exame) =>
+        exame.descricao.toLowerCase().includes(searchPlano.toLocaleLowerCase())
+      );
+
+  if (isloading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <div className="planosContainer">
       <h1>Plano</h1>
       <div className="buscaPlano">
-        <input type="search" id="plano" placeholder="Procura" />
+        <input
+          type="search"
+          id="plano"
+          placeholder="Procura"
+          onChange={(e) => setSearchPlano(e.target.value)}
+        />
         <div className="icon">
           <FiSearch size={30} />
         </div>
       </div>
       <div className="planoList">
         <ul>
-          <li>
-            <input
-              type="radio"
-              id="radio-2-1"
-              name="planos"
-              value={"plano a"}
-              onChange={getPlano}
-              className="regular-radio"
-            />
-            <label htmlFor="radio-2-1">PLano A</label>
-          </li>
-
-          <li>
-            <div className="button-holder">
-              <input
-                type="radio"
-                id="radio-2-2"
-                name="planos"
-                value={"plano b"}
-                onChange={getPlano}
-                className="regular-radio "
-              />
-              <label htmlFor="radio-2-2">PLano A</label>
-            </div>
-          </li>
+          {result.map((plano) => (
+            <li key={plano._id}>
+              <div className="button-holder">
+                <input
+                  type="radio"
+                  id={plano._id}
+                  name="planos"
+                  value={plano._id}
+                  onChange={getPlano}
+                  className="regular-radio "
+                />
+                <label htmlFor={plano._id}>{plano.descricao}</label>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="groupButtonsAg">

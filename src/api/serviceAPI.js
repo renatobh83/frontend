@@ -180,6 +180,12 @@ export const deleteProcedimento = async (id) => {
   return response;
 };
 
+export const getExamesFromPlanos = async (id) => {
+  headerDefaults();
+  const response = instance.get(`/planos/${id}`);
+  return response;
+};
+
 // Horarios
 
 export const storeHorarios = async (data) => {

@@ -3,6 +3,10 @@
   max-width: 700px;
   margin: 0 auto;
 }
+
+.profilePaciente .lbDtNasc {
+  font-size: 3rem;
+}
 .profilePaciente .inputProfileButtons {
   width: 100%;
   margin-top: 4rem;

@@ -86,7 +86,9 @@ const Paciente = () => {
               value={dtNascimento}
               onChange={(e) => setDtNascimento(e.target.value)}
             />
-            <label htmlFor="dtNascimento">Data Nascimento </label>
+            <label htmlFor="dtNascimento" className="lbDtNasc">
+              Data Nascimento{" "}
+            </label>
             <span className="line"></span>
           </div>
         </div>

@@ -26,7 +26,7 @@ export default function Horarios() {
   const [descExame, setDescExame] = useState();
   const [isConcluir, setIsConcluir] = useState(false);
   const [divSemHorario, setSemHorario] = useState(false);
-  const [limitHorario] = useState(9);
+  const [limitHorario] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [stop, setStop] = useState(0);
   const [dadosAgendamento, setDadosAgendamento] = useState({
@@ -47,6 +47,9 @@ export default function Horarios() {
   // proximo Horario
 
   const handleAgendar = async (e) => {
+    if (horarioSelecionado.length === 0) {
+      return alert("Selecione um horario");
+    }
     if (isConcluir) {
       dadosAgendamento.dados.shift(0);
       await storeAgendamento(dadosAgendamento).then(() => cancel());
@@ -91,6 +94,7 @@ export default function Horarios() {
       }
       await getHorariosBySetor(setor, next).then((res) => {
         setIsloading(false);
+
         getHours(res.data.message, (value) => {
           setHorariosDisponivel((oldvalues) => [...oldvalues, value].sort());
         });
@@ -172,9 +176,9 @@ export default function Horarios() {
               <div className="cardHorario">
                 <div className="dados">
                   <div className="day">{horario.data}</div>
-                  <div className="intervalo">{horario.horaInicio}</div>
+                  <div className="intervalo">Hora: {horario.horaInicio}</div>
                   <div className="intervalo">
-                    Tempo de duração: {horario.timeInterval} minu.
+                    Duração exame: {horario.timeInterval} minutos.
                   </div>
                 </div>
               </div>

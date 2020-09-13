@@ -72,7 +72,7 @@ export default function NewPaciente({ close, setNewPaciente, paciente }) {
         <div className="groupFlex">
           <div className="floating-label-input">
             <InputMask
-              mask="(99)9999-9999"
+              mask="(99)99999-9999"
               type="text"
               id="telefone"
               inputMode="numeric"

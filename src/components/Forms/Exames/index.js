@@ -47,6 +47,7 @@ export default function Exames() {
   //     ]);
   //   }
   // };
+
   // change exame
   const handleChange = (e) => {
     // examesSelecionado.filter((ex) =>
@@ -146,9 +147,11 @@ export default function Exames() {
       )}
 
       <div className="btn">
-        <button type="submit" onClick={() => setExame(true)}>
-          Next
-        </button>
+        {examesSelecionado.length > 0 && (
+          <button type="submit" onClick={() => setExame(true)}>
+            Selecionar horario
+          </button>
+        )}
         <button className="danger" onClick={() => cancelar()}>
           Cancelar
         </button>

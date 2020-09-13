@@ -11,12 +11,14 @@ import {
 } from "../../api/serviceAPI";
 
 import { differenceInDays, differenceInHours, addHours } from "date-fns";
+import ModalConfirm from "../../Pages/ModalConfirm/index";
 
 export default function AgendaDash({ pacienteid }) {
   const { state } = useAuth0();
   const [newAgendamento, setAgendamento] = useState(false);
   const [pacienteAgendamentos, setpacienteAgendamentos] = useState([]);
   const [isloading, setIsloading] = useState(true);
+
   const pId = state.responseAPI.message.paciente
     ? state.responseAPI.message._id
     : pacienteid;
@@ -87,12 +89,21 @@ export default function AgendaDash({ pacienteid }) {
                   Data: {agenda.hora.data} <p>Hora: {agenda.hora.horaInicio}</p>
                   Exame: {agenda.exame.exame.procedimento}
                   <p>
-                    <button
-                      type="submit"
-                      onClick={() => cancelaAgendamento(agenda.hora)}
+                    <ModalConfirm
+                      title="Confirma"
+                      description="Tem certeza que deseja cancelar o seu agendamento?"
                     >
-                      Cancelar
-                    </button>
+                      {(confirm) => (
+                        <button
+                          type="submit"
+                          onClick={confirm(() =>
+                            cancelaAgendamento(agenda.hora)
+                          )}
+                        >
+                          Cancelar
+                        </button>
+                      )}
+                    </ModalConfirm>
                   </p>
                 </div>
               </>

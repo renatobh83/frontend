@@ -134,17 +134,6 @@ export default function Horarios() {
                 ))}
               </select>
             </div>
-            {/* <div className="horarioGroup">
-              <label htmlFor="dia">Dia da Semana</label>
-              <select name="dia" id="dia">
-                <option value="">Dia</option>
-                {dias.map((dia, key) => (
-                  <option value={key} key={key}>
-                    {dia}
-                  </option>
-                ))}
-              </select>
-            </div> */}
           </div>
           {sala && (
             <div className="gradeHorarios">

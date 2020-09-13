@@ -7,6 +7,7 @@ import {
   storePlano,
   updatePlano,
 } from "../../api/serviceAPI";
+import logoLoading from "../../assets/loading.svg";
 export default function Planos() {
   const [newPlan, setNewPlan] = useState(false);
   const [plano, setPlano] = useState(null);
@@ -45,18 +46,28 @@ export default function Planos() {
 }
 const ListPlanos = ({ editar }) => {
   const [plans, setPlans] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const editarPlano = (id) => {
     const plano = plans.find((i) => i._id === id);
     editar(plano);
   };
 
   const fetchPlanos = useCallback(() => {
-    getplanos().then((res) => setPlans(res.data.message));
+    getplanos().then((res) => {
+      setPlans(res.data.message);
+      setLoading(false);
+    });
   }, []);
   useEffect(() => {
     fetchPlanos();
   }, [fetchPlanos]);
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <>
       <ul>
@@ -82,11 +93,12 @@ const FormPlanos = ({ close, plano }) => {
   const [particular, setParticular] = useState(false);
   const [nome, setNome] = useState("");
   const [tableEdit, setTableEdit] = useState(null);
-
+  const [loading, setLoading] = useState(true);
   const handleTabelas = useCallback(async () => {
     await getTabelas().then((res) => {
       setTabelas(res.data.message);
       if (plano) defaultSelectTabel(plano, res.data.message);
+      setLoading(false);
     });
   }, []); // eslint-disable-line
 
@@ -131,7 +143,13 @@ const FormPlanos = ({ close, plano }) => {
     handleTabelas();
     handleEditPlano(plano);
   }, []); // eslint-disable-line
-
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <>
       <form onSubmit={handleGravar}>

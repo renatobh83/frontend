@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { useCallback } from "react";
-import CurrencyInput from "react-currency-input";
+
 import { FiSearch, FiTrash2 } from "react-icons/fi";
 import {
   getExamesAgendamento,
@@ -11,6 +11,7 @@ import {
 } from "../../api/serviceAPI";
 import { useEffect } from "react";
 import { moeda } from "../../Utils/formatMoney";
+import logoLoading from "../../assets/loading.svg";
 
 export default function Tabelas() {
   const [newTable, setNewTable] = useState(false);
@@ -44,10 +45,12 @@ const ListOfTables = () => {
   const [insertExames, setInsertExames] = useState(false);
   const [tabelaSelect, setTabelaSelect] = useState(null);
   const [dateTable, setDateTable] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const handleTables = useCallback(async () => {
     await getTabelas().then((res) => {
       setTabelas(res.data.message);
+      setLoading(false);
     });
   }, []);
 
@@ -72,6 +75,13 @@ const ListOfTables = () => {
   useEffect(() => {
     handleTables();
   }, []); // eslint-disable-line
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <>
       {tabelas.length >= 1 && !insertExames && (

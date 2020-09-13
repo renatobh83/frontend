@@ -14,13 +14,12 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 3rem;
 }
 .horariosContainer .agendaExames ul {
   display: flex;
   list-style: none;
   flex-wrap: wrap;
-  font: 500 2rem Archivo;
+  font: 600 3rem Archivo;
   width: 100%;
 }
 .horariosContainer .agendaExames ul li {
@@ -38,19 +37,19 @@
   width: 150px;
   height: 150px;
   margin: 10px;
-  background-color: var(--color-secondary);
+  background-color: rgba(198, 195, 207, 0);
   background-size: cover;
   position: relative;
   cursor: pointer;
   transition: all 0.4s ease-out;
-  box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.44);
+  box-shadow: 0 3px 100px -50px rgba(0, 0, 0, 0.44);
   overflow: hidden;
-  /* color: white; */
   font-family: "Roboto";
+  border: 1px dotted;
 }
 .gridHorarios .cardHorario .dados {
   position: absolute;
-  padding: 30px;
+  padding: 12px 4px;
   height: calc(100% - 60px);
 }
 
@@ -60,7 +59,7 @@
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 .gridHorarios .cardHorario .dados .intervalo {
-  font: 400 2rem Archivo;
+  font: 500 2rem Archivo;
   font-style: italic;
   /* transform: translateX(200px); */
 }
@@ -69,12 +68,15 @@
   box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.64);
   transform: scale(1.05);
 }
+
 .gridHorarios input {
   display: none;
 }
 .gridHorarios input:checked ~ .cardHorario {
   filter: brightness(75%);
   color: var(--black);
+  box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.64);
+  background: rgb(0, 255, 203);
 }
 .gridHorarios .pagination {
   width: 100%;
@@ -83,6 +85,7 @@
 .gridHorarios .pagination .page {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
 }
 .gridHorarios .pagination .page .page-item {
   padding: 0 0.9rem;

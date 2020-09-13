@@ -3,6 +3,7 @@ export const moeda = (number, options = {}) => {
 
   if (Number.isNaN(number) || !number)
     return "need a number as the first parameter";
+  number = number.toString().replace(",", ".");
 
   if (typeof number === "string") {
     // n1
@@ -10,7 +11,6 @@ export const moeda = (number, options = {}) => {
   }
 
   let res;
-
   const config = moneySign
     ? { style: "currency", currency: "BRL" }
     : { minimumFractionDigits: 2 };

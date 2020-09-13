@@ -288,6 +288,7 @@ const InsertExames = ({ tabela, close }) => {
                   defaultValue={examesSelecionado[index].valor}
                   placeholder="Valor"
                   onChange={(e) => handleChangeInput(e, index)}
+                  onKeyPress={(e) => moeda(e.target.value)}
                 />
               </div>
             </div>

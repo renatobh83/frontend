@@ -89,6 +89,7 @@ export default function HorariosGerar() {
           <InputMask
             mask="99/99/9999"
             maskPlaceholder="-"
+            inputMode="numeric"
             value={dataInicio}
             required
             onChange={(e) => setdataInicio(e.target.value)}
@@ -98,6 +99,7 @@ export default function HorariosGerar() {
           <InputMask
             mask="99/99/9999"
             required
+            inputMode="numeric"
             maskPlaceholder="-"
             value={dataFim}
             onChange={(e) => setDataFim(e.target.value)}
@@ -108,6 +110,7 @@ export default function HorariosGerar() {
 
           <InputMask
             mask="99:99"
+            inputMode="numeric"
             maskPlaceholder="-"
             value={horaInicio}
             required
@@ -118,6 +121,7 @@ export default function HorariosGerar() {
           <InputMask
             mask="99:99"
             required
+            inputMode="numeric"
             maskPlaceholder="-"
             value={horaFim}
             onChange={(e) => setHoraFim(e.target.value)}
@@ -128,6 +132,7 @@ export default function HorariosGerar() {
             max="60"
             min="00"
             required
+            inputMode="numeric"
             value={intervalo}
             onChange={(e) => setIntervalo(e.target.value)}
           />

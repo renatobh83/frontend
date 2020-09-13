@@ -66,6 +66,7 @@ export default function NewPaciente({ close, paciente }) {
             <input
               type="text"
               id="dtNascimento"
+              inputMode="numeric"
               required
               value={dtNascimento}
               onChange={(e) => setDtNascimento(e.target.value)}

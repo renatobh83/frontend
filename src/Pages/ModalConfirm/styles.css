@@ -15,7 +15,7 @@ button {
   color: var(--color-button-text);
   background: var(--rich-blue);
   transition: all 0.3s;
-  margin: 10px;
+  margin: 10px 0;
 }
 .danger {
   background: var(--rich-red);

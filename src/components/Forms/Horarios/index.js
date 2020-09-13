@@ -10,7 +10,14 @@ import { getHours, nextInterval } from "../../../Utils/getHours";
 import Pagination from "../../../Pages/Pagination";
 
 export default function Horarios() {
-  const { selPlano, setExame, exameTeste, pacienteId, cancel } = useAgend();
+  const {
+    selPlano,
+    setExame,
+    exameTeste,
+    pacienteId,
+    cancel,
+    agent,
+  } = useAgend();
 
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
   const [horariosDisponivel, setHorariosDisponivel] = useState([]);
@@ -66,6 +73,7 @@ export default function Horarios() {
           ...dadosAgendamento.dados,
           { exame: exameTeste.exame[stop], hora: findHora },
         ],
+        agent,
       });
 
       setDateExames((oldvalues) => [

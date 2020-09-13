@@ -1,0 +1,173 @@
+.tabelasContainer {
+  width: 90vw;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+.tabelasContainer .listOfTables {
+  width: 100%;
+}
+.tabelasContainer .listOfTables .init {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.tabelasContainer .listOfTables .init select {
+  width: 75%;
+  font: 400 2rem Archivo;
+  border: 0;
+  appearance: none;
+  padding: 1.4rem;
+  border-radius: 0.9rem;
+}
+
+.tabelasContainer .listOfTables .header,
+.tabelasContainer .listOfTables .tableProcContent {
+  margin-top: 4rem;
+  width: 100%;
+  font: 600 3rem Archivo;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tabelasContainer .listOfTables .buscarExame {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+}
+.tabelasContainer .listOfTables .buscarExame input {
+  font: 500 3rem Acrhivo;
+  padding: 1.17rem;
+  width: 90%;
+  height: 50px;
+  border: 0;
+  border-radius: 0.8rem 0 0 0.8rem;
+  -webkit-appearance: none;
+}
+.tabelasContainer .listOfTables .buscarExame .icon {
+  display: flex;
+  align-items: center;
+  border-collapse: separate;
+  justify-content: center;
+  border-radius: 0 0.8rem 0.8rem 0;
+  width: 10%;
+  border: 0;
+  height: 50px;
+  background: #fff;
+  transition: all 0.4s ease-in-out;
+}
+.tabelasContainer .listOfTables .listExames {
+  width: 100%;
+  margin-bottom: 0.4rem;
+  box-shadow: 1px 0 8px 0 rgba(0, 0, 0, 0.75);
+}
+.tabelasContainer .listOfTables .listExames ul::-webkit-scrollbar {
+  display: none;
+}
+.tabelasContainer .listOfTables .listExames ul {
+  background: #fff;
+  list-style: none;
+  font: 600 2.4rem Poppins;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.tabelasContainer .listOfTables .listExames ul li {
+  padding: 1.2rem;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: point;
+}
+.tabelasContainer .listOfTables .listExames ul li:hover {
+  transform: scale(1.03);
+}
+.exames-check {
+  display: none;
+}
+.tabelasContainer .listOfTables .listExames label {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  padding: 9px;
+  display: inline-block;
+}
+.tabelasContainer .listOfTables .examesSelecionados {
+  display: flex;
+  flex-direction: column;
+
+  background: #fff;
+  box-shadow: 1px 7px 8px 0 rgba(0, 0, 0, 0.75);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.tabelasContainer .listOfTables .examesSelecionados .examesSelect {
+  display: flex;
+  font: 500 2.3rem Archivo;
+  align-items: center;
+  margin: 0 10px;
+}
+.tabelasContainer
+  .listOfTables
+  .examesSelecionados
+  .examesSelect
+  .contentExamInTable {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.tabelasContainer
+  .listOfTables
+  .examesSelecionados
+  .examesSelect
+  .contentExamInTable
+  span {
+  width: 60%;
+}
+.tabelasContainer
+  .listOfTables
+  .examesSelecionados
+  .examesSelect
+  .contentExamInTable
+  input {
+  width: 30%;
+  padding: 10px;
+}
+.tabelasContainer .listOfTables .examesSelecionados .examesSelect .delete {
+  margin-right: 1rem;
+}
+.tabelasContainer
+  .listOfTables
+  .examesSelecionados
+  .examesSelect
+  .delete
+  button {
+  border: 0;
+
+  background-color: #fff;
+  cursor: pointer;
+}
+.tabelasContainer
+  .listOfTables
+  .examesSelecionados
+  .examesSelect
+  .delete
+  button:hover {
+  filter: opacity(0.6);
+}
+.bntInputGrup {
+  display: flex;
+  justify-content: space-between;
+}
+.bntInputGrup button {
+  width: 40%;
+}
+.bntInputGrup .danger {
+  background: var(--rich-red);
+}
+/* Form */
+.tabelasContainer .formTables form button {
+  margin-top: 4rem;
+}

@@ -15,6 +15,7 @@ export default function NewUser({ set, u }) {
   const [username, setUsername] = useState("");
   const [userAtivo, setAtivo] = useState(true);
   const [grupos, setGrupos] = useState([]);
+  const [grupoidEdit, setGrupoEdit] = useState(null);
 
   const handleGravar = async (e) => {
     e.preventDefault();
@@ -56,7 +57,9 @@ export default function NewUser({ set, u }) {
       });
     }
   };
-
+  const grupoEdit = () => {
+    setGrupoEdit(u.grupoId);
+  };
   const handleEdit = (dataUser) => {
     setNome(dataUser.nome);
     setEmail(dataUser.email);
@@ -64,8 +67,9 @@ export default function NewUser({ set, u }) {
   };
   const fetchGrupos = useCallback(async () => {
     const response = await getGrupos();
+    grupoEdit(u);
     setGrupos(response.data.message);
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     fetchGrupos();
@@ -134,7 +138,11 @@ export default function NewUser({ set, u }) {
           >
             <option value="000"> Selecione um grupo</option>
             {grupos.map((g) => (
-              <option value={g._id} key={g._id}>
+              <option
+                value={g._id}
+                key={g._id}
+                selected={g._id === grupoidEdit}
+              >
                 {g.nome}
               </option>
             ))}

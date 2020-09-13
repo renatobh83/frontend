@@ -1,24 +1,29 @@
 import React, { useState, createContext, useContext } from "react";
 
 import "./styles.css";
-import Planos from "../Planos";
+import Planos from "../PlanosAgendamento";
 import Exames from "../Exames";
 import Horarios from "../Horarios";
 import { useEffect } from "react";
+import { useAuth0 } from "../../../Auth0/context";
 export const AgendamentoContext = createContext();
 export const useAgend = () => useContext(AgendamentoContext);
 
 function Agendamento({ pacienteId, cancel }) {
+  const { state } = useAuth0();
   const [planoSelect, setPlanoSelect] = useState(false);
-
   const [exameisSelect, setExameSelect] = useState(false);
   const [planoFromchild, setPlano] = useState({});
   const [examesFromChild, setExames] = useState([]);
+
   const [exameTeste, setExameTeste] = useState({
     totalExames: 0,
     exame: [],
   });
 
+  const agent = state.responseAPI.message.paciente
+    ? "Web"
+    : state.responseAPI.message._id;
   const planoSelecionado = (e) => {
     setPlano(e);
   };
@@ -48,6 +53,7 @@ function Agendamento({ pacienteId, cancel }) {
     exameTeste,
     pacienteId,
     cancel,
+    agent,
   };
   return (
     <AgendamentoContext.Provider value={configContext}>

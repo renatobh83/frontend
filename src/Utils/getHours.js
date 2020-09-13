@@ -28,10 +28,14 @@ export const getHours = (props, callback) => {
         if (hora <= -0 && minutos < 0) {
           callback(dia);
         } else {
-          await inativarHorarioPassado(dia);
+          if (dia.ativo) {
+            await inativarHorarioPassado(dia);
+          }
         }
       } else {
-        await inativarHorarioPassado(dia);
+        if (dia.ativo) {
+          await inativarHorarioPassado(dia);
+        }
       }
     });
   });

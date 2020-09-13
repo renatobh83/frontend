@@ -78,6 +78,7 @@ function Navbar(props) {
                 >
                   Salas
                 </Link>
+
                 <Link
                   tag={RouterNavLink}
                   className="dropSubItem"
@@ -85,6 +86,22 @@ function Navbar(props) {
                   to="/exames"
                 >
                   Procedimentos
+                </Link>
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/tabelas"
+                >
+                  Tabelas
+                </Link>
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/planos"
+                >
+                  Planos
                 </Link>
               </ul>
             </li>
@@ -109,10 +126,11 @@ function Navbar(props) {
                 Profile
               </Link>
             </li>
-
-            <div className="btnlogout">
-              <button onClick={logout}>Logout</button>
-            </div>
+            <li>
+              <div className="btnlogout">
+                <button onClick={logout}>Logout</button>
+              </div>
+            </li>
           </ul>
           <div className="dropdown">
             <div className="dropBtn">
@@ -130,10 +148,10 @@ function Navbar(props) {
                   <FiUser className="mr-10" />
                   Profile
                 </Link>
-                <button onClick={logout}>
+                <Link>
                   <FiLogOut className="mr-10" />
-                  <span>Logout</span>
-                </button>
+                  <span onClick={logout}>Logout</span>
+                </Link>
               </div>
             </div>
           </div>

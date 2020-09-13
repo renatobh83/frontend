@@ -1,4 +1,5 @@
 import axios from "axios";
+import { addYears } from "date-fns/esm";
 import { getToken } from "../Utils/inLogin";
 
 const instance = axios.create({
@@ -228,5 +229,44 @@ export const agendamentosPaciente = async (id) => {
 export const cancelaAgendamentoPaciente = async (id) => {
   headerDefaults();
   const response = instance.delete(`/da/${id}`);
+  return response;
+};
+// planos
+
+export const storePlano = async (data) => {
+  headerDefaults();
+  const response = instance.post("/planos/", data);
+  return response;
+};
+
+export const getplanos = async () => {
+  headerDefaults();
+  const response = instance.get("/planos/");
+  return response;
+};
+
+export const updatePlano = async (id, data) => {
+  headerDefaults();
+  const response = instance.put(`/planos/${id}`, data);
+  return response;
+};
+
+// Tabelas de exames
+
+export const storeTabela = async (data) => {
+  headerDefaults();
+  const response = instance.post("/tabelas", data);
+  return response;
+};
+
+export const getTabelas = async () => {
+  headerDefaults();
+  const response = instance.get("/tabelas");
+  return response;
+};
+
+export const updateTabela = async (id, data) => {
+  headerDefaults();
+  const response = instance.put(`/tabelas/${id}`, data);
   return response;
 };

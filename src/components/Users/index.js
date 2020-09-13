@@ -66,7 +66,7 @@ const ListOfUsers = ({ children, set, filter }) => {
       setLoading(false);
     }
     fetchUsers();
-    console.log("Users");
+    // console.log("Users");
   }, []);
   useEffect(() => {
     if (filter === "false") {

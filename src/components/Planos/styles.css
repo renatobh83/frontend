@@ -1,0 +1,65 @@
+.plansContainer {
+  width: 90vw;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.plansContainer form .ativo {
+  margin-top: 2rem;
+  font: 400 2rem Archivo;
+  width: 100%;
+  display: flex;
+}
+
+.plansContainer form .ativo .input {
+  margin: 0 10px;
+}
+.plansContainer form .divGroup {
+  margin: 3rem 0;
+  display: flex;
+  justify-content: space-between;
+  font: 700 2rem Archivo;
+}
+.plansContainer form .divGroup select {
+  font: 400 2rem Archivo;
+  border: 0;
+  appearance: none;
+  width: 45%;
+  padding: 1.4rem;
+  border-radius: 0.9rem;
+}
+.plansContainer form .divGroup input {
+  margin: 0 10px;
+}
+.danger {
+  background: var(--rich-red);
+}
+
+/* Css list container */
+.listOfPlans ul {
+  width: 100%;
+  list-style: none;
+  margin-top: 3rem;
+  font: 500 2rem Archivo;
+}
+.listOfPlans .listPlano .planoContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.listOfPlans .listPlano .planoContent button {
+  width: 25%;
+  background: var(--color-primary);
+  transition: all 0.3s;
+}
+.listOfPlans .listPlano .planoContent button:hover {
+  filter: brightness(85%);
+}
+
+@media (min-width: 700px) {
+  .plansContainer {
+    margin-top: 3rem;
+  }
+  .listOfPlans ul {
+    font-size: 18px;
+  }
+}

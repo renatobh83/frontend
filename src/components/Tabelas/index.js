@@ -284,6 +284,7 @@ const InsertExames = ({ tabela, close }) => {
                 <input
                   type="text"
                   id="valor"
+                  inputMode="numeric"
                   defaultValue={examesSelecionado[index].valor}
                   placeholder="Valor"
                   onChange={(e) => handleChangeInput(e, index)}

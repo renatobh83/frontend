@@ -15,6 +15,8 @@ function Agendamento({ pacienteId, cancel }) {
   const [exameisSelect, setExameSelect] = useState(false);
   const [planoFromchild, setPlano] = useState({});
   const [examesFromChild, setExames] = useState([]);
+  const [totalExames, setTotalExames] = useState(0);
+  const [isParticular, setIsParticular] = useState(false);
 
   const [examesAgendamento, setExamesAgendamento] = useState({
     totalExames: 0,
@@ -27,7 +29,9 @@ function Agendamento({ pacienteId, cancel }) {
   const planoSelecionado = (e) => {
     setPlano(e);
   };
-  const exameSelecionado = (e) => {
+  const exameSelecionado = (e, total, particular) => {
+    setTotalExames(total);
+    setIsParticular(particular);
     setExames(e);
   };
   // const planos
@@ -55,6 +59,8 @@ function Agendamento({ pacienteId, cancel }) {
     pacienteId,
     cancel,
     agent,
+    totalExames,
+    isParticular,
   };
   return (
     <AgendamentoContext.Provider value={configContext}>

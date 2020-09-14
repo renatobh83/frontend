@@ -9,6 +9,7 @@ import {
 import { getHours, nextInterval } from "../../../Utils/getHours";
 import logoLoading from "../../../assets/loading.svg";
 import Pagination from "../../../Pages/Pagination";
+import { moeda } from "../../../Utils/formatMoney";
 
 export default function Horarios() {
   const {
@@ -17,6 +18,8 @@ export default function Horarios() {
     examesAgendamento,
     pacienteId,
     cancel,
+    totalExames,
+    isParticular,
     agent,
   } = useAgend();
   const [isloading, setIsloading] = useState(true);
@@ -29,6 +32,7 @@ export default function Horarios() {
   const [limitHorario] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [stop, setStop] = useState(0);
+
   const [dadosAgendamento, setDadosAgendamento] = useState({
     paciente: null,
     dados: [{ exame: "", hora: "" }],
@@ -53,11 +57,12 @@ export default function Horarios() {
     if (isConcluir) {
       dadosAgendamento.dados.shift(0);
       await storeAgendamento(dadosAgendamento).then(() => cancel());
-    } else {
       const data = {
         horarios: [horarioSelecionado],
         ocupado: true,
       };
+      await updateHorarioSelecionado(data);
+    } else {
       const findHora = horariosDisponivel.find(
         (h) => h.id === horarioSelecionado
       );
@@ -81,7 +86,6 @@ export default function Horarios() {
         },
       ]);
       setStop(stop + 1);
-      await updateHorarioSelecionado(data);
     }
   };
   const horariosLivres = async () => {
@@ -94,7 +98,7 @@ export default function Horarios() {
       }
       await getHorariosBySetor(setor, next).then((res) => {
         setIsloading(false);
-
+        console.log(res.data.message);
         getHours(res.data.message, (value) => {
           setHorariosDisponivel((oldvalues) => [...oldvalues, value].sort());
         });
@@ -139,6 +143,7 @@ export default function Horarios() {
               {e.exame} - {e.horario.data} - {e.horario.horaInicio}
             </li>
           ))}
+          <li>{isParticular && `Total a pagar: ${moeda(totalExames)}`}</li>
         </ul>
       </div>
     );

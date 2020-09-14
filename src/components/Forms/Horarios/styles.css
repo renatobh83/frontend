@@ -130,6 +130,9 @@
   margin-top: 1rem;
   list-style: none;
 }
+.concluirAgendamento ul li:last-child {
+  margin-top: 3rem;
+}
 
 @media (min-width: 700px) {
   .horariosContainer {

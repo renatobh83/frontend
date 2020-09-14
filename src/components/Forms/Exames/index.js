@@ -4,18 +4,22 @@ import "./styles.css";
 import { useAgend } from "../Agendamento";
 import { getExamesFromPlanos } from "../../../api/serviceAPI";
 import logoLoading from "../../../assets/loading.svg";
+import { moeda } from "../../../Utils/formatMoney";
 
 export default function Exames() {
   const { setExame, exame, selPlano, planoFromchild } = useAgend();
   const [isloading, setIsloading] = useState(true);
   const [searchItem, setSearchItem] = useState(null);
+  const [particular, setParticular] = useState(false);
   const [exames] = useState([]);
   const [examesSelecionado, setSelecaoExames] = useState([]);
   const [Ex, setEx] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const fetchExames = useCallback(async () => {
     await getExamesFromPlanos(planoFromchild).then((res) => {
       setEx(res.data.message[0].ex.exames);
+      setParticular(res.data.message[0].particular);
     });
     setIsloading(false);
   }, [planoFromchild]);
@@ -23,6 +27,7 @@ export default function Exames() {
   const insertExame = (e, x) => {
     if (x.target.checked) {
       setSelecaoExames([...examesSelecionado, e]);
+      setTotal(total + parseFloat(e.valor));
       const filterES = Ex.filter(
         (ex) => ex.exame.procedimento !== e.exame.procedimento
       );
@@ -32,30 +37,19 @@ export default function Exames() {
       deleteExame(e);
     }
   };
+
   const getExame = (e) => {
-    exame(e);
+    exame(e, total, particular);
   };
-  // const updateState = (element, attr) => {
-  //   const att = { check: attr };
-  //   var index = Ex.findIndex((e) => e.procedimento === element.procedimento);
-  //   if (index === -1) {
-  //   } else {
-  //     setEx([
-  //       ...Ex.slice(0, index),
-  //       Object.assign({}, Ex[index], att),
-  //       ...Ex.slice(index + 1),
-  //     ]);
-  //   }
-  // };
 
   // change exame
-  const handleChange = (e) => {
-    // examesSelecionado.filter((ex) =>
-    //   ex.procedimento.toLowerCase().includes(e.target.value.toLocaleLowerCase())
-    // );
+  // const handleChange = (e) => {
+  //   // examesSelecionado.filter((ex) =>
+  //   //   ex.procedimento.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+  //   // );
 
-    setSearchItem(e.target.value);
-  };
+  //   setSearchItem(e.target.value);
+  // };
 
   // Apagar exame
   const deleteExame = (e) => {
@@ -100,7 +94,7 @@ export default function Exames() {
           type="search"
           value={searchItem}
           placeholder="Procura"
-          onChange={handleChange}
+          onChange={(e) => setSearchItem(e.target.value)}
         />
         <div className="icon">
           <FiSearch size={30} />
@@ -139,7 +133,7 @@ export default function Exames() {
                 </button>
               </div>
               <div className="content">
-                {ex.exame.procedimento} {ex.valor && ` - R$${ex.valor}`}
+                {ex.exame.procedimento} {particular && ` - ${moeda(ex.valor)}`}
               </div>
             </div>
           ))}

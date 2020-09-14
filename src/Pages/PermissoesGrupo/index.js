@@ -145,7 +145,7 @@ export default function PermissoesGrupo() {
         <button type="submit" onClick={handleGravar}>
           Gravar
         </button>
-        <button type="submit" onClick={() => handleClose()}>
+        <button type="submit" className="danger" onClick={() => handleClose()}>
           Cancelar
         </button>
       </div>

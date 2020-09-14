@@ -15,7 +15,7 @@ export default function NewUser({ set, u }) {
   const [username, setUsername] = useState("");
   const [userAtivo, setAtivo] = useState(true);
   const [grupos, setGrupos] = useState([]);
-  const [grupoidEdit, setGrupoEdit] = useState(null);
+  // const [grupoidEdit, setGrupoEdit] = useState(null);
 
   const handleGravar = async (e) => {
     e.preventDefault();
@@ -57,17 +57,18 @@ export default function NewUser({ set, u }) {
       });
     }
   };
-  const grupoEdit = () => {
-    setGrupoEdit(u.grupoId);
-  };
+  // const grupoEdit = () => {
+  //    setGrupoEdit(u.grupoId);
+  // };
   const handleEdit = (dataUser) => {
     setNome(dataUser.nome);
     setEmail(dataUser.email);
     setUsername(dataUser.username);
+    setGrupo(dataUser.grupoId);
   };
   const fetchGrupos = useCallback(async () => {
     const response = await getGrupos();
-    grupoEdit(u);
+    // grupoEdit(u);
     setGrupos(response.data.message);
   }, []); // eslint-disable-line
 
@@ -138,11 +139,7 @@ export default function NewUser({ set, u }) {
           >
             <option value="000"> Selecione um grupo</option>
             {grupos.map((g) => (
-              <option
-                value={g._id}
-                key={g._id}
-                selected={g._id === grupoidEdit}
-              >
+              <option value={g._id} key={g._id} selected={g._id === grupo}>
                 {g.nome}
               </option>
             ))}
@@ -163,7 +160,7 @@ export default function NewUser({ set, u }) {
         </div>
         <div className="userInputGroup">
           <button type="submit">Gravar</button>
-          <button type="submit" onClick={() => set()}>
+          <button type="submit" className="danger" onClick={() => set()}>
             Cancelar
           </button>
         </div>

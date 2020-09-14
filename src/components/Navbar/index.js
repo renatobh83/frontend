@@ -7,7 +7,11 @@ import { useAuth0 } from "../../Auth0/context";
 function Navbar(props) {
   const [isOpen, setIsOpen] = useState(false);
   const { logout } = useAuth0();
+  const [hover, setHover] = useState(false);
 
+  const toggleHover = () => {
+    setHover(!hover);
+  };
   return (
     <>
       <input
@@ -45,7 +49,11 @@ function Navbar(props) {
             </li>
             <li className="nav-item">
               <span>Cadastros</span>
-              <ul className="dropSubmenu">
+              <ul
+                className="dropSubmenu"
+                onMouseEnter={() => toggleHover()}
+                onMouseLeave={() => toggleHover()}
+              >
                 <Link
                   tag={RouterNavLink}
                   className="dropSubItem"

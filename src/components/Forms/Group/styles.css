@@ -40,7 +40,9 @@
 
   /* border-bottom: 1px solid black; */
 }
-
+.form-control .input-group .danger {
+  background: var(--rich-red);
+}
 .input-group button {
   margin-top: 2rem;
   cursor: pointer;

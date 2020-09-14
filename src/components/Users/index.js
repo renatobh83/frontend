@@ -26,7 +26,7 @@ export default function Users() {
       {!newUser && (
         <ListOfUsers set={listUser} filter={filter}>
           <button type="submit" onClick={() => setNewUser(true)}>
-            Add New User
+            Adicionar novo usuario
           </button>
           <div className="select" onChange={(e) => setFilter(e.target.value)}>
             <label htmlFor="ativo">Ativo</label>

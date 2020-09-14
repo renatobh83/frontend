@@ -50,7 +50,11 @@ export default function NewGroup() {
         </div>
         <div className="input-group">
           <button type="submit">Gravar</button>
-          <button type="submit" onClick={() => grupoNew(false)}>
+          <button
+            type="submit"
+            className="danger"
+            onClick={() => grupoNew(false)}
+          >
             Cancelar
           </button>
         </div>

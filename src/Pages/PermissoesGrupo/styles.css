@@ -88,7 +88,9 @@ input {
   margin-top: 4rem;
   display: flex;
 }
-
+.pgContainer .grupButtons .danger {
+  background: var(--rich-red);
+}
 .pgContainer .grupButtons button {
   border: 0;
   width: 30%;

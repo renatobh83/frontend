@@ -19,7 +19,9 @@
   display: flex;
   justify-content: space-between;
 }
-
+.setorFormContainer form .btnGroupSetor .danger {
+  background: var(--rich-red);
+}
 .setorFormContainer form .btnGroupSetor button {
   border: 0;
   width: 40%;

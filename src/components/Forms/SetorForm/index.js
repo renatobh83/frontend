@@ -65,7 +65,7 @@ export default function SetorForm({ set, value }) {
         </div>
         <div className="btnGroupSetor">
           <button type="submit">Gravar</button>
-          <button type="submit" onClick={() => set()}>
+          <button type="submit" className="danger" onClick={() => set()}>
             Cancelar
           </button>
         </div>

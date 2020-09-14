@@ -65,7 +65,9 @@
   position: absolute;
   right: 0;
 }
-
+.userInputGroup .danger {
+  background: var(--rich-red);
+}
 @media (min-width: 700px) {
   .userContainer {
     margin-top: 30px;

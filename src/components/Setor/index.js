@@ -51,9 +51,13 @@ const ListItem = ({ setorEdit }) => {
     setLoading(false);
   }, []); // eslint-disable-line
 
-  const deleteSetor = useCallback(async (setorId) => {
-    await setorDelete(setorId).then(() => {
-      fetchSetores();
+  const deleteSetor = useCallback((setorId) => {
+    setorDelete(setorId).then((res) => {
+      if (res.data.statusCode === 400) {
+        return alert(res.data.message);
+      } else {
+        setSetores(res.data.message);
+      }
     });
   }, []); // eslint-disable-line
   useEffect(() => {

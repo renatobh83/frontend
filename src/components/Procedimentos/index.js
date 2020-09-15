@@ -47,23 +47,28 @@ export default function Procedimentos() {
   };
 
   const desativarProcedimento = async (id, ativo) => {
+    const valueCheck = ativo.target;
     const data = {
-      ativo: ativo.target.checked,
+      ativo: valueCheck.checked,
     };
-    if (ativo.target.checked) {
-      const ativar = exames.find((exame) => exame._id === id);
-      ativar.ativo = true;
-    } else {
-      const desativar = exames.find((exame) => exame._id === id);
-      desativar.ativo = false;
-    }
-    await activeOrDeactive(id, data);
+
+    await activeOrDeactive(id, data).then((res) => {
+      if (res.data.statusCode === 400) {
+        valueCheck.checked = true;
+        return alert(res.data.message);
+      }
+    });
   };
 
   const handleDeleteProcedimento = async (id) => {
-    await deleteProcedimento(id);
-    const filter = exames.filter((exame) => exame._id !== id);
-    setExames(filter);
+    await deleteProcedimento(id).then((res) => {
+      if (res.data.statusCode === 400) {
+        return alert(res.data.message);
+      } else {
+        const filter = exames.filter((exame) => exame._id !== id);
+        setExames(filter);
+      }
+    });
   };
 
   const handleProcedimento = async () => {

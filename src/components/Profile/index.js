@@ -6,7 +6,7 @@ import InputMask from "react-input-mask";
 export default function Profile() {
   const { state } = useAuth0();
 
-  if (state.responseAPI.message.paciente) {
+  if (state.responseAPI.message.user.paciente) {
     return <Paciente />;
   } else {
     return <Empresa />;
@@ -32,11 +32,10 @@ const Paciente = () => {
     );
   };
   const handleProfile = useCallback(() => {
-    console.log(state.responseAPI.message);
-    setNome(state.responseAPI.message.nome);
-    setEmail(state.responseAPI.message.email);
-    setDtNascimento(state.responseAPI.message.dtNascimento);
-    setTelefone(state.responseAPI.message.telefone);
+    setNome(state.responseAPI.message.user.nome);
+    setEmail(state.responseAPI.message.user.email);
+    setDtNascimento(state.responseAPI.message.user.dtNascimento);
+    setTelefone(state.responseAPI.message.user.telefone);
   }, []); // eslint-disable-line
   useEffect(() => {
     handleProfile();
@@ -114,15 +113,17 @@ const Empresa = () => {
       nome,
       password,
       telefone,
+      email,
     };
+
     await updateEmail(email, data).then(() =>
       alert("Proximo login dados serão atualizados")
     );
   };
   const handleProfile = useCallback(() => {
-    setNome(state.responseAPI.message.nome);
-    setEmail(state.responseAPI.message.email);
-    setTelefone(state.responseAPI.message.telefone);
+    setNome(state.responseAPI.message.user.nome);
+    setEmail(state.responseAPI.message.user.email);
+    setTelefone(state.responseAPI.message.user.telefone);
   }, []); // eslint-disable-line
   useEffect(() => {
     handleProfile();

@@ -12,7 +12,10 @@ import PermissoesGrupo from "../../Pages/PermissoesGrupo";
 
 import logoLoading from "../../assets/loading.svg";
 import NewGroup from "../Forms/Group/index";
-import ModalConfirm from "../../Pages/ModalConfirm/index";
+import ModalConfirm from "../../Pages/ModalConfirm/";
+import { useAuth0 } from "../../Auth0/context";
+import { useHistory } from "react-router-dom";
+
 export const grupoContext = createContext();
 export const useGrupoContext = () => useContext(grupoContext);
 
@@ -47,10 +50,12 @@ export default function Grupos() {
 }
 
 const ListGroup = ({ children }) => {
+  const { state } = useAuth0();
   const { permissionShow, setGrupoSelected } = useGrupoContext();
   const [grupos, setGrupos] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const history = useHistory();
   const permissaoGrupo = (e) => {
     permissionShow(true);
     setGrupoSelected({
@@ -58,16 +63,28 @@ const ListGroup = ({ children }) => {
     });
   };
   const apagarGrupo = useCallback(
-    async (id) => {
-      await deleteGrupo(id).then(() => fetchGrupos());
+    (id) => {
+      try {
+        deleteGrupo(id).then(() => fetchGrupos());
+      } catch (error) {}
     },
     [grupos] // eslint-disable-line
   );
 
   const fetchGrupos = useCallback(async () => {
-    const response = await getGrupos();
-    setGrupos(response.data.message);
-    setLoading(false);
+    try {
+      const response = await getGrupos();
+      setGrupos(response.data.message);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        setLoading(false);
+        alert("Você não tem permissão para acessar essa área");
+        history.push("/");
+      }
+    }
   }, [grupos]); // eslint-disable-line
 
   useEffect(() => {

@@ -98,13 +98,12 @@ export default function Horarios() {
       }
       await getHorariosBySetor(setor, next).then((res) => {
         setIsloading(false);
-        console.log(res.data.message);
-        getHours(res.data.message, (value) => {
-          setHorariosDisponivel((oldvalues) => [...oldvalues, value].sort());
-        });
         if (res.data.message.length === 0) {
           setSemHorario(true);
         }
+        getHours(res.data.message, (value) => {
+          setHorariosDisponivel((oldvalues) => [...oldvalues, value].sort());
+        });
       });
     } else {
       setIsConcluir(!isConcluir);

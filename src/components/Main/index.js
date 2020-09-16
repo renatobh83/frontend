@@ -10,7 +10,7 @@ import AgendaDash from "../AgendaDash";
 function Main() {
   const { isAuthenticated, state } = useAuth0();
   if (isAuthenticated) {
-    if (state.responseAPI.message.paciente) {
+    if (state.responseAPI.message.user.paciente) {
       return <MainPaciente />;
     } else {
       return <MainPrincipal />;
@@ -29,7 +29,7 @@ const MainPrincipal = () => {
     <div className="mainPrincipalContainer">
       <div className="mainCard">
         <div className="contentCard">
-          <strong>{state.responseAPI.message.nome}</strong>
+          <strong>{state.responseAPI.message.user.nome}</strong>
         </div>
         <Link to="/agendar" className="contentCard">
           <h1>Agendar</h1>

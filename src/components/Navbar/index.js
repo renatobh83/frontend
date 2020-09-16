@@ -7,11 +7,7 @@ import { useAuth0 } from "../../Auth0/context";
 function Navbar(props) {
   const [isOpen, setIsOpen] = useState(false);
   const { logout } = useAuth0();
-  const [hover, setHover] = useState(false);
 
-  const toggleHover = () => {
-    setHover(!hover);
-  };
   return (
     <>
       <input
@@ -44,16 +40,42 @@ function Navbar(props) {
                 onClick={() => setIsOpen(!isOpen)}
                 to="/horarios"
               >
-                Horarios
+                Gerar horario
               </Link>
             </li>
             <li className="nav-item">
+              <span>Faturamento</span>
+              <ul className="dropSubmenu">
+                {" "}
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/exames"
+                >
+                  Procedimentos
+                </Link>
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/tabelas"
+                >
+                  Tabelas
+                </Link>
+                <Link
+                  tag={RouterNavLink}
+                  className="dropSubItem"
+                  onClick={() => setIsOpen(!isOpen)}
+                  to="/planos"
+                >
+                  Planos
+                </Link>
+              </ul>
+            </li>
+            <li className="nav-item">
               <span>Cadastros</span>
-              <ul
-                className="dropSubmenu"
-                onMouseEnter={() => toggleHover()}
-                onMouseLeave={() => toggleHover()}
-              >
+              <ul className="dropSubmenu">
                 <Link
                   tag={RouterNavLink}
                   className="dropSubItem"
@@ -85,31 +107,6 @@ function Navbar(props) {
                   to="/salas"
                 >
                   Salas
-                </Link>
-
-                <Link
-                  tag={RouterNavLink}
-                  className="dropSubItem"
-                  onClick={() => setIsOpen(!isOpen)}
-                  to="/exames"
-                >
-                  Procedimentos
-                </Link>
-                <Link
-                  tag={RouterNavLink}
-                  className="dropSubItem"
-                  onClick={() => setIsOpen(!isOpen)}
-                  to="/tabelas"
-                >
-                  Tabelas
-                </Link>
-                <Link
-                  tag={RouterNavLink}
-                  className="dropSubItem"
-                  onClick={() => setIsOpen(!isOpen)}
-                  to="/planos"
-                >
-                  Planos
                 </Link>
               </ul>
             </li>

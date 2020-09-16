@@ -3,12 +3,13 @@ import "./styles.css";
 import { useState } from "react";
 import { createGrupo } from "../../../api/serviceAPI";
 import { useGrupoContext } from "../../Grupos";
+import { useHistory } from "react-router-dom";
 
 export default function NewGroup() {
   const { grupoNew } = useGrupoContext();
   const [admin, setAdmin] = useState(false);
   const [nome, setNome] = useState("");
-
+  const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -20,7 +21,14 @@ export default function NewGroup() {
         if (res.data.statusCode === 400) return alert(res.data.message);
         grupoNew(false);
       });
-    } catch (error) {}
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        grupoNew(false);
+        alert("Você não tem permissão para acessar essa área");
+        history.push("/");
+      }
+    }
   };
   return (
     <div className="container-group">

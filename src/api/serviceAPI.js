@@ -1,10 +1,10 @@
 import axios from "axios";
-import { addYears } from "date-fns/esm";
-import { getToken } from "../Utils/inLogin";
 
+import { getToken } from "../Utils/inLogin";
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 });
+
 const headerDefaults = () => {
   instance.defaults.headers.post["Content-Type"] =
     "application/x-www-form-urlencoded";
@@ -55,6 +55,7 @@ export const getPacientes = () => {
 
 export const getGrupos = async () => {
   headerDefaults();
+
   const response = instance.get("/grupos");
   return response;
 };

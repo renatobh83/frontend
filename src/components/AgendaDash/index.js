@@ -19,8 +19,8 @@ export default function AgendaDash({ pacienteid }) {
   const [pacienteAgendamentos, setpacienteAgendamentos] = useState([]);
   const [isloading, setIsloading] = useState(true);
 
-  const pId = state.responseAPI.message.paciente
-    ? state.responseAPI.message._id
+  const pId = state.responseAPI.message.user.paciente
+    ? state.responseAPI.message.user._id
     : pacienteid;
 
   // Pega os agendamentos futuros do paciente selecionado

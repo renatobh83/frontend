@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
 import { setToken } from "../Utils/inLogin";
-import { ServerON, findOrCreatePatient } from "../api/serviceAPI";
+import { ServerON, findOrCreatePatient, getUserLogin } from "../api/serviceAPI";
 
 export const Auth0Context = createContext();
 export const useAuth0 = () => useContext(Auth0Context);
@@ -26,10 +26,8 @@ function Auth0Provider({
     error: null,
   });
   const [auth0Client, setAuth0] = useState();
-  // const [userLogin, setUserLogin] = useState(" ");
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [readUser, setReadUser] = useState(false);
 
   //Init Auth0
   const init = async () => {
@@ -47,24 +45,14 @@ function Auth0Provider({
     if (isAuthenticated) {
       const { __raw: token } = await auth0FromHook.getIdTokenClaims();
       setToken(token);
-      const { sub: origin, ...userData } = await auth0FromHook.getUser();
-      await findOrCreateUsers(userData);
+      await getUserInMongo();
     }
     setIsAuthenticated(isAuthenticated);
 
     setLoading(false);
   };
-
-  const findOrCreateUsers = async (user) => {
-    const { email, name, nickname } = user;
-    const data = {
-      email: email,
-      nome: name,
-      username: nickname,
-      paciente: true,
-    };
-
-    await findOrCreatePatient(data)
+  const getUserInMongo = async () => {
+    await getUserLogin()
       .then((response) => {
         setState({
           ...state,
@@ -91,7 +79,6 @@ function Auth0Provider({
   }, []); // eslint-disable-line
 
   const configObject = {
-    // userLogin,
     isAuthenticated,
     isLoading,
     state,

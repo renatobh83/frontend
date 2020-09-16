@@ -31,13 +31,13 @@ export default function Pacientes() {
   // get Nome paciente
   const nomePaciente = (e) => {
     const paciente = pacientes.find((p) => p._id === e);
-    setPacienteNome(paciente.nome);
+    setPacienteNome(paciente.name);
     setPacienteEdit(paciente);
   };
   // Abrir form cadastro/edit
   const setFormNew = (e) => {
     setPacienteSelect(e._id);
-    setPacienteNome(e.nome);
+    setPacienteNome(e.name);
     setSearch(!search);
   };
 
@@ -64,7 +64,7 @@ export default function Pacientes() {
   const filter = !searchItem
     ? pacientes
     : pacientes.filter((paciente) =>
-        paciente.nome.toLowerCase().includes(searchItem.toLocaleLowerCase())
+        paciente.name.toLowerCase().includes(searchItem.toLocaleLowerCase())
       );
 
   return (
@@ -104,7 +104,7 @@ export default function Pacientes() {
                       />
 
                       <label htmlFor={paciente._id}>
-                        {paciente.nome} - {paciente.dtNascimento} -
+                        {paciente.name} - {paciente.dtNascimento} -
                         {paciente.email}
                       </label>
                     </li>

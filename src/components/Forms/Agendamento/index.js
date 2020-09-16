@@ -23,9 +23,9 @@ function Agendamento({ pacienteId, cancel }) {
     exame: [],
   });
 
-  const agent = state.responseAPI.message.user.paciente
+  const agent = state.responseAPI.message.paciente
     ? "Web"
-    : state.responseAPI.message.user._id;
+    : state.responseAPI.message._id;
   const planoSelecionado = (e) => {
     setPlano(e);
   };

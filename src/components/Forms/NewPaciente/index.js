@@ -12,8 +12,8 @@ export default function NewPaciente({ close, setNewPaciente, paciente }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      nome,
-      username: nome,
+      name: nome,
+      nickname: nome,
       email,
       telefone,
       paciente: true,
@@ -34,7 +34,7 @@ export default function NewPaciente({ close, setNewPaciente, paciente }) {
   };
   const handleEditPaciente = (e) => {
     if (e !== null) {
-      setNome(e.nome);
+      setNome(e.name);
       setTelefone(e.telefone);
       setEmail(e.email);
       setDtNascimento(e.dtNascimento);

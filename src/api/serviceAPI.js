@@ -25,6 +25,12 @@ export const getUsers = () => {
   return response;
 };
 
+export const getUserLogin = () => {
+  headerDefaults();
+  const response = instance.get("/users/login");
+  return response;
+};
+
 export const findOrCreatePatient = (data) => {
   headerDefaults();
   const response = instance.post("/users", data);

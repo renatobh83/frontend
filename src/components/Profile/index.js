@@ -6,7 +6,7 @@ import InputMask from "react-input-mask";
 export default function Profile() {
   const { state } = useAuth0();
 
-  if (state.responseAPI.message.user.paciente) {
+  if (state.responseAPI.message.paciente) {
     return <Paciente />;
   } else {
     return <Empresa />;
@@ -22,7 +22,7 @@ const Paciente = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      nome,
+      name: nome,
       email,
       telefone,
       dtNascimento,
@@ -32,10 +32,10 @@ const Paciente = () => {
     );
   };
   const handleProfile = useCallback(() => {
-    setNome(state.responseAPI.message.user.nome);
-    setEmail(state.responseAPI.message.user.email);
-    setDtNascimento(state.responseAPI.message.user.dtNascimento);
-    setTelefone(state.responseAPI.message.user.telefone);
+    setNome(state.responseAPI.message.name);
+    setEmail(state.responseAPI.message.email);
+    setDtNascimento(state.responseAPI.message.dtNascimento);
+    setTelefone(state.responseAPI.message.telefone);
   }, []); // eslint-disable-line
   useEffect(() => {
     handleProfile();
@@ -110,7 +110,7 @@ const Empresa = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      nome,
+      name: nome,
       password,
       telefone,
       email,
@@ -121,9 +121,9 @@ const Empresa = () => {
     );
   };
   const handleProfile = useCallback(() => {
-    setNome(state.responseAPI.message.user.nome);
-    setEmail(state.responseAPI.message.user.email);
-    setTelefone(state.responseAPI.message.user.telefone);
+    setNome(state.responseAPI.message.name);
+    setEmail(state.responseAPI.message.email);
+    setTelefone(state.responseAPI.message.telefone);
   }, []); // eslint-disable-line
   useEffect(() => {
     handleProfile();

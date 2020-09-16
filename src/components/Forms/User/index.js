@@ -22,18 +22,18 @@ export default function NewUser({ set, u }) {
     let data;
     if (senha) {
       data = {
-        nome,
+        name: nome,
         grupoId: grupo,
-        username,
+        nickname: username,
         email,
         password: senha,
         ativo: userAtivo,
       };
     } else {
       data = {
-        nome,
+        name: nome,
         grupoId: grupo,
-        username,
+        nickname: username,
         email,
         ativo: userAtivo,
       };
@@ -61,9 +61,9 @@ export default function NewUser({ set, u }) {
   //    setGrupoEdit(u.grupoId);
   // };
   const handleEdit = (dataUser) => {
-    setNome(dataUser.nome);
+    setNome(dataUser.name);
     setEmail(dataUser.email);
-    setUsername(dataUser.username);
+    setUsername(dataUser.nickname);
     setGrupo(dataUser.grupoId);
   };
   const fetchGrupos = useCallback(async () => {

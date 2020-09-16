@@ -60,6 +60,7 @@ const ListOfUsers = ({ children, set, filter }) => {
   useEffect(() => {
     async function fetchUsers() {
       const response = await getUsers();
+
       const users = response.data.message.filter((user) => user.ativo === true);
       setUsers(users);
       setUserView(response.data.message);
@@ -92,8 +93,8 @@ const ListOfUsers = ({ children, set, filter }) => {
         {users.map((user) => (
           <div className="cardUser" key={user._id}>
             <header className="dados">
-              <h2>{user.nome}</h2>
-              <h6>Usuario - {user.username}</h6>
+              <h2>{user.name}</h2>
+              <h6>Usuario - {user.nickname}</h6>
               <p>{user.email}</p>
               <strong>{user.grupo}</strong>
             </header>

@@ -18,11 +18,15 @@ export default function Pacientes() {
   const [pacienteSelect, setPacienteSelect] = useState(null);
 
   const handlePacientes = useCallback(async () => {
-    const response = await getPacientes();
-    setPacientes(response.data.message);
+    try {
+      const response = await getPacientes();
+      setPacientes(response.data.message);
+    } catch (error) {}
   }, []);
+
   //Carrega pacientes
   useEffect(() => {}, [handlePacientes]);
+
   // seleciona Paciente
   const selectPaciente = (e) => {
     setPacienteSelect(e);
@@ -54,11 +58,16 @@ export default function Pacientes() {
     setSearch(!search);
     setPacienteSelect(null);
   };
+
+  const addOrEdit = () => {
+    setNew(!isNew);
+  };
   // esculta input search
   const handleChange = (e) => {
     handlePacientes();
-    setSearchItem(e.target.value);
     setPacienteSelect(null);
+    setSearchItem(e.target.value);
+    setPacienteEdit(null);
   };
   // pesquisa paciente
   const filter = !searchItem
@@ -114,8 +123,8 @@ export default function Pacientes() {
             </div>
           )}
           <div className="grupButtons">
-            <button type="submit" onClick={() => setNew(!isNew)}>
-              {pacienteSelect ? "Editar Cadastro " : "Novo cadastro"}
+            <button type="submit" onClick={() => addOrEdit()}>
+              {pacienteSelect !== null ? "Editar Cadastro " : "Novo cadastro"}
             </button>
             <button type="submit" onClick={() => confirmarPaciente()}>
               Confirmar Paciente

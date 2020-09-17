@@ -6,6 +6,7 @@ import SetorForm from "../Forms/SetorForm";
 import logoLoading from "../../assets/loading.svg";
 import "./styles.css";
 import ModalConfirm from "../../Pages/ModalConfirm/index";
+import { useHistory } from "react-router-dom";
 
 export default function Setor() {
   const [newSetor, setNewSetor] = useState(false);
@@ -44,11 +45,20 @@ export default function Setor() {
 const ListItem = ({ setorEdit }) => {
   const [setores, setSetores] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const history = useHistory();
   const fetchSetores = useCallback(async () => {
-    const response = await getSetores();
-    setSetores(response.data.message);
-    setLoading(false);
+    try {
+      const response = await getSetores();
+      setSetores(response.data.message);
+      setLoading(false);
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
   }, []); // eslint-disable-line
 
   const deleteSetor = useCallback((setorId) => {

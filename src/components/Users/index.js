@@ -5,6 +5,7 @@ import NewUser from "../Forms/User/index";
 import { getUsers } from "../../api/serviceAPI";
 
 import logoLoading from "../../assets/loading.svg";
+import { useHistory } from "react-router-dom";
 export default function Users() {
   const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState("");
@@ -49,6 +50,8 @@ const ListOfUsers = ({ children, set, filter }) => {
   const [loading, setLoading] = useState(true);
 
   const [userView, setUserView] = useState([]);
+  const history = useHistory();
+
   const handleEdit = (user, bool) => {
     const data = {
       user: user,
@@ -59,16 +62,26 @@ const ListOfUsers = ({ children, set, filter }) => {
 
   useEffect(() => {
     async function fetchUsers() {
-      const response = await getUsers();
-
-      const users = response.data.message.filter((user) => user.ativo === true);
-      setUsers(users);
-      setUserView(response.data.message);
-      setLoading(false);
+      try {
+        const response = await getUsers();
+        const users = response.data.message.filter(
+          (user) => user.ativo === true
+        );
+        setUsers(users);
+        setUserView(response.data.message);
+        setLoading(false);
+      } catch (error) {
+        const findStr = error.message.search("401");
+        if (findStr !== -1) {
+          setLoading(false);
+          alert("Você não tem permissão para acessar essa área");
+          history.push("/");
+        }
+      }
     }
     fetchUsers();
     // console.log("Users");
-  }, []);
+  }, [history]);
   useEffect(() => {
     if (filter === "false") {
       const inativos = userView.filter((user) => user.ativo === false);

@@ -2,10 +2,11 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 
 import "./styles.css";
 import FormSalas from "../Forms/Salas";
-import { getSetores, getSalas, activeDeactive } from "../../api/serviceAPI";
+import { getSalas, activeDeactive, getSetoresSala } from "../../api/serviceAPI";
 
 import logoLoading from "../../assets/loading.svg";
 import ModalConfirm from "../../Pages/ModalConfirm";
+import { useHistory } from "react-router-dom";
 export const SalaContext = createContext();
 export const useSalaContext = () => useContext(SalaContext);
 
@@ -16,17 +17,37 @@ export default function Salas() {
   const [setorFilter, setSetorFilter] = useState(null);
   const [salaFilter, setSalaFilter] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const history = useHistory();
   //pegar setores
   const handleSetores = async () => {
-    await getSetores().then((setor) => setSetores(setor.data.message));
+    try {
+      await getSetoresSala().then((setor) => {
+        setSetores(setor.data.message);
+      });
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
   };
   //pegar Salas
   const handleSalas = async () => {
-    await getSalas().then((res) => {
-      setSalas(res.data.message);
-      setLoading(false);
-    });
+    try {
+      await getSalas().then((res) => {
+        setSalas(res.data.message);
+        setLoading(false);
+      });
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
   };
   // Filter Setor Change
   const selectSetorChange = (e) => {
@@ -69,7 +90,7 @@ export default function Salas() {
   useEffect(() => {
     handleSalas();
     handleSetores();
-  }, []);
+  }, []); // eslint-disable-line
 
   const config = {
     setores,

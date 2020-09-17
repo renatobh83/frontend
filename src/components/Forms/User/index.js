@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import "./styles.css";
 import {
-  getGrupos,
+  getGruposUsers,
   createOrUpdate,
   updateEmail,
 } from "../../../api/serviceAPI";
@@ -67,8 +67,9 @@ export default function NewUser({ set, u }) {
     setGrupo(dataUser.grupoId);
   };
   const fetchGrupos = useCallback(async () => {
-    const response = await getGrupos();
+    const response = await getGruposUsers();
     // grupoEdit(u);
+    console.log(response);
     setGrupos(response.data.message);
   }, []); // eslint-disable-line
 

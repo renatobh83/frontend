@@ -4,7 +4,7 @@ import { useAgend } from "../Agendamento";
 
 import "./styles.css";
 import logoLoading from "../../../assets/loading.svg";
-import { getplanos } from "../../../api/serviceAPI";
+import { getplanosAgendamento } from "../../../api/serviceAPI";
 function Planos() {
   const { selPlano, plano, cancel } = useAgend();
   const [isloading, setIsloading] = useState(true);
@@ -16,10 +16,12 @@ function Planos() {
   };
 
   const handlePlanos = useCallback(async () => {
-    await getplanos().then((res) => {
-      setIsloading(false);
-      setPlanos(res.data.message);
-    });
+    try {
+      await getplanosAgendamento().then((res) => {
+        setIsloading(false);
+        setPlanos(res.data.message);
+      });
+    } catch (error) {}
   }, []); // eslint-disable-line
   useEffect(() => {
     handlePlanos();

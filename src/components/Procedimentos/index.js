@@ -1,4 +1,10 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useCallback,
+} from "react";
 import "./styles.css";
 import {
   getSetores,
@@ -10,6 +16,7 @@ import ProcedimentosForm from "../Forms/Procedimentos/index";
 
 import logoLoading from "../../assets/loading.svg";
 import ModalConfirm from "../../Pages/ModalConfirm";
+import { useHistory } from "react-router-dom";
 
 export const ProcedimentoContext = createContext();
 export const useContextProce = () => useContext(ProcedimentoContext);
@@ -21,7 +28,7 @@ export default function Procedimentos() {
   const [setorFilter, setSetorFilter] = useState(null);
   const [setorSelect, setSetorSelect] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const history = useHistory();
   //pegar setores
   const handleSetores = async () => {
     await getSetores().then((setor) => {
@@ -71,13 +78,21 @@ export default function Procedimentos() {
     });
   };
 
-  const handleProcedimento = async () => {
-    await getExames().then((res) => {
-      setExames(res.data.message);
-
-      setLoading(false);
-    });
-  };
+  const handleProcedimento = useCallback(async () => {
+    try {
+      await getExames().then((res) => {
+        setExames(res.data.message);
+        setLoading(false);
+      });
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
+  }, [history]);
   const exibirProcedimento =
     !setorFilter || setorFilter === "#"
       ? exames
@@ -86,7 +101,7 @@ export default function Procedimentos() {
   useEffect(() => {
     handleProcedimento();
     handleSetores();
-  }, []);
+  }, [handleProcedimento]);
   if (loading) {
     return (
       <div className="loading">

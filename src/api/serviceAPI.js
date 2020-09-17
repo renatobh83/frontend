@@ -24,7 +24,7 @@ export const getUsers = () => {
   const response = instance.get("/users");
   return response;
 };
-
+// rota usada no login
 export const getUserLogin = () => {
   headerDefaults();
   const response = instance.get("/users/login");
@@ -61,8 +61,13 @@ export const getPacientes = () => {
 
 export const getGrupos = async () => {
   headerDefaults();
-
   const response = instance.get("/grupos");
+  return response;
+};
+
+export const getGruposUsers = async () => {
+  headerDefaults();
+  const response = instance.get("/grupos/users");
   return response;
 };
 
@@ -112,6 +117,13 @@ export const getSetores = async () => {
   const response = instance.get("/setor");
   return response;
 };
+
+export const getSetoresSala = async () => {
+  headerDefaults();
+  const response = instance.get("/setor/sala");
+  return response;
+};
+
 export const storeSetor = async (data) => {
   headerDefaults();
   const response = instance.post("/setor", data);
@@ -257,7 +269,11 @@ export const getplanos = async () => {
   const response = instance.get("/planos/");
   return response;
 };
-
+export const getplanosAgendamento = async () => {
+  headerDefaults();
+  const response = instance.get("/planos/agendamento");
+  return response;
+};
 export const updatePlano = async (id, data) => {
   headerDefaults();
   const response = instance.put(`/planos/${id}`, data);

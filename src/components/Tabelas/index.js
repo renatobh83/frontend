@@ -12,6 +12,8 @@ import {
 import { useEffect } from "react";
 import { moeda } from "../../Utils/formatMoney";
 import logoLoading from "../../assets/loading.svg";
+import { useHistory } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 export default function Tabelas() {
   const [newTable, setNewTable] = useState(false);
@@ -46,13 +48,22 @@ const ListOfTables = () => {
   const [tabelaSelect, setTabelaSelect] = useState(null);
   const [dateTable, setDateTable] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const history = useHistory();
   const handleTables = useCallback(async () => {
-    await getTabelas().then((res) => {
-      setTabelas(res.data.message);
-      setLoading(false);
-    });
-  }, []);
+    try {
+      await getTabelas().then((res) => {
+        setTabelas(res.data.message);
+        setLoading(false);
+      });
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
+  }, [history]);
 
   const tabela = (ev) => {
     const find = tabelas.filter((e) => e._id === ev);
@@ -162,12 +173,23 @@ const InsertExames = ({ tabela, close }) => {
   const [searchItem, setSearchItem] = useState(null);
   const [exames, setExames] = useState([]);
   const [examesSelecionado, setSelecaoExames] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const history = useHistory();
   // get Exames cadastrados
   const handleExames = useCallback(async () => {
-    await getExamesAgendamento().then((res) => {
-      selectInitialExames(res.data.message);
-    });
+    try {
+      await getExamesAgendamento().then((res) => {
+        selectInitialExames(res.data.message);
+        setLoading(false);
+      });
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
   }, []); // eslint-disable-line
 
   // select exames in ul
@@ -241,7 +263,13 @@ const InsertExames = ({ tabela, close }) => {
   useEffect(() => {
     handleExames();
   }, []); // eslint-disable-line
-
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <>
       <h1>Exame</h1>
@@ -290,7 +318,7 @@ const InsertExames = ({ tabela, close }) => {
               </div>
               <div className="contentExamInTable">
                 <span> {exame.exame.procedimento}</span>
-                <input
+                <InputMask
                   type="text"
                   id="valor"
                   inputmode="decimal"

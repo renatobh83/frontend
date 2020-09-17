@@ -24,8 +24,8 @@ export default function NewGroup() {
     } catch (error) {
       const findStr = error.message.search("401");
       if (findStr !== -1) {
-        grupoNew(false);
         alert("Você não tem permissão para acessar essa área");
+        grupoNew(false);
         history.push("/");
       }
     }

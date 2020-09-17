@@ -8,6 +8,7 @@ import {
   updatePlano,
 } from "../../api/serviceAPI";
 import logoLoading from "../../assets/loading.svg";
+import { useHistory } from "react-router-dom";
 export default function Planos() {
   const [newPlan, setNewPlan] = useState(false);
   const [plano, setPlano] = useState(null);
@@ -47,17 +48,27 @@ export default function Planos() {
 const ListPlanos = ({ editar }) => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
   const editarPlano = (id) => {
     const plano = plans.find((i) => i._id === id);
     editar(plano);
   };
 
-  const fetchPlanos = useCallback(() => {
-    getplanos().then((res) => {
-      setPlans(res.data.message);
-      setLoading(false);
-    });
-  }, []);
+  const fetchPlanos = useCallback(async () => {
+    try {
+      await getplanos().then((res) => {
+        setPlans(res.data.message);
+        setLoading(false);
+      });
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
+  }, []); // eslint-disable-line
   useEffect(() => {
     fetchPlanos();
   }, [fetchPlanos]);

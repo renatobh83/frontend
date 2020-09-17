@@ -77,15 +77,14 @@ const ListGroup = ({ children }) => {
       setGrupos(response.data.message);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       const findStr = error.message.search("401");
       if (findStr !== -1) {
-        setLoading(false);
         alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
         history.push("/");
       }
     }
-  }, [grupos]); // eslint-disable-line
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     fetchGrupos();

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./styles.css";
 import {
   getGruposUsers,
-  createOrUpdate,
+  createUser,
   updateEmail,
 } from "../../../api/serviceAPI";
 
@@ -48,7 +48,7 @@ export default function NewUser({ set, u }) {
         }
       });
     } else {
-      await createOrUpdate(data).then((response) => {
+      await createUser(data).then((response) => {
         if (response.data.statusCode === 400) {
           alert(response.data.message);
         } else {

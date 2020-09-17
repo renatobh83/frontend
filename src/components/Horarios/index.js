@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import "./styles.css";
 import {
-  getSalas,
+  salasHorario,
   getHorariosBySala,
   deleteHorario,
 } from "../../api/serviceAPI";
@@ -34,7 +34,7 @@ export default function Horarios() {
 
   // get Salas
   const handleSalas = async () => {
-    await getSalas().then((res) => {
+    await salasHorario().then((res) => {
       setSalas(res.data.message);
       setLoading(false);
     });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { findOrCreatePatient, updateEmail } from "../../../api/serviceAPI";
+import { createUser, updateEmail } from "../../../api/serviceAPI";
 
 import "./styles.css";
 import InputMask from "react-input-mask";
@@ -26,7 +26,7 @@ export default function NewPaciente({ close, setNewPaciente, paciente }) {
         close(false);
       });
     } else {
-      await findOrCreatePatient(data).then((res) => {
+      await createUser(data).then((res) => {
         setNewPaciente(res.data.message);
         close(false);
       });

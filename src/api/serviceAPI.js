@@ -21,33 +21,33 @@ export const ServerON = () => {
 // Router API USERS/PATIENT
 export const getUsers = () => {
   headerDefaults();
-  const response = instance.get("/users");
+  const response = instance.get("/usuarios");
   return response;
 };
 // rota usada no login
 export const getUserLogin = () => {
   headerDefaults();
-  const response = instance.get("/users/login");
+  const response = instance.get("/usuarios/login");
   return response;
 };
 
-export const findOrCreatePatient = (data) => {
+export const createUser = (data) => {
   headerDefaults();
-  const response = instance.post("/users", data);
+  const response = instance.post("/usuarios", data);
   return response;
 };
 
 export const updateEmail = (params, data) => {
   headerDefaults();
-  const response = instance.put(`/users/${params}`, data);
+  const response = instance.put(`/usuarios/${params}`, data);
   return response;
 };
 
-export const createOrUpdate = (data) => {
-  headerDefaults();
-  const response = instance.put("/users", data);
-  return response;
-};
+// export const createOrUpdate = (data) => {
+//   headerDefaults();
+//   const response = instance.put("/users", data);
+//   return response;
+// };
 
 // Pacientes
 
@@ -151,6 +151,11 @@ export const setorDelete = async (data) => {
 export const getSalas = async () => {
   headerDefaults();
   const response = instance.get("/salas");
+  return response;
+};
+export const salasHorario = async () => {
+  headerDefaults();
+  const response = instance.get("/salas/horarios");
   return response;
 };
 export const getSalaFromSetor = async (id) => {

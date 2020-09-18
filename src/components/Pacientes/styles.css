@@ -1,6 +1,6 @@
 .agendamentoContainer {
   width: 90vw;
-  max-width: 700px;
+  max-width: 810px;
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -105,7 +105,7 @@
   color: var(--color-line-in-whit);
   cursor: pointer;
 }
-@media (min-width: 700px) {
+@media (min-width: 810px) {
   .agendamentoContainer {
     width: 100vw;
     max-width: 100%;

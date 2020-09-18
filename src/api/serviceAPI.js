@@ -82,6 +82,11 @@ export const getGrupo = async (data) => {
   const response = instance.get(`/grupo/${data}`);
   return response;
 };
+export const getGrupoPermissao = async (data) => {
+  headerDefaults();
+  const response = instance.get(`/grupos/${data}`);
+  return response;
+};
 
 export const deleteGrupo = async (data) => {
   headerDefaults();
@@ -302,5 +307,12 @@ export const getTabelas = async () => {
 export const updateTabela = async (id, data) => {
   headerDefaults();
   const response = instance.put(`/tabelas/${id}`, data);
+  return response;
+};
+
+// relatorios
+export const report = async () => {
+  headerDefaults();
+  const response = instance.get("/relatorios");
   return response;
 };

@@ -2,7 +2,7 @@
 .mainPrincipalContainer {
   width: 90vw;
   height: 100vh;
-  max-width: 700px;
+  max-width: 810px;
   display: flex;
   margin: 0 auto;
   /* flex-direction: column; */
@@ -15,6 +15,7 @@
   gap: 5rem;
 }
 .mainPrincipalContainer .mainCard .contentCard {
+  position: relative;
   box-shadow: 4px 4px 5px -1px rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
@@ -27,6 +28,16 @@
   width: 100%;
   overflow: hidden;
   overflow-y: scroll;
+}
+.mainPrincipalContainer .mainCard .contentCard p {
+  font: 600 3rem Archivo;
+  padding: 10px 0;
+  color: var(--vibrant-yellow);
+}
+.mainPrincipalContainer .mainCard .contentCard span {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 5px;
 }
 .mainPrincipalContainer .mainCard .contentCard::-webkit-scrollbar {
   display: none;
@@ -43,7 +54,7 @@
   line-height: 3rem;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 810px) {
   .mainPrincipalContainer {
     max-width: 1220px;
     height: 100vh;

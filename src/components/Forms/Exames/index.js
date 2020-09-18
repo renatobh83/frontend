@@ -42,15 +42,6 @@ export default function Exames() {
     exame(e, total, particular);
   };
 
-  // change exame
-  // const handleChange = (e) => {
-  //   // examesSelecionado.filter((ex) =>
-  //   //   ex.procedimento.toLowerCase().includes(e.target.value.toLocaleLowerCase())
-  //   // );
-
-  //   setSearchItem(e.target.value);
-  // };
-
   // Apagar exame
   const deleteExame = (e) => {
     const newArray = examesSelecionado.filter(
@@ -76,6 +67,7 @@ export default function Exames() {
       );
 
   getExame(examesSelecionado);
+
   useEffect(() => {
     fetchExames();
   }, [exames]); //eslint-disable-line

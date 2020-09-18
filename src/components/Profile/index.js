@@ -72,6 +72,7 @@ const Paciente = () => {
               mask="(99)99999-9999"
               id="telefone"
               required
+              inputMode="numeric"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
             />
@@ -83,6 +84,7 @@ const Paciente = () => {
               mask="99/99/9999"
               type="text"
               id="dtNascimento"
+              inputMode="numeric"
               required
               value={dtNascimento}
               onChange={(e) => setDtNascimento(e.target.value)}
@@ -159,6 +161,7 @@ const Empresa = () => {
           <InputMask
             mask="(99)99999-9999"
             id="telefone"
+            inputMode="numeric"
             required
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}

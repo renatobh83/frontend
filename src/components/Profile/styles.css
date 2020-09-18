@@ -1,6 +1,6 @@
 .profilePaciente {
   width: 90vw;
-  max-width: 700px;
+  max-width: 810px;
   margin: 0 auto;
 }
 
@@ -34,7 +34,7 @@
   filter: brightness(80%);
 }
 
-@media (min-width: 700px) {
+@media (min-width: 810px) {
   .profilePaciente {
     margin-top: 30px;
   }

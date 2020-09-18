@@ -1,6 +1,6 @@
 .plansContainer {
   width: 90vw;
-  max-width: 700px;
+  max-width: 810px;
   margin: 0 auto;
 }
 .plansContainer form .ativo {
@@ -55,7 +55,7 @@
   filter: brightness(85%);
 }
 
-@media (min-width: 700px) {
+@media (min-width: 810px) {
   .plansContainer {
     margin-top: 3rem;
   }

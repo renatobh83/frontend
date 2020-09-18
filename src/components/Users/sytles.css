@@ -2,7 +2,7 @@
   margin: 0 auto;
   width: 90vw;
   height: 100vh;
-  max-width: 1200px;
+  max-width: 810px;
 }
 .listUserContainer .newUser {
   height: 7rem;
@@ -69,7 +69,7 @@
   background: var(--vibrant-cyan);
 }
 
-@media (min-width: 700px) {
+@media (min-width: 810px) {
   .listUserContainer {
     margin-top: 9px;
     max-width: 1200px;

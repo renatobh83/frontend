@@ -1,0 +1,29 @@
+.relatorioContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.relatorioContainer .cardRelatorio {
+  width: 400px;
+  background: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.relatorioContainer .cardRelatorio img {
+  width: 100%;
+  margin: 10px 0 40px;
+}
+.relatorioContainer .cardRelatorio input {
+  flex: 1;
+  height: 46px;
+  margin-bottom: 15px;
+  padding: 0 20px;
+  color: #777;
+  font-size: 15px;
+  width: 100%;
+  border: 1px solid #ddd;
+}

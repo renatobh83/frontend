@@ -1,6 +1,6 @@
 .planosContainer {
   width: 90vw;
-  max-width: 700px;
+  max-width: 810px;
   height: 100vh;
   display: flex;
   margin: 0 auto;
@@ -111,7 +111,7 @@
 .planosContainer button:hover {
   filter: brightness(90%);
 }
-@media (min-width: 700px) {
+@media (min-width: 810px) {
   .planosContainer {
     max-width: 1200px;
   }

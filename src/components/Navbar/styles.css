@@ -114,7 +114,7 @@ ul li:focus-within > ul,
 }
 
 /* desktop menu*/
-@media (min-width: 700px) {
+@media (min-width: 810px) {
   .btnlogout {
     display: none;
   }

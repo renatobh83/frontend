@@ -17,6 +17,7 @@ import Horarios from "./components/Horarios";
 import Profile from "./components/Profile";
 import Planos from "./components/Planos";
 import Tabelas from "./components/Tabelas/index";
+import Relatorios from "./components/Relatorios";
 
 function Router() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -47,6 +48,7 @@ function Router() {
         <Route path="/profile" component={Profile} />
         <Route path="/planos" component={Planos} />
         <Route path="/tabelas" component={Tabelas} />
+        <Route path="/relatorios" component={Relatorios} />
       </>
     );
   };

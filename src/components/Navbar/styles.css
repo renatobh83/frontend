@@ -167,6 +167,12 @@ ul li:focus-within > ul,
 
   .dropBtn img {
     width: 100%;
+    border-radius: 50%;
+  }
+  .dropBtn .imgProf {
+    width: 100%;
+
+    bottom: 0;
   }
   .dropContent a:hover {
     background: #ddd;
@@ -176,10 +182,8 @@ ul li:focus-within > ul,
     display: block;
   }
   .dropContent {
-    position: absolute;
     margin-right: 5px;
     align-items: center;
-    display: flex;
   }
 
   .dropContent a {

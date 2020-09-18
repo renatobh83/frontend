@@ -56,6 +56,7 @@ export default function Horarios() {
     }
     if (isConcluir) {
       dadosAgendamento.dados.shift(0);
+      console.log(dadosAgendamento);
       await storeAgendamento(dadosAgendamento).then(() => cancel());
       const data = {
         horarios: [horarioSelecionado],

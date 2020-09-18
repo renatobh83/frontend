@@ -122,6 +122,7 @@ const Empresa = () => {
       alert("Proximo login dados serão atualizados")
     );
   };
+
   const handleProfile = useCallback(() => {
     setNome(state.responseAPI.message.name);
     setEmail(state.responseAPI.message.email);

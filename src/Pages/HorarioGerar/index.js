@@ -11,16 +11,16 @@ export default function HorariosGerar() {
   const [dataInicio, setdataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
   const [sala, setSala] = useState("");
-  const [setorId, setSetor] = useState("");
+  const [setor, setSetor] = useState("");
   const [horaFim, setHoraFim] = useState("");
   const [dia, setDia] = useState([]);
   const [intervalo, setIntervalo] = useState("");
   const [dias] = useState(["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]);
   const selectSalaAndSetor = (obj) => {
-    const { setorId } = salas.find((sala) => sala._id === obj);
+    const { setor } = salas.find((sala) => sala._id === obj);
 
     setSala(obj);
-    setSetor(setorId);
+    setSetor(setor);
   };
   const pushDays = (day, e) => {
     if (e.target.checked) {
@@ -39,7 +39,7 @@ export default function HorariosGerar() {
 
     const data = {
       idSala: sala,
-      setorId,
+      setor,
       dataInicio,
       dataFim,
       t1: horaInicio,

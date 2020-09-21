@@ -31,11 +31,12 @@ const MainPrincipal = () => {
 
   const fetchReport = useCallback(async () => {
     const response = await report();
+
     const totalDia = response.data.AgendamentoDia.find(
-      (user) => user._id === state.responseAPI.message._id
+      (user) => user._id === state.responseAPI.message.name
     );
     const totalMes = response.data.AgendamentoFuncinarios.find(
-      (user) => user._id === state.responseAPI.message._id
+      (user) => user._id === state.responseAPI.message.name
     );
     if (totalMes !== undefined) setTotalMes(totalMes.count);
     if (totalDia !== undefined) setTotalDia(totalDia.count);

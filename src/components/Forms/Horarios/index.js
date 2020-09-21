@@ -91,7 +91,7 @@ export default function Horarios() {
   };
   const horariosLivres = async () => {
     if (stop <= examesAgendamento.totalExames - 1) {
-      const setor = examesAgendamento.exame[stop].exame.setorId;
+      const setor = examesAgendamento.exame[stop].exame.setor;
       setDescExame(examesAgendamento.exame[stop].exame.procedimento);
       let next = 0;
       if (dateExames.length >= 1) {

@@ -29,7 +29,7 @@ function FormSalas() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      setorId: setor,
+      setor: setor,
       nome,
     };
     await storeSala(data).then((response) => {

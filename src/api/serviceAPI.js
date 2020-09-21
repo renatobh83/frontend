@@ -311,8 +311,8 @@ export const updateTabela = async (id, data) => {
 };
 
 // relatorios
-export const report = async () => {
+export const report = async (data) => {
   headerDefaults();
-  const response = instance.get("/relatorios");
+  const response = instance.get("/relatorios", { params: { data } });
   return response;
 };

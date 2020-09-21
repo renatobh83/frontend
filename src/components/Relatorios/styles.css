@@ -1,29 +1,34 @@
 .relatorioContainer {
-  display: flex;
+  width: 90vw;
+  max-width: 810px;
+  height: 100vh;
+  margin: 0 auto;
+  display: grid;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  grid-template-columns: 500px;
+  /* //  grid-template-rows: repeat(2, 3fr); */
+  gap: 30px;
+  margin-top: 10px;
 }
-
-.relatorioContainer .cardRelatorio {
-  width: 400px;
-  background: #fff;
-  padding: 20px;
+.relatorioContainer .btnGroup {
   display: flex;
+  justify-content: space-between;
+}
+.relatorioContainer .btnGroup button {
+  width: 40%;
+}
+.relatorioContainer .chart {
+  display: flex;
+  width: 100%;
+  height: 400px;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  font: 500 2rem Archivo;
+  box-shadow: 2px 5px 17px rgba(0, 0, 0, 0.77);
 }
-.relatorioContainer .cardRelatorio img {
-  width: 100%;
-  margin: 10px 0 40px;
-}
-.relatorioContainer .cardRelatorio input {
-  flex: 1;
-  height: 46px;
-  margin-bottom: 15px;
-  padding: 0 20px;
-  color: #777;
-  font-size: 15px;
-  width: 100%;
-  border: 1px solid #ddd;
+
+.relatorioContainer .chart strong {
+  margin: 1.2rem 0;
 }

@@ -12,7 +12,7 @@ export default function ProcedimentosForm() {
     e.preventDefault();
     const data = {
       procedimento: nome,
-      setorId: setorSelect._id,
+      setor: setorSelect._id,
       tempo: setorSelect.time,
     };
 

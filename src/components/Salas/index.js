@@ -71,7 +71,7 @@ export default function Salas() {
   const exibirSalas =
     !setorFilter || setorFilter === "#"
       ? salas
-      : salas.filter((setor) => setor.setorId === setorFilter);
+      : salas.filter((setor) => setor.setor === setorFilter);
 
   // Filter sala
   const exibiSala =

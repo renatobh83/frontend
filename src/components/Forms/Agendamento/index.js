@@ -25,7 +25,7 @@ function Agendamento({ pacienteId, cancel }) {
 
   const agent = state.responseAPI.message.paciente
     ? "Web"
-    : state.responseAPI.message._id;
+    : state.responseAPI.message.name;
   const planoSelecionado = (e) => {
     setPlano(e);
   };

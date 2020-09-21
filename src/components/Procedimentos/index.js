@@ -96,7 +96,7 @@ export default function Procedimentos() {
   const exibirProcedimento =
     !setorFilter || setorFilter === "#"
       ? exames
-      : exames.filter((exame) => exame.setorId === setorFilter);
+      : exames.filter((exame) => exame.setor === setorFilter);
 
   useEffect(() => {
     handleProcedimento();

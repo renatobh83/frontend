@@ -14,6 +14,7 @@ import "./styles.css";
 import html2canvas from "html2canvas";
 import { report } from "../../api/serviceAPI";
 import { addMonths, format, subMonths } from "date-fns";
+import { Jumbotron } from "reactstrap";
 
 export default function Relatorios() {
   const [isLoading, setIsloading] = useState(true);
@@ -86,8 +87,6 @@ export default function Relatorios() {
     await report(prev).then((res) => attReport(res));
   };
   const attReport = (response) => {
-    console.log(response.data.AgendamentoDia.length);
-
     const agendamentoPorAgent =
       response.data.AgendamentoDia.length > 0
         ? [["Agent", "Quantidade"]].concat(
@@ -105,11 +104,37 @@ export default function Relatorios() {
       response.data.HorariosMes.map((r) => [r._id.nome, r.count])
     );
 
+    const totalMes = response.data.HorariosMes.map((r) => {
+      return [r._id.nome, r.count];
+    });
+    const totalHorarioAgenda =
+      response.data.TaxaHorarioAgendamento.length > 0
+        ? [["Setor", "Horarios disponibilizados", "Total agenda"]].concat(
+            response.data.TaxaHorarioAgendamento
+          )
+        : [
+            ["Setor", "Horarios disponibilizados", "Total agenda"],
+            [0, 0, 0],
+          ];
+
+    const totalAgenda = response.data.AgendadosMes.map((r) => [
+      r._id.nome,
+      r.count,
+    ]);
+    combine(totalMes, totalAgenda);
     setState({
       ...state,
-      data: [agendamentoPorAgent, agendamentoExame, horariosMes],
+      data: [
+        agendamentoPorAgent,
+        agendamentoExame,
+        horariosMes,
+        totalHorarioAgenda,
+      ],
     });
     setIsloading(false);
+  };
+  const combine = (...arrays) => {
+    // console.log([...new Set([...jointArray])]);
   };
   useEffect(() => {
     fetchReport();
@@ -165,7 +190,13 @@ export default function Relatorios() {
           loader={<div>Loading Chart</div>}
           data={state.data[1]}
           options={{
-            title: "Total setor agendado",
+            title: `Total agendado por setor em ${format(
+              mesAtual,
+              "MMMM/yyyy",
+              {
+                locale: brasilLocal,
+              }
+            )}`,
             is3D: true,
           }}
           legendToggle
@@ -192,7 +223,28 @@ export default function Relatorios() {
           rootProps={{ "data-testid": "2" }}
         />
       </div>
-      <div className="chart">horarios </div>
+      <div className="chart">
+        <Chart
+          width={"500px"}
+          height={"300px"}
+          chartType="BarChart"
+          loader={<div>Loading Chart</div>}
+          data={state.data[3]}
+          options={{
+            title: "Horarios disponibilizados vs Agendados",
+            chartArea: { width: "50%" },
+            colors: ["#b0120a", "#ffab91"],
+            hAxis: {
+              title: "Total",
+              minValue: 0,
+            },
+            vAxis: {
+              title: "Setor",
+            },
+          }}
+          legendToggle
+        />
+      </div>
       <div className="chart">Agendamdos</div>
       <div className="chart">horarios </div>
     </div>

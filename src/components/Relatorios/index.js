@@ -89,11 +89,11 @@ export default function Relatorios() {
   const attReport = (response) => {
     const agendamentoPorAgent =
       response.data.AgendamentoDia.length > 0
-        ? [["Agent", "Quantidade"]].concat(
-            response.data.AgendamentoDia.map((r) => [r._id, r.count])
+        ? [["Agent", "Total", { role: "annotation" }]].concat(
+            response.data.AgendamentoDia.map((r) => [r._id, r.count, r.count])
           )
         : [
-            ["Agent", "Quantidade"],
+            ["Agent", "Total"],
             [0, 0],
           ];
 
@@ -109,11 +109,11 @@ export default function Relatorios() {
     });
     const totalHorarioAgenda =
       response.data.TaxaHorarioAgendamento.length > 0
-        ? [["Setor", "Horarios disponibilizados", "Total agenda"]].concat(
-            response.data.TaxaHorarioAgendamento
-          )
+        ? [
+            ["Setor", "Horarios", "Agendamentos", { role: "annotation" }],
+          ].concat(response.data.TaxaHorarioAgendamento)
         : [
-            ["Setor", "Horarios disponibilizados", "Total agenda"],
+            ["Setor", "Horarios", "Agendamentos"],
             [0, 0, 0],
           ];
 
@@ -155,23 +155,23 @@ export default function Relatorios() {
       <div className="chart">
         <span>{`${format(new Date(), "dd/MM/yyyy")}`}</span>
         <Chart
-          width={500}
+          width={"98%"}
           height={300}
           chartType="ColumnChart"
           loader={<div>Loading Chart</div>}
           data={state.data[0]}
           options={{
-            title: "Agandamento por Agent",
-            chartArea: { width: "40%" },
+            title: "Agendamento por dia",
+            chartArea: { width: "30%" },
+            legend: "none",
             hAxis: {
-              title: "Agents",
+              title: "Agent",
               minValue: 0,
             },
             vAxis: {
-              title: "Total Agendamento",
+              title: "Agendamentos",
             },
           }}
-          legendToggle
         />
         <div className="btnGroup">
           <button type="submit" onClick={() => prevMonth()}>
@@ -184,27 +184,26 @@ export default function Relatorios() {
       </div>
       <div className="chart">
         <Chart
-          width={500}
+          width={"98%"}
           height={300}
           chartType="PieChart"
           loader={<div>Loading Chart</div>}
           data={state.data[1]}
           options={{
-            title: `Total agendado por setor em ${format(
-              mesAtual,
-              "MMMM/yyyy",
-              {
-                locale: brasilLocal,
-              }
-            )}`,
+            title: "Agendamento por setor",
+            // Just add this option
             is3D: true,
+
+            legend: { position: "bottom", maxLines: 3 },
+            slices: {
+              2: { offset: 0.2 },
+            },
           }}
-          legendToggle
         />
       </div>
       <div className="chart">
         <Chart
-          width={500}
+          width={"98%"}
           height={300}
           chartType="PieChart"
           loader={<div>Loading Chart</div>}
@@ -225,7 +224,7 @@ export default function Relatorios() {
       </div>
       <div className="chart">
         <Chart
-          width={"500px"}
+          width={"98%"}
           height={"300px"}
           chartType="BarChart"
           loader={<div>Loading Chart</div>}
@@ -233,7 +232,8 @@ export default function Relatorios() {
           options={{
             title: "Horarios disponibilizados vs Agendados",
             chartArea: { width: "50%" },
-            colors: ["#b0120a", "#ffab91"],
+            legend: { position: "bottom", maxLines: 3 },
+            colors: ["#0f69af", "#e61e50"],
             hAxis: {
               title: "Total",
               minValue: 0,

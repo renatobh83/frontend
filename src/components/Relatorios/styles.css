@@ -3,15 +3,16 @@
   max-width: 810px;
   height: 100vh;
   margin: 0 auto;
-  justify-content: center;
-  align-items: center;
 }
 .relatorioContainer .btnGroup {
   display: flex;
   justify-content: space-between;
 }
-.relatorioContainer .btnGroup button {
-  width: 40%;
+.relatorioContainer button {
+  width: 20%;
+}
+.relatorioContainer .btnGroup.danger {
+  background: var(--rich-red);
 }
 .relatorioContainer .chart {
   display: flex;
@@ -25,7 +26,46 @@
   margin-bottom: 3rem;
   box-shadow: 2px 5px 17px rgba(0, 0, 0, 0.77);
 }
-
+.relatorioContainer .chartContent .chart h3 {
+  font: 500 3rem Archivo;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.relatorioContainer .chartContent .chart .cw {
+  width: 100%;
+  height: 300px;
+}
+.relatorioContainer .chart .day {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 .relatorioContainer .chart strong {
   margin: 1.2rem 0;
+}
+
+@media (min-width: 810px) {
+  .relatorioContainer {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .relatorioContainer .btnGroup {
+    justify-content: space-around;
+  }
+  .relatorioContainer .chartContent {
+    display: flex;
+    margin: 0;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .relatorioContainer .chartContent .chart {
+    width: 450px;
+  }
+  .relatorioContainer .chartContent .periodo .chart {
+    width: 1100px;
+  }
+  .relatorioContainer .chartContent .chart .cw {
+    width: 100%;
+  }
 }

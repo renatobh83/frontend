@@ -9,10 +9,13 @@ function Planos() {
   const { selPlano, plano, cancel } = useAgend();
   const [isloading, setIsloading] = useState(true);
   const [planos, setPlanos] = useState([]);
+  const [planoCheck, setPlanoCheck] = useState(false);
   const [searchPlano, setSearchPlano] = useState(null);
+
   // pegar plano selecionado
   const getPlano = (e) => {
     plano(e.target.value);
+    setPlanoCheck(true);
   };
 
   const handlePlanos = useCallback(async () => {
@@ -73,9 +76,11 @@ function Planos() {
         </ul>
       </div>
       <div className="groupButtonsAg">
-        <button type="submit" onClick={() => selPlano(true)}>
-          Proximo
-        </button>
+        {planoCheck && (
+          <button type="submit" onClick={() => selPlano(true)}>
+            Proximo
+          </button>
+        )}
         <button type="submit" className="danger" onClick={() => cancel(false)}>
           Cancelar
         </button>

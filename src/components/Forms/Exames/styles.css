@@ -50,7 +50,7 @@
 .examesContainer .listExames ul li {
   padding: 1.2rem;
   text-align: center;
-  transition: transform 0.2s;
+  transition: all 0.2s;
   cursor: pointer;
 }
 .examesContainer .listExames ul li:hover {
@@ -70,7 +70,7 @@
 .examesContainer .examesSelecionados {
   display: flex;
   flex-direction: column;
-  max-height: 24vh;
+  max-height: 34vh;
   background: #fff;
   box-shadow: 1px 7px 8px 0 rgba(0, 0, 0, 0.75);
   margin-bottom: 2rem;

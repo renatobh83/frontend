@@ -108,8 +108,8 @@
 @media (min-width: 810px) {
   .agendamentoContainer {
     width: 100vw;
-    max-width: 100%;
-    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
     margin-top: 20px;
   }
   .agendamentoContainer .pesquisaPaciente {

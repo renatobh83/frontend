@@ -8,6 +8,7 @@ import React, {
 import "./styles.css";
 import {
   salasHorario,
+  chekAcesso,
   getHorariosBySala,
   deleteHorario,
 } from "../../api/serviceAPI";
@@ -16,6 +17,7 @@ import HorariosGerar from "../../Pages/HorarioGerar";
 import logoLoading from "../../assets/loading.svg";
 import { getHours } from "../../Utils/getHours";
 import ModalConfirm from "../../Pages/ModalConfirm";
+import { useHistory } from "react-router-dom";
 
 export const HorariosContext = createContext();
 export const useHorarioConext = () => useContext(HorariosContext);
@@ -26,31 +28,46 @@ export default function Horarios() {
   const [horarios, setHorarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newHorarios, setNewHorarios] = useState(false);
-  // const [m, setM] = useState([]);
-
+  const history = useHistory();
   const exitCreatedHours = () => {
     setNewHorarios(!newHorarios);
   };
 
   // get Salas
   const handleSalas = async () => {
-    await salasHorario().then((res) => {
-      setSalas(res.data.message);
-      setLoading(false);
-    });
+    await salasHorario()
+      .then((res) => {
+        setSalas(res.data.message);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
   };
   // get horarios
   const handleHorarios = useCallback(
     async (sala) => {
-      await getHorariosBySala(sala).then((res) => {
-        getHours(res.data.message, (value) => {
-          setHorarios((oldValues) => [...oldValues, value]);
-        });
-      });
+      await getHorariosBySala(sala)
+        .then((res) => {
+          getHours(res.data.message, (value) => {
+            setHorarios((oldValues) => [...oldValues, value]);
+          });
+        })
+        .catch((err) => console.log(err));
     },
     [] // eslint-disable-line
   );
-
+  const acesso = async () => {
+    try {
+      await chekAcesso();
+      handleSalas();
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
+  };
   const apagarHorario = (date) => {
     const data = {
       deleteHorary: [date],
@@ -84,8 +101,8 @@ export default function Horarios() {
     }
   };
   useEffect(() => {
-    handleSalas();
-  }, []);
+    acesso();
+  }, []); //eslint-disable-line
   useEffect(() => {
     if (sala !== "null") {
       setHorarios([]);

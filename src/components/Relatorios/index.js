@@ -15,20 +15,29 @@ import html2canvas from "html2canvas";
 import { report } from "../../api/serviceAPI";
 import { addMonths, format, subMonths } from "date-fns";
 import logoLoading from "../../assets/loading.svg";
+import { useHistory } from "react-router-dom";
 export default function Relatorios() {
   const [isLoading, setIsloading] = useState(true);
   const [mesAtual, setMesAtual] = useState(new Date());
   const [showForm, setShowForm] = useState(false);
   const [showPeriodo, setShowPeriodo] = useState(false);
+  const history = useHistory();
   const [state, setState] = useState({
     data: null,
     pdf: null,
   });
 
   const fetchReport = useCallback(async () => {
-    const response = await report();
-
-    attReport(response);
+    try {
+      const response = await report();
+      attReport(response);
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        history.push("/");
+      }
+    }
   }, []); //eslint-disable-line
   const exporta = () => {
     setShowForm(true);
@@ -130,7 +139,7 @@ export default function Relatorios() {
             response.data.AgendamentoMesFuncionario.map((a) => [
               a._id.dt,
               a.count,
-              `${a._id.ag} ${a.count}`,
+              `${a._id.ag} - ${a.count}`,
             ])
           )
         : [
@@ -139,8 +148,8 @@ export default function Relatorios() {
           ];
     const examesAgendado =
       response.data.ExamesAgendado.length > 0
-        ? [["Exame", "Quantidade"]].concat(
-            response.data.ExamesAgendado.map((r) => [r._id, r.count])
+        ? [["Exame", "Quantidade", { role: "annotation" }]].concat(
+            response.data.ExamesAgendado.map((r) => [r._id, r.count, r.count])
           )
         : [
             ["Exame", "Quantidade"],
@@ -302,6 +311,12 @@ export default function Relatorios() {
                 </div>
 
                 <div className="chart">
+                  <h3>
+                    {`Exames agendados em ${format(mesAtual, "MMMM/yyyy", {
+                      locale: brasilLocal,
+                    })}
+              `}
+                  </h3>
                   <Chart
                     width={"98%"}
                     height={300}
@@ -336,7 +351,9 @@ export default function Relatorios() {
           )}
         </div>
       )}
-      {showForm && <ModalExport state={state} setForm={setShowForm} />}
+      {showForm && (
+        <ModalExport state={state} setForm={setShowForm} mesAtual={mesAtual} />
+      )}
     </>
   );
 }
@@ -345,6 +362,7 @@ const ReportAgent = ({ dateGraph }) => {
   return (
     <div className="periodo">
       <div className="chart">
+        <h3>Exames diariamente</h3>
         <Chart
           width={"98%"}
           height={300}

@@ -20,7 +20,7 @@ import Tabelas from "./components/Tabelas/index";
 import Relatorios from "./components/Relatorios";
 
 function Router() {
-  const { isLoading, isAuthenticated } = useAuth0();
+  const { isLoading, isAuthenticated, state } = useAuth0();
 
   const PrivateRoute = ({ component: Component, auth, ...rest }) => (
     <Route

@@ -4,10 +4,11 @@ import { FiSearch } from "react-icons/fi";
 import "./styles.css";
 
 import AgendaDash from "../AgendaDash";
-import { getPacientes } from "../../api/serviceAPI";
-
+import { chekAcesso, getPacientes } from "../../api/serviceAPI";
+import logoLoading from "../../assets/loading.svg";
 import NewPaciente from "../Forms/NewPaciente";
 
+import { useHistory } from "react-router-dom";
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [search, setSearch] = useState(true);
@@ -16,12 +17,12 @@ export default function Pacientes() {
   const [pacienteNome, setPacienteNome] = useState(null);
   const [pacienteEdit, setPacienteEdit] = useState(null);
   const [pacienteSelect, setPacienteSelect] = useState(null);
-
+  const [loading, setLoading] = useState(true);
+  const history = useHistory();
   const handlePacientes = useCallback(async () => {
-    try {
-      const response = await getPacientes();
-      setPacientes(response.data.message);
-    } catch (error) {}
+    const response = await getPacientes();
+    setPacientes(response.data.message);
+    setLoading(false);
   }, []);
 
   //Carrega pacientes
@@ -31,6 +32,19 @@ export default function Pacientes() {
   const selectPaciente = (e) => {
     setPacienteSelect(e);
     nomePaciente(e);
+  };
+  const acesso = async () => {
+    try {
+      await chekAcesso();
+      setLoading(false);
+    } catch (error) {
+      const findStr = error.message.search("401");
+      if (findStr !== -1) {
+        alert("Você não tem permissão para acessar essa área");
+        setLoading(false);
+        history.push("/");
+      }
+    }
   };
   // get Nome paciente
   const nomePaciente = (e) => {
@@ -75,7 +89,16 @@ export default function Pacientes() {
     : pacientes.filter((paciente) =>
         paciente.name.toLowerCase().includes(searchItem.toLocaleLowerCase())
       );
-
+  useEffect(() => {
+    acesso();
+  }, []); //eslint-disable-line
+  if (loading) {
+    return (
+      <div className="loading">
+        <img src={logoLoading} alt="loading" />
+      </div>
+    );
+  }
   return (
     <div className="agendamentoContainer">
       {search && !isNew && (

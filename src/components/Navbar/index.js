@@ -5,7 +5,7 @@ import "./styles.css";
 import { useAuth0 } from "../../Auth0/context";
 import { getGrupoPermissao, getPermissoes } from "../../api/serviceAPI";
 import { FiHeart } from "react-icons/fi";
-function Navbar(props) {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { logout, state } = useAuth0();
   const [stateMenuOpt, setSate] = useState({
@@ -17,6 +17,7 @@ function Navbar(props) {
     TABELAS: false,
     PLANOS: false,
     HORARIOS: false,
+    RELATORIOS: false,
     mFAturamento: false,
     mCadastro: false,
   });
@@ -32,6 +33,7 @@ function Navbar(props) {
           });
         });
         let newState = Object.assign({}, stateMenuOpt);
+
         permissaoFiltered.map((p) => {
           switch (p.nome) {
             case "GRUPOS":
@@ -67,6 +69,9 @@ function Navbar(props) {
 
             case "HORARIOS":
               newState.HORARIOS = true;
+              break;
+            case "RELATORIOS":
+              newState.RELATORIOS = true;
               break;
 
             default:
@@ -105,18 +110,19 @@ function Navbar(props) {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                className="link"
-                tag={RouterNavLink}
-                onClick={() => setIsOpen(!isOpen)}
-                to="/agendar"
-              >
-                Agendamento
-              </Link>
-            </li>
             {!state.responseAPI.message.paciente && (
               <>
+                <li className="nav-item">
+                  <Link
+                    className="link"
+                    tag={RouterNavLink}
+                    onClick={() => setIsOpen(!isOpen)}
+                    to="/agendar"
+                  >
+                    Agendamento
+                  </Link>
+                </li>
+
                 {stateMenuOpt.HORARIOS && (
                   <li className="nav-item">
                     <Link
@@ -214,16 +220,18 @@ function Navbar(props) {
                     </ul>
                   </li>
                 )}
-                <li className="nav-item">
-                  <Link
-                    className="link"
-                    tag={RouterNavLink}
-                    onClick={() => setIsOpen(!isOpen)}
-                    to="/relatorios"
-                  >
-                    Relatórios
-                  </Link>
-                </li>
+                {stateMenuOpt.RELATORIOS && (
+                  <li className="nav-item">
+                    <Link
+                      className="link"
+                      tag={RouterNavLink}
+                      onClick={() => setIsOpen(!isOpen)}
+                      to="/relatorios"
+                    >
+                      Relatórios
+                    </Link>
+                  </li>
+                )}
               </>
             )}
             <li className="nav-item " id="profile">

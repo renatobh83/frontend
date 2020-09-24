@@ -233,6 +233,11 @@ export const getHorariosBySetor = async (setor, data) => {
   const response = instance.get(`/horarios/${setor}`, { params: data });
   return response;
 };
+export const chekAcesso = async () => {
+  headerDefaults();
+  const response = instance.get("/checkPermissao");
+  return response;
+};
 
 export const deleteHorario = async (data) => {
   headerDefaults();

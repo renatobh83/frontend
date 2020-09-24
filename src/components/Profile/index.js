@@ -3,6 +3,7 @@ import { useAuth0 } from "../../Auth0/context";
 import "./styles.css";
 import { updateEmail } from "../../api/serviceAPI";
 import InputMask from "react-input-mask";
+import { useHistory } from "react-router-dom";
 export default function Profile() {
   const { state } = useAuth0();
 
@@ -27,9 +28,7 @@ const Paciente = () => {
       telefone,
       dtNascimento,
     };
-    await updateEmail(email, data).then((res) =>
-      alert("Proximo login dados serão atualizados")
-    );
+    await updateEmail(email, data).then((res) => window.location.reload());
   };
   const handleProfile = useCallback(() => {
     setNome(state.responseAPI.message.name);
@@ -109,6 +108,7 @@ const Empresa = () => {
   const [password, setSenha] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
+  const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -118,9 +118,10 @@ const Empresa = () => {
       email,
     };
 
-    await updateEmail(email, data).then(() =>
-      alert("Proximo login dados serão atualizados")
-    );
+    await updateEmail(email, data).then(() => {
+      alert("Proximo login dados serão atualizados");
+      history.push("/");
+    });
   };
 
   const handleProfile = useCallback(() => {

@@ -12,6 +12,7 @@ import {
 
 import { differenceInDays, differenceInHours, addHours } from "date-fns";
 import ModalConfirm from "../../Pages/ModalConfirm/index";
+import Profile from "../Profile/index";
 
 export default function AgendaDash({ pacienteid }) {
   const { state } = useAuth0();
@@ -68,6 +69,10 @@ export default function AgendaDash({ pacienteid }) {
         <img src={logoLoading} alt="loading" />
       </div>
     );
+  }
+
+  if (!state.responseAPI.message.telefone) {
+    return <Profile />;
   }
   return (
     <>

@@ -47,6 +47,7 @@ export default function Exames() {
     const newArray = examesSelecionado.filter(
       (ex) => ex.exame.procedimento !== e.exame.procedimento
     );
+    setTotal(total - parseFloat(e.valor));
     setEx([...Ex, e]);
     setSelecaoExames(newArray);
   };
